@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
@@ -33,29 +32,29 @@ export default function InsightDetail() {
 
   if (loading) {
     return (
-      <MainLayout>
+      <>
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   if (!insight) {
     return (
-      <MainLayout>
+      <>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl font-bold mb-4">Insight Not Found</h1>
           <Button asChild>
             <Link to="/insights">View All Insights</Link>
           </Button>
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   return (
-    <MainLayout>
+    <>
       <article className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -115,6 +114,6 @@ export default function InsightDetail() {
           </div>
         </div>
       </article>
-    </MainLayout>
+    </>
   );
 }

@@ -1,4 +1,3 @@
-import { MainLayout } from "@/components/layout/MainLayout";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, Heart, Globe, Users, TrendingUp, Award } from "lucide-react";
@@ -23,7 +22,7 @@ const pillars = [
 
 export default function About() {
   return (
-    <MainLayout>
+    <>
       <HeroSection
         title="About EduTotal"
         subtitle="Your trusted partner in educational transformation"
@@ -161,6 +160,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }

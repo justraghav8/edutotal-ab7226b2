@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -46,29 +45,29 @@ export default function ServiceDetail() {
 
   if (loading) {
     return (
-      <MainLayout>
+      <>
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   if (!service) {
     return (
-      <MainLayout>
+      <>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
           <Button asChild>
             <Link to="/services">View All Services</Link>
           </Button>
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   return (
-    <MainLayout>
+    <>
       {/* Header */}
       <section className="bg-gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
@@ -190,6 +189,6 @@ export default function ServiceDetail() {
           </div>
         </section>
       )}
-    </MainLayout>
+    </>
   );
 }

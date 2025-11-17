@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -45,7 +44,7 @@ export default function WhoWeAre() {
   }
 
   return (
-    <MainLayout>
+    <>
       <HeroSection
         title="Who We Are"
         subtitle="Meet the team driving educational transformation"
@@ -155,6 +154,6 @@ export default function WhoWeAre() {
           </Tabs>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }

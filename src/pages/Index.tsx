@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,7 +63,7 @@ export default function Index() {
   }
 
   return (
-    <MainLayout>
+    <>
       <HeroSection
         title="Transforming Education Through Strategic Excellence"
         subtitle="End-to-end consulting solutions for educational institutions and corporate learning"
@@ -233,6 +232,6 @@ export default function Index() {
           </Button>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
