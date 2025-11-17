@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,7 @@ export default function Insights() {
   }, [selectedType]);
 
   return (
-    <MainLayout>
+    <>
       <HeroSection
         title="Insights & Thought Leadership"
         subtitle="Latest trends, research, and best practices in education"
@@ -120,6 +119,6 @@ export default function Insights() {
           )}
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }

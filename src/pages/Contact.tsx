@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,7 +49,7 @@ export default function Contact() {
   }
 
   return (
-    <MainLayout>
+    <>
       <HeroSection
         title="Get In Touch"
         subtitle="Let's discuss how we can help transform your educational institution"
@@ -188,6 +187,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }

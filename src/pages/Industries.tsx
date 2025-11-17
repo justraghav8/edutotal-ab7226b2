@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,7 +27,7 @@ export default function Industries() {
   }
 
   return (
-    <MainLayout>
+    <>
       <HeroSection
         title="Industries We Serve"
         subtitle="Specialized expertise across education sectors"
@@ -68,6 +67,6 @@ export default function Industries() {
           )}
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -51,29 +50,29 @@ export default function IndustryDetail() {
 
   if (loading) {
     return (
-      <MainLayout>
+      <>
         <div className="flex justify-center items-center min-h-[60vh]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   if (!industry) {
     return (
-      <MainLayout>
+      <>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl font-bold mb-4">Industry Not Found</h1>
           <Button asChild>
             <Link to="/industries">View All Industries</Link>
           </Button>
         </div>
-      </MainLayout>
+      </>
     );
   }
 
   return (
-    <MainLayout>
+    <>
       <section className="bg-gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
           <Button asChild variant="ghost" className="text-white mb-6 hover:bg-white/10">
@@ -145,6 +144,6 @@ export default function IndustryDetail() {
           </div>
         </div>
       </section>
-    </MainLayout>
+    </>
   );
 }
