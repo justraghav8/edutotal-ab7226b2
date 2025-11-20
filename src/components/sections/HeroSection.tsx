@@ -33,20 +33,20 @@ export function HeroSection({
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
       ) : backgroundImage ? (
         <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
           style={{
             backgroundImage: `url(${backgroundImage})`,
           }}
         />
       ) : (
         <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
           style={{
             backgroundImage: `url(${heroEducationBg})`,
           }}
@@ -54,8 +54,13 @@ export function HeroSection({
       )}
       
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85" />
-      <div className="container mx-auto px-4">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/85 to-primary/80 z-10" />
+      
+      {/* Decorative elements */}
+      <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none z-10" />
+      
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-20">
         <div className="mx-auto max-w-4xl text-center text-white animate-fade-in">
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-balance">
             {title}
@@ -87,9 +92,6 @@ export function HeroSection({
           </div>
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
     </section>
   );
 }
