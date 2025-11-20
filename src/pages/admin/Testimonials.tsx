@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Plus, Edit, Trash2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { TestimonialFormDialog } from "@/components/admin/TestimonialFormDialog";
 
 export default function Testimonials() {
+  const { toast } = useToast();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState(null);
 
   useEffect(() => {
     loadTestimonials();
@@ -23,8 +30,53 @@ export default function Testimonials() {
       setTestimonials(data || []);
     } catch (error) {
       console.error("Error loading testimonials:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load testimonials",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this testimonial?")) return;
+
+    try {
+      const { error } = await supabase.from("testimonials").delete().eq("id", id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Testimonial deleted successfully",
+      });
+      loadTestimonials();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete testimonial",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleEdit = (testimonial: any) => {
+    setEditingTestimonial(testimonial);
+    setDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingTestimonial(null);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = (success?: boolean) => {
+    setDialogOpen(false);
+    setEditingTestimonial(null);
+    if (success) {
+      loadTestimonials();
     }
   };
 
@@ -37,24 +89,63 @@ export default function Testimonials() {
           <h1 className="text-3xl font-bold">Testimonials</h1>
           <p className="text-muted-foreground">Manage client testimonials</p>
         </div>
-        <Button>
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Testimonial
         </Button>
       </div>
 
-      <Card className="p-6">
-        <div className="space-y-4">
-          {testimonials.map((testimonial: any) => (
-            <div key={testimonial.id} className="border-b pb-4">
-              <p className="text-sm mb-2">"{testimonial.quote}"</p>
-              <p className="text-xs text-muted-foreground">
-                - {testimonial.author}, {testimonial.role}
-              </p>
-            </div>
-          ))}
-        </div>
+      <Card>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Author</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Organization</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {testimonials.map((testimonial: any) => (
+              <TableRow key={testimonial.id}>
+                <TableCell className="font-medium">{testimonial.author}</TableCell>
+                <TableCell>{testimonial.role || "—"}</TableCell>
+                <TableCell>{testimonial.organization || "—"}</TableCell>
+                <TableCell>
+                  <Badge variant={testimonial.published ? "default" : "secondary"}>
+                    {testimonial.published ? "Published" : "Draft"}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleEdit(testimonial)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(testimonial.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Card>
+
+      <TestimonialFormDialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        testimonial={editingTestimonial}
+      />
     </div>
   );
 }

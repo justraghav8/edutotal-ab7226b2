@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Plus, Edit, Trash2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { IndustryFormDialog } from "@/components/admin/IndustryFormDialog";
 
 export default function IndustriesAdmin() {
+  const { toast } = useToast();
   const [industries, setIndustries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingIndustry, setEditingIndustry] = useState(null);
 
   useEffect(() => {
     loadIndustries();
@@ -23,8 +30,53 @@ export default function IndustriesAdmin() {
       setIndustries(data || []);
     } catch (error) {
       console.error("Error loading industries:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load industries",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this industry?")) return;
+
+    try {
+      const { error } = await supabase.from("industries").delete().eq("id", id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Industry deleted successfully",
+      });
+      loadIndustries();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete industry",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleEdit = (industry: any) => {
+    setEditingIndustry(industry);
+    setDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingIndustry(null);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = (success?: boolean) => {
+    setDialogOpen(false);
+    setEditingIndustry(null);
+    if (success) {
+      loadIndustries();
     }
   };
 
@@ -37,22 +89,63 @@ export default function IndustriesAdmin() {
           <h1 className="text-3xl font-bold">Industries</h1>
           <p className="text-muted-foreground">Manage industry sectors</p>
         </div>
-        <Button>
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Industry
         </Button>
       </div>
 
-      <Card className="p-6">
-        <div className="space-y-4">
-          {industries.map((industry: any) => (
-            <div key={industry.id} className="border-b pb-4">
-              <h3 className="font-semibold">{industry.title}</h3>
-              <p className="text-sm text-muted-foreground">{industry.description}</p>
-            </div>
-          ))}
-        </div>
+      <Card>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Description</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {industries.map((industry: any) => (
+              <TableRow key={industry.id}>
+                <TableCell className="font-medium">{industry.title}</TableCell>
+                <TableCell className="max-w-md truncate">
+                  {industry.description}
+                </TableCell>
+                <TableCell>
+                  <Badge variant={industry.published ? "default" : "secondary"}>
+                    {industry.published ? "Published" : "Draft"}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleEdit(industry)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(industry.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Card>
+
+      <IndustryFormDialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        industry={editingIndustry}
+      />
     </div>
   );
 }
