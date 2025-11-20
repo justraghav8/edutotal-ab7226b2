@@ -22,6 +22,15 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import ServicesAdmin from "./pages/admin/Services";
+import Settings from "./pages/admin/Settings";
+import HeroBanners from "./pages/admin/HeroBanners";
+import IndustriesAdmin from "./pages/admin/IndustriesAdmin";
+import InsightsAdmin from "./pages/admin/Insights";
+import Team from "./pages/admin/Team";
+import Clients from "./pages/admin/Clients";
+import Testimonials from "./pages/admin/Testimonials";
+import CareersAdmin from "./pages/admin/CareersAdmin";
+import Contacts from "./pages/admin/Contacts";
 
 const queryClient = new QueryClient();
 
@@ -58,7 +67,16 @@ const App = () => (
               }
             >
               <Route index element={<Dashboard />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="hero-banners" element={<HeroBanners />} />
               <Route path="services" element={<ServicesAdmin />} />
+              <Route path="industries" element={<IndustriesAdmin />} />
+              <Route path="insights" element={<InsightsAdmin />} />
+              <Route path="team" element={<Team />} />
+              <Route path="clients" element={<Clients />} />
+              <Route path="testimonials" element={<Testimonials />} />
+              <Route path="careers" element={<CareersAdmin />} />
+              <Route path="contacts" element={<Contacts />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
