@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Constants } from "@/integrations/supabase/types";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required").max(300),
@@ -235,7 +236,10 @@ export function InsightFormDialog({
                 <FormItem>
                   <FormLabel>Body</FormLabel>
                   <FormControl>
-                    <Textarea {...field} rows={10} />
+                    <RichTextEditor
+                      content={field.value}
+                      onChange={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
