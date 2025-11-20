@@ -97,9 +97,10 @@ export default function InsightDetail() {
                 {insight.excerpt}
               </p>
 
-              <div className="whitespace-pre-wrap leading-relaxed">
-                {insight.body}
-              </div>
+              <div 
+                className="rich-content"
+                dangerouslySetInnerHTML={{ __html: insight.body }}
+              />
             </div>
 
             <div className="mt-12 pt-12 border-t">
