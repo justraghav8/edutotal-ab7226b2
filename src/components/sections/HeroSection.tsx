@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroEducationBg from "@/assets/hero-education-bg.jpg";
 
 interface HeroSectionProps {
   title: string;
@@ -10,6 +11,7 @@ interface HeroSectionProps {
   ctaSecondaryText?: string;
   ctaSecondaryLink?: string;
   backgroundImage?: string;
+  videoUrl?: string;
 }
 
 export function HeroSection({
@@ -20,20 +22,39 @@ export function HeroSection({
   ctaSecondaryText = "Contact Us",
   ctaSecondaryLink = "/contact",
   backgroundImage,
+  videoUrl,
 }: HeroSectionProps) {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-hero py-24 md:py-32"
-      style={
-        backgroundImage
-          ? {
-              backgroundImage: `linear-gradient(135deg, rgba(31, 58, 162, 0.95), rgba(31, 58, 162, 0.85)), url(${backgroundImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }
-          : undefined
-      }
-    >
+    <section className="relative overflow-hidden bg-gradient-hero py-24 md:py-32">
+      {/* Video Background */}
+      {videoUrl ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
+      ) : backgroundImage ? (
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+          }}
+        />
+      ) : (
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${heroEducationBg})`,
+          }}
+        />
+      )}
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85" />
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center text-white animate-fade-in">
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-balance">
