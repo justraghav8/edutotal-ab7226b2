@@ -1,7 +1,6 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import Link from '@tiptap/extension-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -38,14 +37,9 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           class: 'rounded-lg max-w-full h-auto my-4',
         },
       }),
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: {
-          class: 'text-primary underline',
-        },
-      }),
     ],
     content,
+    editable: true,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
@@ -59,9 +53,20 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
     }
   }, [editor, imageUrl]);
 
-  const addLink = useCallback(() => {
+  const setLink = useCallback(() => {
     if (linkUrl && editor) {
-      editor.chain().focus().setLink({ href: linkUrl }).run();
+      const previousUrl = editor.getAttributes('link').href;
+      
+      if (previousUrl) {
+        editor.chain().focus().extendMarkRange('link').setLink({ href: linkUrl }).run();
+      } else {
+        const { from, to } = editor.state.selection;
+        if (from === to) {
+          return;
+        }
+        editor.chain().focus().setLink({ href: linkUrl }).run();
+      }
+      
       setLinkUrl('');
       setShowLinkInput(false);
     }
@@ -184,11 +189,11 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
-                addLink();
+                setLink();
               }
             }}
           />
-          <Button type="button" size="sm" onClick={addLink}>
+          <Button type="button" size="sm" onClick={setLink}>
             Add Link
           </Button>
         </div>

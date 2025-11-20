@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -155,6 +156,9 @@ export function InsightFormDialog({
           <DialogTitle>
             {insight ? "Edit Insight" : "Add Insight"}
           </DialogTitle>
+          <DialogDescription>
+            {insight ? "Update the insight details below." : "Create a new insight article with rich text formatting."}
+          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
