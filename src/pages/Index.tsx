@@ -67,6 +67,7 @@ export default function Index() {
       <HeroSection
         title="Transforming Education Through Strategic Excellence"
         subtitle="End-to-end consulting solutions for educational institutions and corporate learning"
+        videoUrl="https://cdn.coverr.co/videos/coverr-students-studying-together-in-a-library-5298/1080p.mp4"
       />
 
       {/* Value Propositions */}
