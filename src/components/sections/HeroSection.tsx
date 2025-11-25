@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroEducationBg from "@/assets/hero-education-bg.jpg";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface HeroSectionProps {
   title: string;
@@ -24,12 +25,21 @@ export function HeroSection({
   backgroundImage,
   videoUrl,
 }: HeroSectionProps) {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   return (
     <section className="relative min-h-[90vh] flex items-center bg-background overflow-hidden">
-      <div className="container mx-auto px-4 py-20 relative z-10">
+      <motion.div style={{ y, opacity }} className="container mx-auto px-4 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Hero Text */}
-          <div className="space-y-8 animate-fade-in">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8"
+          >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1]">
               <span className="text-foreground">{title.split(' ').slice(0, 2).join(' ')}</span>{' '}
               <span className="text-primary">{title.split(' ').slice(2).join(' ')}</span>
@@ -59,10 +69,15 @@ export function HeroSection({
                 <Link to={ctaSecondaryLink}>{ctaSecondaryText}</Link>
               </Button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column - Overlapping Cards with Image */}
-          <div className="relative lg:h-[600px] animate-slide-up">
+          <motion.div 
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="relative lg:h-[600px]"
+          >
             {/* Large Image Card */}
             <div className="relative rounded-3xl overflow-hidden shadow-large">
               {videoUrl ? (
@@ -107,9 +122,9 @@ export function HeroSection({
                 </Link>
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Background Decoration */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-br from-primary/5 to-transparent -z-10" />
