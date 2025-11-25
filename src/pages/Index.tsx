@@ -71,17 +71,22 @@ export default function Index() {
       />
 
       {/* Value Propositions */}
-      <section className="py-20 bg-background">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-semibold mb-4">
+              Our success is <span className="text-primary">the result</span> of comprehensive educational excellence
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {valueProps.map((prop, index) => (
-              <Card key={index} className="text-center hover-lift border-none shadow-medium">
-                <CardHeader>
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-accent">
-                    <prop.icon className="h-8 w-8 text-white" />
+              <Card key={index} className="text-center hover-lift border-none shadow-medium rounded-2xl bg-card transition-all duration-300 hover:shadow-blue">
+                <CardHeader className="pt-8">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-primary">
+                    <prop.icon className="h-10 w-10 text-white" />
                   </div>
-                  <CardTitle className="text-xl">{prop.title}</CardTitle>
-                  <CardDescription>{prop.description}</CardDescription>
+                  <CardTitle className="text-xl mb-2">{prop.title}</CardTitle>
+                  <CardDescription className="text-base">{prop.description}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
@@ -90,26 +95,26 @@ export default function Index() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-semibold mb-6">Our Services</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Comprehensive consulting solutions tailored to your needs
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service) => (
-              <Card key={service.id} className="hover-lift">
-                <CardHeader>
-                  <CardTitle className="text-lg">{service.title}</CardTitle>
-                  <CardDescription className="line-clamp-3">
+              <Card key={service.id} className="hover-lift shadow-medium rounded-2xl border-none transition-all duration-300 hover:shadow-blue">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg mb-3">{service.title}</CardTitle>
+                  <CardDescription className="line-clamp-3 text-base">
                     {service.overview}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button asChild variant="ghost" size="sm">
+                  <Button asChild variant="ghost" size="sm" className="text-primary hover:text-primary-hover">
                     <Link to={`/services/${service.slug}`}>
                       Learn More <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -119,8 +124,8 @@ export default function Index() {
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button asChild size="lg">
+          <div className="text-center mt-16">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary-hover rounded-xl h-14 px-8 text-lg shadow-blue">
               <Link to="/services">View All Services</Link>
             </Button>
           </div>
@@ -128,24 +133,28 @@ export default function Index() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-hero text-white">
+      <section className="py-24 bg-gradient-primary text-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             <div className="animate-fade-in">
-              <div className="text-5xl font-bold mb-2">20+</div>
-              <div className="text-white/80">Years Experience</div>
+              <div className="text-6xl md:text-7xl font-bold mb-3">20</div>
+              <div className="text-white/90 text-lg">years</div>
+              <div className="text-white/70 text-sm mt-1">Average lawyer experience</div>
             </div>
             <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              <div className="text-5xl font-bold mb-2">500+</div>
-              <div className="text-white/80">Projects Completed</div>
+              <div className="text-6xl md:text-7xl font-bold mb-3">11</div>
+              <div className="text-white/90 text-lg">directions</div>
+              <div className="text-white/70 text-sm mt-1">Legal support</div>
             </div>
             <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="text-5xl font-bold mb-2">100+</div>
-              <div className="text-white/80">Clients Served</div>
+              <div className="text-6xl md:text-7xl font-bold mb-3">20</div>
+              <div className="text-white/90 text-lg">years</div>
+              <div className="text-white/70 text-sm mt-1">Project international consulting experience</div>
             </div>
             <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
-              <div className="text-5xl font-bold mb-2">15+</div>
-              <div className="text-white/80">Countries</div>
+              <div className="text-6xl md:text-7xl font-bold mb-3">500+</div>
+              <div className="text-white/90 text-lg">projects</div>
+              <div className="text-white/70 text-sm mt-1">Successfully completed</div>
             </div>
           </div>
         </div>
@@ -220,15 +229,15 @@ export default function Index() {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-accent text-white">
+      <section className="py-24 bg-gradient-primary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-semibold mb-6">
             Ready to Transform Your Institution?
           </h2>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
             Let's discuss how we can help you achieve your educational goals
           </p>
-          <Button asChild size="lg" variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+          <Button asChild size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 rounded-xl h-14 px-8 text-lg shadow-large">
             <Link to="/contact">Get In Touch</Link>
           </Button>
         </div>
