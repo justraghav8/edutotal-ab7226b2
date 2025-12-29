@@ -37,7 +37,7 @@ export default function Index() {
     { name: "EduTotal Spotlight", section: "spotlight" },
     { name: "Consulting", section: "services" },
     { name: "Education", section: "insights" },
-    { name: "Impact Stories", section: "stats" },
+    { name: "Impact Stories", section: "testimonials" },
   ];
 
   const scrollToSection = (section: string) => {
@@ -243,27 +243,71 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Stats - Minimal Typography Focus */}
-      <section id="stats" className="py-24 bg-background border-y border-border">
+      {/* Testimonials - Impact Stories */}
+      <section id="testimonials" className="py-24 bg-background border-y border-border">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            {[
-              { value: "20+", label: "Years Experience" },
-              { value: "500+", label: "Projects Completed" },
-              { value: "50+", label: "Expert Consultants" },
-              { value: "15+", label: "Countries Served" }
-            ].map((stat, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-16 text-center"
+          >
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">Impact Stories</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Hear from the leaders we've partnered with
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.length > 0 ? testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-secondary p-8 rounded-sm"
               >
-                <div className="text-5xl md:text-6xl font-serif mb-2">{stat.value}</div>
-                <div className="text-muted-foreground text-sm uppercase tracking-wider">{stat.label}</div>
+                <blockquote className="text-lg font-serif italic mb-6 text-foreground/90">
+                  "{testimonial.quote}"
+                </blockquote>
+                <div className="flex items-center gap-4">
+                  {testimonial.photo_url && (
+                    <img 
+                      src={testimonial.photo_url} 
+                      alt={testimonial.author}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  )}
+                  <div>
+                    <div className="font-medium">{testimonial.author}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {testimonial.role}{testimonial.organization && `, ${testimonial.organization}`}
+                    </div>
+                  </div>
+                </div>
               </motion.div>
-            ))}
+            )) : (
+              [1, 2, 3].map((i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="bg-secondary p-8 rounded-sm"
+                >
+                  <blockquote className="text-lg font-serif italic mb-6 text-foreground/90">
+                    "EduTotal transformed our institution's approach to excellence."
+                  </blockquote>
+                  <div>
+                    <div className="font-medium">Education Leader</div>
+                    <div className="text-sm text-muted-foreground">Institution</div>
+                  </div>
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </section>
