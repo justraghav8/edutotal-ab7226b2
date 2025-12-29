@@ -37,11 +37,12 @@ export default {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))',
-  				hover: 'hsl(var(--accent-hover))'
-  			},
+			accent: {
+				DEFAULT: 'hsl(var(--accent))',
+				foreground: 'hsl(var(--accent-foreground))',
+				hover: 'hsl(var(--accent-hover))',
+				light: 'hsl(107 40% 60%)'
+			},
   			popover: {
   				DEFAULT: 'hsl(var(--popover))',
   				foreground: 'hsl(var(--popover-foreground))'

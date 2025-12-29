@@ -29,10 +29,10 @@ All colors MUST be HSL.
     --primary-hover: 234 85% 55%;
     --primary-deep: 234 85% 45%;
 
-    /* Soft Periwinkle Accent */
-    --accent: 166 76% 96%;
-    --accent-foreground: 173 80% 40%;
-    --accent-hover: 234 70% 65%;
+    /* Fresh Green Accent - #62AD4E */
+    --accent: 107 40% 49%;
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 107 40% 42%;
 
     /* Subtle Secondary */
     --secondary: 0 0% 32%;
