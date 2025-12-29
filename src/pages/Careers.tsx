@@ -32,8 +32,7 @@ export default function Careers() {
       <HeroSection
         title="Join Our Team"
         subtitle="Build your career in educational consulting and make a real impact"
-        ctaPrimaryText="View Openings"
-        ctaPrimaryLink="#openings"
+        minimal
       />
 
       <section className="py-20 bg-background">

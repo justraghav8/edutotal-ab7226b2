@@ -45,8 +45,7 @@ export default function Insights() {
       <HeroSection
         title="Insights & Thought Leadership"
         subtitle="Latest trends, research, and best practices in education"
-        ctaPrimaryText="Contact Us"
-        ctaPrimaryLink="/contact"
+        minimal
       />
 
       {/* Type Filter */}

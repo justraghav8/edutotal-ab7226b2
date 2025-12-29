@@ -26,10 +26,7 @@ export default function About() {
       <HeroSection
         title="About EduTotal"
         subtitle="Your trusted partner in educational transformation"
-        ctaPrimaryText="Our Services"
-        ctaPrimaryLink="/services"
-        ctaSecondaryText="Meet Our Team"
-        ctaSecondaryLink="/who-we-are"
+        minimal
       />
 
       {/* Mission & Overview */}
