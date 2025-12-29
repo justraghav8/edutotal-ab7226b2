@@ -172,7 +172,7 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {[
-              { value: "20", label: "years", sublabel: "Average lawyer experience" },
+              { value: "20", label: "years", sublabel: "Average consulting experience" },
               { value: "11", label: "directions", sublabel: "Legal support" },
               { value: "20", label: "years", sublabel: "Project international consulting experience" },
               { value: "500+", label: "projects", sublabel: "Successfully completed" }
