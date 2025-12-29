@@ -38,8 +38,7 @@ export default function Services() {
       <HeroSection
         title="Our Services"
         subtitle="Comprehensive consulting solutions for educational excellence"
-        ctaPrimaryText="Contact Us"
-        ctaPrimaryLink="/contact"
+        minimal
       />
 
       {/* Category Filter */}

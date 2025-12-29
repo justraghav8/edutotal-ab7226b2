@@ -53,8 +53,7 @@ export default function Contact() {
       <HeroSection
         title="Get In Touch"
         subtitle="Let's discuss how we can help transform your educational institution"
-        ctaPrimaryText="Our Services"
-        ctaPrimaryLink="/services"
+        minimal
       />
 
       <section className="py-20 bg-background">

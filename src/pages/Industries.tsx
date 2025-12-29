@@ -31,8 +31,7 @@ export default function Industries() {
       <HeroSection
         title="Industries We Serve"
         subtitle="Specialized expertise across education sectors"
-        ctaPrimaryText="View Services"
-        ctaPrimaryLink="/services"
+        minimal
       />
 
       <section className="py-20 bg-background">

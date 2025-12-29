@@ -48,8 +48,7 @@ export default function WhoWeAre() {
       <HeroSection
         title="Who We Are"
         subtitle="Meet the team driving educational transformation"
-        ctaPrimaryText="Contact Us"
-        ctaPrimaryLink="/contact"
+        minimal
       />
 
       <section className="py-20 bg-background">
