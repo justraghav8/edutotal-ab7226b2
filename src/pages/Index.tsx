@@ -36,14 +36,21 @@ export default function Index() {
   const tabs = [
     { name: "EduTotal Spotlight", section: "spotlight" },
     { name: "Consulting", section: "services" },
-    { name: "Education", section: "insights" },
+    { name: "Education", section: "spotlight" },
     { name: "Impact Stories", section: "testimonials" },
   ];
 
   const scrollToSection = (section: string) => {
     const element = document.getElementById(section);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const headerOffset = 140; // Account for sticky header (64px) + tab bar (~76px)
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -325,7 +332,7 @@ export default function Index() {
 
       {/* Clients */}
       {clients.length > 0 && (
-        <section id="insights" className="py-20 bg-background">
+        <section id="clients" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
