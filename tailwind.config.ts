@@ -91,7 +91,7 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'Work Sans',
+  				'Source Sans Pro',
   				'ui-sans-serif',
   				'system-ui',
   				'sans-serif',
@@ -101,7 +101,7 @@ export default {
   				'Noto Color Emoji'
   			],
   			serif: [
-  				'Lora',
+  				'Libre Baskerville',
   				'ui-serif',
   				'Georgia',
   				'Cambria',
