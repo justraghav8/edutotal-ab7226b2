@@ -30,13 +30,14 @@ export function Header() {
 
           {/* Right: CTA + Menu button */}
           <div className="flex items-center gap-3">
-            <Button 
-              asChild 
-              size="sm" 
-              className="hidden sm:inline-flex bg-accent hover:bg-accent/90 text-accent-foreground rounded-none px-6"
-            >
-              <Link to="/contact">Get in Touch</Link>
-            </Button>
+          <Link 
+            to="/contact"
+            className="hidden sm:inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-2 text-sm font-medium overflow-hidden relative group transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
+          >
+            <span className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1">Get in Touch</span>
+            <span className="relative z-10 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">→</span>
+            <span className="absolute inset-0 bg-accent-foreground/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          </Link>
             
             <button
               type="button"
