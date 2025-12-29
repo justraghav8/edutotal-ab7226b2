@@ -23,16 +23,16 @@ All colors MUST be HSL.
     --popover: 0 0% 89%;
     --popover-foreground: 0 0% 9%;
 
-    /* Vibrant Royal Blue Primary */
-    --primary: 161 93% 30%;
-    --primary-foreground: 151 80% 95%;
-    --primary-hover: 234 85% 55%;
-    --primary-deep: 234 85% 45%;
+    /* Deep Navy Blue Primary - #1F4D9A */
+    --primary: 218 66% 36%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 218 66% 46%;
+    --primary-deep: 218 66% 28%;
 
-    /* Soft Periwinkle Accent */
-    --accent: 166 76% 96%;
-    --accent-foreground: 173 80% 40%;
-    --accent-hover: 234 70% 65%;
+    /* Soft Blue Accent */
+    --accent: 218 60% 95%;
+    --accent-foreground: 218 66% 36%;
+    --accent-hover: 218 66% 50%;
 
     /* Subtle Secondary */
     --secondary: 0 0% 32%;
@@ -47,18 +47,18 @@ All colors MUST be HSL.
 
     --border: 0 0% 83%;
     --input: 0 0% 83%;
-    --ring: 161 93% 30%;
+    --ring: 218 66% 36%;
 
     --radius: 0rem;
 
-    /* Custom Design Tokens - Vibrant Blue Aesthetic */
-    --gradient-hero: linear-gradient(135deg, hsl(234 85% 60%), hsl(234 85% 70%));
-    --gradient-primary: linear-gradient(135deg, hsl(234 85% 45%), hsl(234 85% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(234 70% 70%), hsl(234 70% 80%));
-    --shadow-soft: 0 2px 12px -2px hsl(234 50% 50% / 0.08);
-    --shadow-medium: 0 4px 20px -4px hsl(234 50% 50% / 0.15);
-    --shadow-large: 0 12px 32px -8px hsl(234 50% 50% / 0.20);
-    --shadow-blue: 0 8px 24px -8px hsl(234 85% 60% / 0.25);
+    /* Custom Design Tokens - Deep Navy Blue Aesthetic */
+    --gradient-hero: linear-gradient(135deg, hsl(218 66% 36%), hsl(218 66% 50%));
+    --gradient-primary: linear-gradient(135deg, hsl(218 66% 28%), hsl(218 66% 36%));
+    --gradient-accent: linear-gradient(135deg, hsl(218 60% 50%), hsl(218 60% 65%));
+    --shadow-soft: 0 2px 12px -2px hsl(218 50% 40% / 0.08);
+    --shadow-medium: 0 4px 20px -4px hsl(218 50% 40% / 0.15);
+    --shadow-large: 0 12px 32px -8px hsl(218 50% 40% / 0.20);
+    --shadow-blue: 0 8px 24px -8px hsl(218 66% 36% / 0.25);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --chart-1: 158 64% 51%;
     --chart-2: 141 69% 58%;
@@ -67,12 +67,12 @@ All colors MUST be HSL.
     --chart-5: 0 0% 45%;
     --sidebar: 0 0% 98%;
     --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 161 93% 30%;
-    --sidebar-primary-foreground: 151 80% 95%;
+    --sidebar-primary: 218 66% 36%;
+    --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 0 0% 32%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 83%;
-    --sidebar-ring: 161 93% 30%;
+    --sidebar-ring: 218 66% 36%;
     --font-sans: "Source Sans Pro", ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     --font-serif: "Libre Baskerville", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
     --font-mono: 'Inconsolata', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
