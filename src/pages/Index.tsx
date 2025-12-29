@@ -5,39 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { 
-  GraduationCap, 
-  Users, 
-  TrendingUp, 
-  Shield,
-  ArrowRight,
-  Building,
-  Briefcase,
-  Lightbulb
-} from "lucide-react";
-
-const valueProps = [
-  {
-    icon: Building,
-    title: "Institution Building",
-    description: "Creating world-class educational infrastructure",
-  },
-  {
-    icon: Briefcase,
-    title: "Corporate Solutions",
-    description: "Strategic business consulting and M&A",
-  },
-  {
-    icon: Lightbulb,
-    title: "Digital Transformation",
-    description: "Modern learning and technology integration",
-  },
-  {
-    icon: Shield,
-    title: "Regulatory Excellence",
-    description: "Compliance and legal frameworks",
-  },
-];
+import { ArrowRight } from "lucide-react";
 
 export default function Index() {
   const [services, setServices] = useState<any[]>([]);
@@ -63,130 +31,221 @@ export default function Index() {
     if (insightsRes.data) setInsights(insightsRes.data);
   }
 
+  // BCG-style tabbed sections
+  const tabs = ["EduTotal Spotlight", "Consulting", "Education", "Impact Stories"];
+
   return (
     <>
       <HeroSection
-        title="Transforming Education Through Strategic Excellence"
+        title="Unlocking the Potential of Those Who Advance Education"
         subtitle="End-to-end consulting solutions for educational institutions and corporate learning"
         videoUrl="https://cdn.coverr.co/videos/coverr-students-studying-together-in-a-library-5298/1080p.mp4"
       />
 
-      {/* Value Propositions */}
-      <section className="py-24 bg-background">
+      {/* BCG-style Tab Navigation */}
+      <section className="py-8 border-b border-border bg-background sticky top-20 z-30">
         <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16 max-w-3xl mx-auto"
-          >
-            <h2 className="text-4xl md:text-5xl font-semibold mb-4">
-              Our success is <span className="text-primary">the result</span> of comprehensive educational excellence
-            </h2>
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {valueProps.map((prop, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
+          <div className="flex gap-8 overflow-x-auto">
+            {tabs.map((tab, index) => (
+              <button
+                key={tab}
+                className={`text-sm uppercase tracking-wider pb-4 border-b-2 transition-colors whitespace-nowrap ${
+                  index === 0 
+                    ? "border-foreground text-foreground" 
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
               >
-                <Card className="text-center hover-lift border-none shadow-medium rounded-2xl bg-card transition-all duration-300 hover:shadow-blue">
-                  <CardHeader className="pt-8">
-                    <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-primary">
-                      <prop.icon className="h-10 w-10 text-white" />
-                    </div>
-                    <CardTitle className="text-xl mb-2">{prop.title}</CardTitle>
-                    <CardDescription className="text-base">{prop.description}</CardDescription>
-                  </CardHeader>
-                </Card>
-              </motion.div>
+                {tab}
+              </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-24 bg-muted/30">
+      {/* Featured Insights - BCG Editorial Style */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-semibold mb-6">Our Services</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive consulting solutions tailored to your needs
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">Latest Thinking</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl">
+              Insights and perspectives shaping the future of education
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 50 }}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {insights.length > 0 ? insights.map((insight, index) => (
+              <motion.article
+                key={insight.id}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
               >
-                <Card className="hover-lift shadow-medium rounded-2xl border-none transition-all duration-300 hover:shadow-blue">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-lg mb-3">{service.title}</CardTitle>
-                    <CardDescription className="line-clamp-3 text-base">
-                      {service.overview}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button asChild variant="ghost" size="sm" className="text-primary hover:text-primary-hover">
-                      <Link to={`/services/${service.slug}`}>
-                        Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                <Link to={`/insights/${insight.slug}`}>
+                  {insight.cover_image_url && (
+                    <div className="aspect-[4/3] overflow-hidden rounded-sm mb-4">
+                      <img
+                        src={insight.cover_image_url}
+                        alt={insight.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground mb-2 block">
+                    {insight.type}
+                  </span>
+                  <h3 className="text-xl font-serif mb-2 group-hover:text-accent transition-colors">
+                    {insight.title}
+                  </h3>
+                  <p className="text-muted-foreground line-clamp-2 text-sm">
+                    {insight.excerpt}
+                  </p>
+                </Link>
+              </motion.article>
+            )) : (
+              // Placeholder cards
+              [1, 2, 3].map((i) => (
+                <motion.article
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="group"
+                >
+                  <div className="aspect-[4/3] bg-muted rounded-sm mb-4" />
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground mb-2 block">
+                    Article
+                  </span>
+                  <h3 className="text-xl font-serif mb-2">
+                    Educational Excellence Framework
+                  </h3>
+                  <p className="text-muted-foreground line-clamp-2 text-sm">
+                    Strategic approaches to transforming educational outcomes.
+                  </p>
+                </motion.article>
+              ))
+            )}
           </div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center mt-16"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-12"
           >
-            <Button asChild size="lg" className="bg-primary hover:bg-primary-hover rounded-xl h-14 px-8 text-lg shadow-blue">
-              <Link to="/services">View All Services</Link>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/insights">
+                View All Insights <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-24 bg-gradient-primary text-white">
+      {/* Services - Clean Grid */}
+      <section className="py-20 bg-secondary">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">Our Expertise</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl">
+              Comprehensive consulting solutions tailored to your needs
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+            {services.length > 0 ? services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-background p-8 group"
+              >
+                <Link to={`/services/${service.slug}`} className="block h-full">
+                  <h3 className="text-lg font-serif mb-3 group-hover:text-accent transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
+                    {service.overview}
+                  </p>
+                  <span className="text-sm font-medium inline-flex items-center group-hover:text-accent transition-colors">
+                    Learn More <ArrowRight className="ml-2 h-3 w-3" />
+                  </span>
+                </Link>
+              </motion.div>
+            )) : (
+              ["Institution Building", "Corporate Solutions", "Digital Transformation", "Regulatory Excellence"].map((title, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-background p-8"
+                >
+                  <h3 className="text-lg font-serif mb-3">{title}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    Strategic consulting excellence for educational institutions.
+                  </p>
+                  <span className="text-sm font-medium inline-flex items-center">
+                    Learn More <ArrowRight className="ml-2 h-3 w-3" />
+                  </span>
+                </motion.div>
+              ))
+            )}
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-12"
+          >
+            <Button asChild variant="outline" size="lg">
+              <Link to="/services">
+                View All Services <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats - Minimal Typography Focus */}
+      <section className="py-24 bg-background border-y border-border">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {[
-              { value: "20", label: "years", sublabel: "Average consulting experience" },
-              { value: "11", label: "directions", sublabel: "Legal support" },
-              { value: "20", label: "years", sublabel: "Project international consulting experience" },
-              { value: "500+", label: "projects", sublabel: "Successfully completed" }
+              { value: "20+", label: "Years Experience" },
+              { value: "500+", label: "Projects Completed" },
+              { value: "50+", label: "Expert Consultants" },
+              { value: "15+", label: "Countries Served" }
             ].map((stat, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="text-6xl md:text-7xl font-bold mb-3">{stat.value}</div>
-                <div className="text-white/90 text-lg">{stat.label}</div>
-                <div className="text-white/70 text-sm mt-1">{stat.sublabel}</div>
+                <div className="text-5xl md:text-6xl font-serif mb-2">{stat.value}</div>
+                <div className="text-muted-foreground text-sm uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -202,7 +261,7 @@ export default function Index() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-3xl font-bold text-center mb-12"
+              className="text-2xl font-serif text-center mb-12"
             >
               Trusted By Leading Organizations
             </motion.h2>
@@ -210,16 +269,16 @@ export default function Index() {
               {clients.map((client, index) => (
                 <motion.div 
                   key={client.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
                   className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all"
                 >
                   {client.logo_url ? (
-                    <img src={client.logo_url} alt={client.name} className="max-h-16 object-contain" />
+                    <img src={client.logo_url} alt={client.name} className="max-h-12 object-contain" />
                   ) : (
-                    <span className="text-lg font-medium">{client.name}</span>
+                    <span className="text-lg font-medium text-muted-foreground">{client.name}</span>
                   )}
                 </motion.div>
               ))}
@@ -228,90 +287,27 @@ export default function Index() {
         </section>
       )}
 
-      {/* Latest Insights */}
-      {insights.length > 0 && (
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Insights</h2>
-              <p className="text-lg text-muted-foreground">
-                Thought leadership and industry perspectives
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {insights.map((insight, index) => (
-                <motion.div
-                  key={insight.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                >
-                  <Card className="hover-lift">
-                    {insight.cover_image_url && (
-                      <img
-                        src={insight.cover_image_url}
-                        alt={insight.title}
-                        className="w-full h-48 object-cover rounded-t-lg"
-                      />
-                    )}
-                    <CardHeader>
-                      <div className="text-sm text-muted-foreground mb-2">{insight.type}</div>
-                      <CardTitle className="line-clamp-2">{insight.title}</CardTitle>
-                      <CardDescription className="line-clamp-3">
-                        {insight.excerpt}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button asChild variant="ghost" size="sm">
-                        <Link to={`/insights/${insight.slug}`}>
-                          Read More <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="text-center mt-12"
-            >
-              <Button asChild size="lg">
-                <Link to="/insights">View All Insights</Link>
-              </Button>
-            </motion.div>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-primary text-white">
+      {/* CTA Section - Minimal & Elegant */}
+      <section className="py-24 bg-foreground text-background">
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="container mx-auto px-4 text-center"
+          className="container mx-auto px-4 text-center max-w-3xl"
         >
-          <h2 className="text-4xl md:text-5xl font-semibold mb-6">
+          <h2 className="text-3xl md:text-4xl font-serif mb-6">
             Ready to Transform Your Institution?
           </h2>
-          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg text-background/70 mb-10">
             Let's discuss how we can help you achieve your educational goals
           </p>
-          <Button asChild size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 rounded-xl h-14 px-8 text-lg shadow-large">
+          <Button 
+            asChild 
+            variant="outline" 
+            size="lg" 
+            className="border-background text-background hover:bg-background hover:text-foreground"
+          >
             <Link to="/contact">Get In Touch</Link>
           </Button>
         </motion.div>
