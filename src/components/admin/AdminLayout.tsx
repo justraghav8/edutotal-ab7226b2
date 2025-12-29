@@ -12,7 +12,8 @@ import {
   ShieldCheck,
   LogOut,
   Settings,
-  Mail
+  Mail,
+  ImageIcon
 } from "lucide-react";
 
 export function AdminLayout() {
@@ -27,6 +28,7 @@ export function AdminLayout() {
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
     { icon: Settings, label: "Site Settings", path: "/admin/settings" },
+    { icon: ImageIcon, label: "Image Library", path: "/admin/images" },
     { icon: FileText, label: "Hero Banners", path: "/admin/hero-banners" },
     { icon: Briefcase, label: "Services", path: "/admin/services" },
     { icon: Building2, label: "Industries", path: "/admin/industries" },
