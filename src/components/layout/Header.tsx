@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { SearchDialog } from "@/components/SearchDialog";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -17,6 +18,7 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -35,6 +37,7 @@ export function Header() {
               type="button"
               className="relative w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
               aria-label="Search"
+              onClick={() => setSearchOpen(true)}
             >
               <Search className="h-5 w-5" />
             </button>
@@ -143,6 +146,8 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 }
