@@ -5,7 +5,41 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
-import { Briefcase, MapPin, Mail, Loader2 } from "lucide-react";
+import { Briefcase, MapPin, Mail, Loader2, TrendingUp, Globe2, Lightbulb, Users, Heart, Award } from "lucide-react";
+import { motion } from "framer-motion";
+
+const whyWorkWithUs = [
+  {
+    icon: TrendingUp,
+    title: "Growth Opportunities",
+    description: "Continuous learning and professional development with exposure to diverse projects"
+  },
+  {
+    icon: Lightbulb,
+    title: "Impactful Work",
+    description: "Transform education across institutions and shape the future of learning"
+  },
+  {
+    icon: Globe2,
+    title: "Global Exposure",
+    description: "Work with international partners from Europe, USA, and Asia Pacific"
+  },
+  {
+    icon: Users,
+    title: "Collaborative Culture",
+    description: "Join a team of passionate professionals committed to excellence"
+  },
+  {
+    icon: Heart,
+    title: "Work-Life Balance",
+    description: "Flexible work arrangements and a supportive environment"
+  },
+  {
+    icon: Award,
+    title: "Recognition & Rewards",
+    description: "Competitive compensation and performance-based incentives"
+  }
+];
 
 export default function Careers() {
   const [careers, setCareers] = useState<any[]>([]);
@@ -38,34 +72,43 @@ export default function Careers() {
 
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Why Work With Us?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Growth Opportunities</CardTitle>
-                  <CardDescription>
-                    Continuous learning and professional development
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Impactful Work</CardTitle>
-                  <CardDescription>
-                    Transform education across institutions
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Global Exposure</CardTitle>
-                  <CardDescription>
-                    Work with international partners
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">Why Work With Us?</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Join a team that's passionate about transforming education and building lasting impact
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {whyWorkWithUs.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="h-full text-center group hover:shadow-lg transition-all duration-300 hover:border-primary/30">
+                  <CardHeader className="pb-2">
+                    <div className="mx-auto mb-4 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <item.icon className="h-7 w-7 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-sm">
+                      {item.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
