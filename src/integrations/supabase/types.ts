@@ -383,7 +383,9 @@ export type Database = {
           category: Database["public"]["Enums"]["team_category"]
           created_at: string | null
           designation: string
+          email: string | null
           id: string
+          linkedin_url: string | null
           name: string
           order_index: number | null
           photo_url: string | null
@@ -395,7 +397,9 @@ export type Database = {
           category: Database["public"]["Enums"]["team_category"]
           created_at?: string | null
           designation: string
+          email?: string | null
           id?: string
+          linkedin_url?: string | null
           name: string
           order_index?: number | null
           photo_url?: string | null
@@ -407,7 +411,9 @@ export type Database = {
           category?: Database["public"]["Enums"]["team_category"]
           created_at?: string | null
           designation?: string
+          email?: string | null
           id?: string
+          linkedin_url?: string | null
           name?: string
           order_index?: number | null
           photo_url?: string | null
@@ -503,7 +509,7 @@ export type Database = {
         | "Digital & Technology"
         | "Real Estate & Infrastructure"
         | "Communication & Marketing"
-      team_category: "Leadership" | "Advisory" | "Staff"
+      team_category: "Leadership" | "Advisory" | "Staff" | "Team"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -648,7 +654,7 @@ export const Constants = {
         "Real Estate & Infrastructure",
         "Communication & Marketing",
       ],
-      team_category: ["Leadership", "Advisory", "Staff"],
+      team_category: ["Leadership", "Advisory", "Staff", "Team"],
     },
   },
 } as const
