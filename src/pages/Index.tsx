@@ -31,15 +31,27 @@ export default function Index() {
     if (insightsRes.data) setInsights(insightsRes.data);
   }
 
-  // BCG-style tabbed sections
-  const tabs = ["EduTotal Spotlight", "Consulting", "Education", "Impact Stories"];
+  // Tab state
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = [
+    { name: "EduTotal Spotlight", section: "spotlight" },
+    { name: "Consulting", section: "services" },
+    { name: "Education", section: "insights" },
+    { name: "Impact Stories", section: "stats" },
+  ];
+
+  const scrollToSection = (section: string) => {
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <>
       <HeroSection
         title="Unlocking the Potential of Those Who Advance Education"
         subtitle="End-to-end consulting solutions for educational institutions and corporate learning"
-        videoUrl="https://cdn.coverr.co/videos/coverr-students-studying-together-in-a-library-5298/1080p.mp4"
       />
 
       {/* BCG-style Tab Navigation */}
@@ -48,14 +60,18 @@ export default function Index() {
           <div className="flex gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
-                key={tab}
+                key={tab.name}
+                onClick={() => {
+                  setActiveTab(index);
+                  scrollToSection(tab.section);
+                }}
                 className={`text-sm uppercase tracking-wider pb-4 border-b-2 transition-colors whitespace-nowrap ${
-                  index === 0 
+                  activeTab === index 
                     ? "border-foreground text-foreground" 
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {tab}
+                {tab.name}
               </button>
             ))}
           </div>
@@ -63,7 +79,7 @@ export default function Index() {
       </section>
 
       {/* Featured Insights - BCG Editorial Style */}
-      <section className="py-20 bg-background">
+      <section id="spotlight" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -152,7 +168,7 @@ export default function Index() {
       </section>
 
       {/* Services - Clean Grid */}
-      <section className="py-20 bg-secondary">
+      <section id="services" className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -228,7 +244,7 @@ export default function Index() {
       </section>
 
       {/* Stats - Minimal Typography Focus */}
-      <section className="py-24 bg-background border-y border-border">
+      <section id="stats" className="py-24 bg-background border-y border-border">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {[
@@ -254,7 +270,7 @@ export default function Index() {
 
       {/* Clients */}
       {clients.length > 0 && (
-        <section className="py-20 bg-background">
+        <section id="insights" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
