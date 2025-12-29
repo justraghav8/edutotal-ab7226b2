@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
@@ -18,66 +18,89 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link to="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
-            EduTotal
-          </span>
-        </Link>
+    <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
+      <nav className="container mx-auto flex h-20 items-center justify-between px-4">
+        {/* Left: Menu button + Logo */}
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            className="p-2 hover:bg-muted rounded-sm transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
+          
+          <Link to="/" className="flex items-center">
+            <span className="text-xl font-serif font-bold tracking-tight">
+              EduTotal
+            </span>
+          </Link>
+        </div>
 
-        {/* Desktop Navigation */}
+        {/* Center: Desktop Navigation */}
         <div className="hidden lg:flex lg:gap-x-8">
-          {navigation.map((item) => (
+          {navigation.slice(0, 6).map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground link-underline"
             >
               {item.name}
             </Link>
           ))}
         </div>
 
-        <div className="hidden lg:flex">
-          <Button asChild>
-            <Link to="/contact">Get Started</Link>
+        {/* Right: Search + Login */}
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            className="p-2 hover:bg-muted rounded-sm transition-colors"
+            aria-label="Search"
+          >
+            <Search className="h-5 w-5" />
+          </button>
+          
+          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
+            <Link to="/contact">Contact</Link>
           </Button>
         </div>
-
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="lg:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
       </nav>
 
-      {/* Mobile Navigation */}
+      {/* Mobile/Desktop Slide-out Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden">
-          <div className="space-y-1 border-t px-4 pb-3 pt-2">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="block rounded-lg px-3 py-2 text-base font-medium text-foreground/80 hover:bg-muted hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <Button asChild className="w-full mt-4">
-              <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
-                Get Started
-              </Link>
-            </Button>
+        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm">
+          <div className="container mx-auto px-4 pt-24">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block py-4 text-3xl md:text-4xl font-serif text-foreground hover:text-accent transition-colors border-b border-border"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              
+              <div className="hidden md:block">
+                <div className="text-sm text-muted-foreground mb-4 uppercase tracking-wider">Featured</div>
+                <div className="space-y-4">
+                  <p className="text-lg font-serif">
+                    Transforming education through strategic excellence and innovative solutions.
+                  </p>
+                  <Button asChild variant="outline" size="lg" onClick={() => setMobileMenuOpen(false)}>
+                    <Link to="/contact">Get Started</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

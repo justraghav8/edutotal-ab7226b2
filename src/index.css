@@ -1,81 +1,83 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* BCG-Inspired Design System - Elegant, Minimal, Sophisticated
+   All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Modern Consulting Palette - Vibrant Blue Theme */
-    --background: 0 0% 96%;
-    --foreground: 0 0% 9%;
+    /* Clean White & Black Foundation */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 0 0% 89%;
-    --popover-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
 
-    /* Vibrant Royal Blue Primary */
-    --primary: 161 93% 30%;
-    --primary-foreground: 151 80% 95%;
-    --primary-hover: 234 85% 55%;
-    --primary-deep: 234 85% 45%;
+    /* Sophisticated Dark Primary */
+    --primary: 0 0% 12%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 0 0% 20%;
+    --primary-deep: 0 0% 5%;
 
     /* Fresh Green Accent - #62AD4E */
     --accent: 107 40% 49%;
     --accent-foreground: 0 0% 100%;
     --accent-hover: 107 40% 42%;
 
-    /* Subtle Secondary */
-    --secondary: 0 0% 32%;
-    --secondary-foreground: 0 0% 98%;
+    /* Warm Neutral Secondary */
+    --secondary: 30 5% 96%;
+    --secondary-foreground: 0 0% 12%;
 
-    /* Muted Gray Tones */
-    --muted: 0 0% 63%;
-    --muted-foreground: 0 0% 9%;
+    /* Muted Tones */
+    --muted: 30 5% 94%;
+    --muted-foreground: 0 0% 45%;
 
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 85% 97%;
 
-    --border: 0 0% 83%;
-    --input: 0 0% 83%;
-    --ring: 161 93% 30%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 12%;
 
-    --radius: 0rem;
+    --radius: 0.5rem;
 
-    /* Custom Design Tokens - Vibrant Blue Aesthetic */
-    --gradient-hero: linear-gradient(135deg, hsl(234 85% 60%), hsl(234 85% 70%));
-    --gradient-primary: linear-gradient(135deg, hsl(234 85% 45%), hsl(234 85% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(234 70% 70%), hsl(234 70% 80%));
-    --shadow-soft: 0 2px 12px -2px hsl(234 50% 50% / 0.08);
-    --shadow-medium: 0 4px 20px -4px hsl(234 50% 50% / 0.15);
-    --shadow-large: 0 12px 32px -8px hsl(234 50% 50% / 0.20);
-    --shadow-blue: 0 8px 24px -8px hsl(234 85% 60% / 0.25);
+    /* BCG-Inspired Design Tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 0% 15%));
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 0% 20%));
+    --gradient-accent: linear-gradient(135deg, hsl(107 40% 49%), hsl(107 40% 42%));
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.06);
+    --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.1);
+    --shadow-large: 0 12px 32px -8px hsl(0 0% 0% / 0.15);
+    --shadow-blue: 0 8px 24px -8px hsl(0 0% 0% / 0.12);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --chart-1: 158 64% 51%;
+    
+    --chart-1: 107 40% 49%;
     --chart-2: 141 69% 58%;
     --chart-3: 172 66% 50%;
     --chart-4: 82 77% 55%;
     --chart-5: 0 0% 45%;
-    --sidebar: 0 0% 98%;
-    --sidebar-foreground: 0 0% 9%;
-    --sidebar-primary: 161 93% 30%;
-    --sidebar-primary-foreground: 151 80% 95%;
-    --sidebar-accent: 0 0% 32%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 83%;
-    --sidebar-ring: 161 93% 30%;
+    
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 0 0% 12%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 5% 96%;
+    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 12%;
+    
     --font-sans: "Source Sans Pro", ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     --font-serif: "Libre Baskerville", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
     --font-mono: 'Inconsolata', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
@@ -87,49 +89,43 @@ All colors MUST be HSL.
     --tracking-normal: 0em;
     --spacing: 0.25rem;
   }
+  
   .dark {
-    --background: 0 0% 9%;
+    --background: 0 0% 6%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 14%;
+    --card: 0 0% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 25%;
+    --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 107 38% 49%;
-    --primary-foreground: 165 91% 9%;
-    --secondary: 0 0% 45%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 8%;
+    --primary-hover: 0 0% 90%;
+    --primary-deep: 0 0% 100%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 45%;
-    --muted-foreground: 0 0% 98%;
-    --accent: 218 66% 36%;
-    --accent-foreground: 218 87% 81%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 107 40% 49%;
+    --accent-foreground: 0 0% 100%;
+    --accent-hover: 107 40% 55%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 85% 97%;
-    --border: 0 0% 32%;
-    --input: 0 0% 32%;
-    --ring: 158 64% 51%;
-    --chart-1: 156 71% 66%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 98%;
+    --chart-1: 107 40% 55%;
     --chart-2: 141 76% 73%;
     --chart-3: 170 76% 64%;
     --chart-4: 81 84% 67%;
     --chart-5: 0 0% 45%;
-    --sidebar: 0 0% 14%;
+    --sidebar: 0 0% 10%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 158 64% 51%;
-    --sidebar-primary-foreground: 165 91% 9%;
-    --sidebar-accent: 172 66% 50%;
-    --sidebar-accent-foreground: 178 84% 10%;
-    --sidebar-border: 0 0% 32%;
-    --sidebar-ring: 158 64% 51%;
-    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-    --font-sans: "Source Sans Pro", ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-    --font-serif: "Libre Baskerville", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 0 0% 98%;
   }
 }
 
@@ -145,22 +141,30 @@ All colors MUST be HSL.
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* BCG-style Typography - Elegant Serif Headings */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-serif tracking-tight;
+    font-weight: 400;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-7xl;
-    font-weight: 600;
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    line-height: 1.1;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl lg:text-6xl;
-    font-weight: 600;
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    line-height: 1.15;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl lg:text-4xl;
+    @apply text-2xl md:text-3xl;
+    line-height: 1.2;
+  }
+
+  p {
+    @apply font-sans;
+    line-height: 1.7;
   }
 }
 
@@ -178,11 +182,25 @@ All colors MUST be HSL.
   }
 
   .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-medium;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent;
+  }
+
+  /* BCG-style underline animation */
+  .link-underline {
+    @apply relative;
+  }
+  
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-foreground transition-all duration-300;
+  }
+  
+  .link-underline:hover::after {
+    @apply w-full;
   }
 }
 
@@ -214,15 +232,15 @@ All colors MUST be HSL.
 }
 
 .prose h2 {
-  @apply text-2xl font-semibold mt-6 mb-4;
+  @apply text-2xl font-serif mt-6 mb-4;
 }
 
 .prose h3 {
-  @apply text-xl font-semibold mt-5 mb-3;
+  @apply text-xl font-serif mt-5 mb-3;
 }
 
 .prose p {
-  @apply my-3 leading-relaxed;
+  @apply my-3 leading-relaxed font-sans;
 }
 
 .prose ul,
@@ -239,11 +257,11 @@ All colors MUST be HSL.
 }
 
 .prose blockquote {
-  @apply border-l-4 border-primary pl-4 italic my-4;
+  @apply border-l-4 border-foreground pl-4 italic my-4 font-serif;
 }
 
 .prose a {
-  @apply text-primary underline hover:text-primary-hover;
+  @apply text-foreground underline hover:no-underline;
 }
 
 .prose img {
