@@ -79,8 +79,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background"
-            style={{ top: "64px" }}
+            className="fixed left-0 right-0 bottom-0 top-16 z-50 bg-background"
           >
             <div className="container mx-auto px-4 py-12 h-full overflow-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -99,12 +98,9 @@ export function Header() {
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <span>{item.name}</span>
-                        <motion.span 
-                          className="text-accent opacity-0 group-hover:opacity-100 transition-opacity"
-                          whileHover={{ x: 5 }}
-                        >
+                        <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">
                           →
-                        </motion.span>
+                        </span>
                       </Link>
                     </motion.div>
                   ))}
