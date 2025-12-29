@@ -251,7 +251,7 @@ export default function Index() {
       </section>
 
       {/* Testimonials - Impact Stories */}
-      <section id="testimonials" className="py-32 bg-foreground text-background overflow-hidden">
+      <section id="testimonials" className="py-32 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -260,13 +260,13 @@ export default function Index() {
             transition={{ duration: 0.6 }}
             className="mb-20 text-center"
           >
-            <span className="text-sm uppercase tracking-[0.3em] text-background/60 mb-4 block">
+            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block">
               Testimonials
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif">Impact Stories</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground">Impact Stories</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-px">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-px bg-border">
             {(testimonials.length > 0 ? testimonials : [
               { id: 1, quote: "EduTotal transformed our institution's strategic vision and helped us achieve NAAC A++ accreditation within two years.", author: "Dr. Rajesh Kumar", role: "Vice Chancellor", organization: "National University" },
               { id: 2, quote: "Their expertise in curriculum development and faculty training elevated our teaching standards to international benchmarks.", author: "Prof. Meera Sharma", role: "Director", organization: "Institute of Management" },
@@ -278,18 +278,18 @@ export default function Index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.15 }}
-                className="relative p-10 lg:p-12 border-t border-background/10 lg:border-t-0 lg:border-l first:border-l-0 first:border-t-0 group"
+                className="relative p-10 lg:p-12 bg-background group"
               >
                 {/* Large decorative quote */}
-                <Quote className="absolute top-8 right-8 w-16 h-16 text-background/10 rotate-180" />
+                <Quote className="absolute top-8 right-8 w-16 h-16 text-muted/30 rotate-180" />
                 
                 {/* Quote number */}
-                <span className="text-7xl lg:text-8xl font-serif text-background/10 absolute -top-4 left-8">
+                <span className="text-7xl lg:text-8xl font-serif text-muted/20 absolute -top-4 left-8">
                   0{index + 1}
                 </span>
                 
                 <div className="relative pt-12">
-                  <blockquote className="text-xl lg:text-2xl font-serif leading-relaxed mb-10 text-background/90">
+                  <blockquote className="text-xl lg:text-2xl font-serif leading-relaxed mb-10 text-foreground/90">
                     "{testimonial.quote}"
                   </blockquote>
                   
@@ -298,18 +298,18 @@ export default function Index() {
                       <img 
                         src={testimonial.photo_url} 
                         alt={testimonial.author}
-                        className="w-14 h-14 rounded-full object-cover ring-2 ring-background/20"
+                        className="w-14 h-14 rounded-full object-cover ring-2 ring-border"
                       />
                     ) : (
-                      <div className="w-14 h-14 rounded-full bg-background/10 flex items-center justify-center">
-                        <span className="text-xl font-serif text-background/60">
+                      <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center">
+                        <span className="text-xl font-serif text-muted-foreground">
                           {testimonial.author?.charAt(0)}
                         </span>
                       </div>
                     )}
                     <div>
-                      <div className="font-medium text-lg text-background">{testimonial.author}</div>
-                      <div className="text-sm text-background/60">
+                      <div className="font-medium text-lg text-foreground">{testimonial.author}</div>
+                      <div className="text-sm text-muted-foreground">
                         {testimonial.role}{testimonial.organization && ` · ${testimonial.organization}`}
                       </div>
                     </div>
