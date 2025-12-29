@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
@@ -125,6 +126,13 @@ export default function Industries() {
           </Button>
         </motion.div>
       </section>
+
+      <NextPageCTA
+        headline="Learn From Our Expertise"
+        description="Access thought leadership, case studies, and industry insights."
+        linkText="Read Insights"
+        linkHref="/insights"
+      />
     </>
   );
 }

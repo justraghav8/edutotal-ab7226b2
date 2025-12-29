@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -164,9 +165,16 @@ export default function Careers() {
                 </Card>
               ))}
             </div>
-          )}
+            )}
         </div>
       </section>
+
+      <NextPageCTA
+        headline="Ready to Start a Conversation?"
+        description="Whether you're interested in a position or our services, we'd love to hear from you."
+        linkText="Contact Us"
+        linkHref="/contact"
+      />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
@@ -153,6 +154,14 @@ export default function WhoWeAre() {
           </Tabs>
         </div>
       </section>
+
+      <NextPageCTA
+        headline="Explore What We Offer"
+        description="Discover our comprehensive range of consulting services tailored for education."
+        linkText="View Services"
+        linkHref="/services"
+        variant="inverted"
+      />
     </>
   );
 }

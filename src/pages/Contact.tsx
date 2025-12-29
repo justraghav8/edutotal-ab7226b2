@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -186,6 +187,14 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <NextPageCTA
+        headline="Explore Our Services"
+        description="See how our comprehensive solutions can transform your institution."
+        linkText="View Services"
+        linkHref="/services"
+        variant="inverted"
+      />
     </>
   );
 }
