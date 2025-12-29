@@ -78,7 +78,13 @@ export default function ServiceDetail() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Services
           </Link>
-          <Badge className="mb-4 bg-white/20">{service.category}</Badge>
+          <div className="mt-6 mb-4">
+            <Link to={`/services?category=${encodeURIComponent(service.category)}`}>
+              <Badge className="bg-white/20 hover:bg-white/30 cursor-pointer transition-colors">
+                {service.category}
+              </Badge>
+            </Link>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{service.title}</h1>
           <p className="text-xl text-white/90 max-w-3xl">{service.overview}</p>
         </div>
