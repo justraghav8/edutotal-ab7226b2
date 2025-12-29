@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -118,6 +119,14 @@ export default function Insights() {
           )}
         </div>
       </section>
+
+      <NextPageCTA
+        headline="Join Our Growing Team"
+        description="Build a meaningful career in educational consulting with global impact."
+        linkText="View Careers"
+        linkHref="/careers"
+        variant="inverted"
+      />
     </>
   );
 }

@@ -1,10 +1,9 @@
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, Heart, Globe, Users, TrendingUp, Award, Gem, Flame, Shield, Globe2, Handshake, Sparkles, Quote } from "lucide-react";
 import { motion } from "framer-motion";
-import missionImage1 from "@/assets/about-mission-1.jpg";
 import missionImage2 from "@/assets/about-mission-2.jpg";
-
 const values = [
   { icon: Target, title: "Knowledge Based Guidance", description: "Expert insights driving informed decision-making" },
   { icon: Heart, title: "Honest Assistance", description: "Transparent support and communication" },
@@ -316,6 +315,13 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      <NextPageCTA
+        headline="Meet the Team Behind EduTotal"
+        description="Get to know the leaders, advisors, and clients who make our vision a reality."
+        linkText="Who We Are"
+        linkHref="/who-we-are"
+      />
     </>
   );
 }

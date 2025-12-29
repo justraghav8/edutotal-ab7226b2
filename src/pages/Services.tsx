@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -115,6 +116,13 @@ export default function Services() {
           </Button>
         </div>
       </section>
+
+      <NextPageCTA
+        headline="See Who We Work With"
+        description="Explore the industries and sectors we serve with specialized expertise."
+        linkText="View Industries"
+        linkHref="/industries"
+      />
     </>
   );
 }
