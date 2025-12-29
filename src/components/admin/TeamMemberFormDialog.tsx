@@ -37,6 +37,8 @@ const formSchema = z.object({
   biography: z.string().min(1, "Biography is required"),
   category: z.string().min(1, "Category is required"),
   photo_url: z.string().url().optional().or(z.literal("")),
+  linkedin_url: z.string().url().optional().or(z.literal("")),
+  email: z.string().email().optional().or(z.literal("")),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
 });
@@ -63,6 +65,8 @@ export function TeamMemberFormDialog({
       biography: "",
       category: "",
       photo_url: "",
+      linkedin_url: "",
+      email: "",
       published: true,
       order_index: 0,
     },
@@ -76,6 +80,8 @@ export function TeamMemberFormDialog({
         biography: member.biography || "",
         category: member.category || "",
         photo_url: member.photo_url || "",
+        linkedin_url: member.linkedin_url || "",
+        email: member.email || "",
         published: member.published ?? true,
         order_index: member.order_index || 0,
       });
@@ -86,6 +92,8 @@ export function TeamMemberFormDialog({
         biography: "",
         category: "",
         photo_url: "",
+        linkedin_url: "",
+        email: "",
         published: true,
         order_index: 0,
       });
@@ -100,6 +108,8 @@ export function TeamMemberFormDialog({
         biography: data.biography,
         category: data.category,
         photo_url: data.photo_url || null,
+        linkedin_url: data.linkedin_url || null,
+        email: data.email || null,
         published: data.published,
         order_index: data.order_index,
       };
@@ -225,12 +235,42 @@ export function TeamMemberFormDialog({
                 <FormItem>
                   <FormLabel>Photo URL (Optional)</FormLabel>
                   <FormControl>
-                    <Input {...field} type="url" />
+                    <Input {...field} type="url" placeholder="https://..." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="linkedin_url"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>LinkedIn URL (Optional)</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="url" placeholder="https://linkedin.com/in/..." />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email (Optional)</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="email" placeholder="name@example.com" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}

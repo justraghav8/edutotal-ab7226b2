@@ -1,15 +1,36 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { NextPageCTA } from "@/components/sections/NextPageCTA";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2 } from "lucide-react";
+import { Loader2, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+
+interface TeamMember {
+  id: string;
+  name: string;
+  designation: string;
+  biography: string;
+  photo_url: string | null;
+  linkedin_url: string | null;
+  email: string | null;
+  category: string;
+  order_index: number;
+}
+
+interface Client {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  website: string | null;
+}
 
 export default function WhoWeAre() {
-  const [teamMembers, setTeamMembers] = useState<any[]>([]);
-  const [advisory, setAdvisory] = useState<any[]>([]);
-  const [clients, setClients] = useState<any[]>([]);
+  const [leadership, setLeadership] = useState<TeamMember[]>([]);
+  const [team, setTeam] = useState<TeamMember[]>([]);
+  const [advisory, setAdvisory] = useState<TeamMember[]>([]);
+  const [partners, setPartners] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,12 +39,18 @@ export default function WhoWeAre() {
 
   async function loadData() {
     setLoading(true);
-    const [teamRes, advisoryRes, clientsRes] = await Promise.all([
+    const [leadershipRes, teamRes, advisoryRes, partnersRes] = await Promise.all([
       supabase
         .from("team_members")
         .select("*")
         .eq("published", true)
         .eq("category", "Leadership")
+        .order("order_index"),
+      supabase
+        .from("team_members")
+        .select("*")
+        .eq("published", true)
+        .eq("category", "Team")
         .order("order_index"),
       supabase
         .from("team_members")
@@ -38,11 +65,25 @@ export default function WhoWeAre() {
         .order("order_index"),
     ]);
 
-    if (teamRes.data) setTeamMembers(teamRes.data);
+    if (leadershipRes.data) setLeadership(leadershipRes.data);
+    if (teamRes.data) setTeam(teamRes.data);
     if (advisoryRes.data) setAdvisory(advisoryRes.data);
-    if (clientsRes.data) setClients(clientsRes.data);
+    if (partnersRes.data) setPartners(partnersRes.data);
     setLoading(false);
   }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
 
   return (
     <>
@@ -54,11 +95,12 @@ export default function WhoWeAre() {
 
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <Tabs defaultValue="team" className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12">
-              <TabsTrigger value="team">Our Team</TabsTrigger>
+          <Tabs defaultValue="leadership" className="w-full">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-12">
+              <TabsTrigger value="leadership">Leadership</TabsTrigger>
+              <TabsTrigger value="team">Team</TabsTrigger>
               <TabsTrigger value="advisory">Advisory Panel</TabsTrigger>
-              <TabsTrigger value="clients">Clients</TabsTrigger>
+              <TabsTrigger value="partners">Partners</TabsTrigger>
             </TabsList>
 
             {loading ? (
@@ -67,86 +109,291 @@ export default function WhoWeAre() {
               </div>
             ) : (
               <>
-                {/* Team */}
-                <TabsContent value="team">
-                  {teamMembers.length === 0 ? (
-                    <p className="text-center text-muted-foreground">No team members found.</p>
+                {/* Leadership - Large cards with detailed info */}
+                <TabsContent value="leadership">
+                  {leadership.length === 0 ? (
+                    <p className="text-center text-muted-foreground">No leadership members found.</p>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {teamMembers.map((member) => (
-                        <Card key={member.id} className="hover-lift">
-                          {member.photo_url && (
-                            <img
-                              src={member.photo_url}
-                              alt={member.name}
-                              className="w-full h-64 object-cover rounded-t-lg"
-                            />
-                          )}
-                          <CardHeader>
-                            <CardTitle className="text-xl">{member.name}</CardTitle>
-                            <p className="text-sm text-primary font-medium">{member.designation}</p>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-sm text-muted-foreground line-clamp-4">
-                              {member.biography}
-                            </p>
-                          </CardContent>
-                        </Card>
+                    <motion.div
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="space-y-16"
+                    >
+                      {leadership.map((member, index) => (
+                        <motion.div
+                          key={member.id}
+                          variants={itemVariants}
+                          className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}
+                        >
+                          {/* Large Image */}
+                          <div className="w-full lg:w-2/5">
+                            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
+                              {member.photo_url ? (
+                                <img
+                                  src={member.photo_url}
+                                  alt={member.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                                  <span className="text-6xl font-bold text-primary/30">
+                                    {member.name.charAt(0)}
+                                  </span>
+                                </div>
+                              )}
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                            </div>
+                          </div>
+
+                          {/* Detailed Info */}
+                          <div className="w-full lg:w-3/5 space-y-6">
+                            <div>
+                              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-2">
+                                {member.name}
+                              </h2>
+                              <p className="text-xl text-primary font-semibold">
+                                {member.designation}
+                              </p>
+                            </div>
+                            
+                            <div className="prose prose-lg max-w-none text-muted-foreground">
+                              <p className="leading-relaxed whitespace-pre-line">
+                                {member.biography}
+                              </p>
+                            </div>
+
+                            {/* Contact Links */}
+                            <div className="flex gap-4 pt-4">
+                              {member.linkedin_url && (
+                                <a
+                                  href={member.linkedin_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-lg text-primary transition-colors"
+                                >
+                                  <Linkedin className="h-5 w-5" />
+                                  <span>LinkedIn</span>
+                                </a>
+                              )}
+                              {member.email && (
+                                <a
+                                  href={`mailto:${member.email}`}
+                                  className="flex items-center gap-2 px-4 py-2 bg-accent/10 hover:bg-accent/20 rounded-lg text-accent transition-colors"
+                                >
+                                  <Mail className="h-5 w-5" />
+                                  <span>Email</span>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </motion.div>
                       ))}
-                    </div>
+                    </motion.div>
                   )}
                 </TabsContent>
 
-                {/* Advisory */}
+                {/* Team - Grid with compact cards */}
+                <TabsContent value="team">
+                  {team.length === 0 ? (
+                    <p className="text-center text-muted-foreground">No team members found.</p>
+                  ) : (
+                    <motion.div
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                    >
+                      {team.map((member) => (
+                        <motion.div key={member.id} variants={itemVariants}>
+                          <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 h-full">
+                            <div className="relative aspect-square overflow-hidden">
+                              {member.photo_url ? (
+                                <img
+                                  src={member.photo_url}
+                                  alt={member.name}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+                                  <span className="text-4xl font-bold text-muted-foreground/30">
+                                    {member.name.charAt(0)}
+                                  </span>
+                                </div>
+                              )}
+                              {/* Overlay with links */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                                <div className="flex gap-3">
+                                  {member.linkedin_url && (
+                                    <a
+                                      href={member.linkedin_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors"
+                                    >
+                                      <Linkedin className="h-4 w-4" />
+                                    </a>
+                                  )}
+                                  {member.email && (
+                                    <a
+                                      href={`mailto:${member.email}`}
+                                      className="p-2 bg-accent text-accent-foreground rounded-full hover:bg-accent/90 transition-colors"
+                                    >
+                                      <Mail className="h-4 w-4" />
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <CardContent className="p-4 text-center">
+                              <h3 className="font-semibold text-foreground mb-1">
+                                {member.name}
+                              </h3>
+                              <p className="text-sm text-primary">
+                                {member.designation}
+                              </p>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </TabsContent>
+
+                {/* Advisory Panel - Image with extended bio */}
                 <TabsContent value="advisory">
                   {advisory.length === 0 ? (
                     <p className="text-center text-muted-foreground">No advisory panel members found.</p>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <motion.div
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                    >
                       {advisory.map((member) => (
-                        <Card key={member.id} className="hover-lift">
-                          {member.photo_url && (
-                            <img
-                              src={member.photo_url}
-                              alt={member.name}
-                              className="w-full h-64 object-cover rounded-t-lg"
-                            />
-                          )}
-                          <CardHeader>
-                            <CardTitle className="text-xl">{member.name}</CardTitle>
-                            <p className="text-sm text-primary font-medium">{member.designation}</p>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-sm text-muted-foreground line-clamp-4">
-                              {member.biography}
-                            </p>
-                          </CardContent>
-                        </Card>
+                        <motion.div key={member.id} variants={itemVariants}>
+                          <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full">
+                            <div className="flex flex-col sm:flex-row h-full">
+                              {/* Image */}
+                              <div className="sm:w-2/5 aspect-square sm:aspect-auto">
+                                {member.photo_url ? (
+                                  <img
+                                    src={member.photo_url}
+                                    alt={member.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full min-h-[200px] bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                                    <span className="text-5xl font-bold text-primary/20">
+                                      {member.name.charAt(0)}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                              {/* Content */}
+                              <div className="sm:w-3/5 p-6 flex flex-col justify-between">
+                                <div>
+                                  <h3 className="text-xl font-bold text-foreground mb-1">
+                                    {member.name}
+                                  </h3>
+                                  <p className="text-primary font-medium mb-4">
+                                    {member.designation}
+                                  </p>
+                                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-6">
+                                    {member.biography}
+                                  </p>
+                                </div>
+                                {/* Links */}
+                                <div className="flex gap-3 mt-4 pt-4 border-t border-border">
+                                  {member.linkedin_url && (
+                                    <a
+                                      href={member.linkedin_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-muted-foreground hover:text-primary transition-colors"
+                                    >
+                                      <Linkedin className="h-5 w-5" />
+                                    </a>
+                                  )}
+                                  {member.email && (
+                                    <a
+                                      href={`mailto:${member.email}`}
+                                      className="text-muted-foreground hover:text-accent transition-colors"
+                                    >
+                                      <Mail className="h-5 w-5" />
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </Card>
+                        </motion.div>
                       ))}
-                    </div>
+                    </motion.div>
                   )}
                 </TabsContent>
 
-                {/* Clients */}
-                <TabsContent value="clients">
-                  {clients.length === 0 ? (
-                    <p className="text-center text-muted-foreground">No clients found.</p>
+                {/* Partners - Logo grid with hover effects */}
+                <TabsContent value="partners">
+                  {partners.length === 0 ? (
+                    <p className="text-center text-muted-foreground">No partners found.</p>
                   ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-                      {clients.map((client) => (
-                        <Card key={client.id} className="hover-lift flex items-center justify-center p-6">
-                          {client.logo_url ? (
-                            <img
-                              src={client.logo_url}
-                              alt={client.name}
-                              className="max-h-20 object-contain"
-                            />
-                          ) : (
-                            <span className="text-center font-medium text-sm">{client.name}</span>
-                          )}
-                        </Card>
-                      ))}
-                    </div>
+                    <motion.div
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      {/* Featured Partners Section */}
+                      <div className="text-center mb-12">
+                        <h3 className="text-2xl font-bold text-foreground mb-4">
+                          Trusted by Leading Institutions
+                        </h3>
+                        <p className="text-muted-foreground max-w-2xl mx-auto">
+                          We collaborate with prestigious educational institutions and organizations worldwide.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        {partners.map((partner) => (
+                          <motion.div key={partner.id} variants={itemVariants}>
+                            <Card className="group relative overflow-hidden hover:shadow-lg transition-all duration-300 aspect-[3/2]">
+                              <CardContent className="p-6 h-full flex items-center justify-center">
+                                {partner.logo_url ? (
+                                  <img
+                                    src={partner.logo_url}
+                                    alt={partner.name}
+                                    className="max-h-16 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                                  />
+                                ) : (
+                                  <span className="text-center font-semibold text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                                    {partner.name}
+                                  </span>
+                                )}
+                              </CardContent>
+                              
+                              {/* Hover overlay with name and link */}
+                              <div className="absolute inset-0 bg-primary/95 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+                                <span className="text-primary-foreground font-semibold text-center text-sm mb-2">
+                                  {partner.name}
+                                </span>
+                                {partner.website && (
+                                  <a
+                                    href={partner.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-1 text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                                  >
+                                    <ExternalLink className="h-3 w-3" />
+                                    Visit Website
+                                  </a>
+                                )}
+                              </div>
+                            </Card>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
                   )}
                 </TabsContent>
               </>
