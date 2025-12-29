@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -56,70 +57,84 @@ export function Header() {
       </header>
 
       {/* Full-screen Navigation Overlay - Outside header */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-background pt-16 animate-fade-in">
-          {/* Close button at top right */}
-          <button
-            type="button"
-            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-label="Close menu"
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[60] bg-background pt-16"
           >
-            <X className="h-6 w-6" />
-          </button>
+            {/* Close button at top right */}
+            <button
+              type="button"
+              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X className="h-6 w-6" />
+            </button>
 
-          <div className="container mx-auto px-4 py-12 h-full overflow-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-              {/* Navigation Links */}
-              <div className="space-y-0">
-                {navigation.map((item, index) => (
-                  <div
-                    key={item.name}
-                    className="animate-fade-in"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <Link
-                      to={item.href}
-                      className="group flex items-center justify-between py-5 text-3xl md:text-4xl lg:text-5xl font-serif text-foreground hover:text-accent transition-colors border-b border-border/30"
+            <div className="container mx-auto px-4 py-12 h-full overflow-auto">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+                {/* Navigation Links */}
+                <div className="space-y-0">
+                  {navigation.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <Link
+                        to={item.href}
+                        className="group flex items-center justify-between py-5 text-3xl md:text-4xl lg:text-5xl font-serif text-foreground hover:text-accent transition-colors border-b border-border/30"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span>{item.name}</span>
+                        <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                          →
+                        </span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Featured Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="hidden lg:flex flex-col justify-center"
+                >
+                  <div className="max-w-md">
+                    <p className="text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                      About Us
+                    </p>
+                    <h3 className="text-2xl lg:text-3xl font-serif mb-6 leading-tight">
+                      Transforming education through strategic excellence and innovative solutions.
+                    </h3>
+                    <p className="text-muted-foreground mb-8 leading-relaxed">
+                      We are the trustworthy partners to progression for bringing an ethical and sustainable 
+                      change in the educational environment.
+                    </p>
+                    <Button 
+                      asChild 
+                      variant="outline" 
+                      size="lg" 
+                      className="rounded-none border-foreground text-foreground hover:bg-foreground hover:text-background"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <span>{item.name}</span>
-                      <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">
-                        →
-                      </span>
-                    </Link>
+                      <Link to="/about">Learn More</Link>
+                    </Button>
                   </div>
-                ))}
-              </div>
-              
-              {/* Featured Section */}
-              <div className="hidden lg:flex flex-col justify-center animate-fade-in" style={{ animationDelay: '300ms' }}>
-                <div className="max-w-md">
-                  <p className="text-sm text-muted-foreground mb-4 uppercase tracking-widest">
-                    About Us
-                  </p>
-                  <h3 className="text-2xl lg:text-3xl font-serif mb-6 leading-tight">
-                    Transforming education through strategic excellence and innovative solutions.
-                  </h3>
-                  <p className="text-muted-foreground mb-8 leading-relaxed">
-                    We are the trustworthy partners to progression for bringing an ethical and sustainable 
-                    change in the educational environment.
-                  </p>
-                  <Button 
-                    asChild 
-                    variant="outline" 
-                    size="lg" 
-                    className="rounded-none border-foreground text-foreground hover:bg-foreground hover:text-background"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Link to="/about">Learn More</Link>
-                  </Button>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
