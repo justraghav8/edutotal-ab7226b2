@@ -31,6 +31,7 @@ import Clients from "./pages/admin/Clients";
 import Testimonials from "./pages/admin/Testimonials";
 import CareersAdmin from "./pages/admin/CareersAdmin";
 import Contacts from "./pages/admin/Contacts";
+import Images from "./pages/admin/Images";
 
 const queryClient = new QueryClient();
 
@@ -68,6 +69,7 @@ const App = () => (
             >
               <Route index element={<Dashboard />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="images" element={<Images />} />
               <Route path="hero-banners" element={<HeroBanners />} />
               <Route path="services" element={<ServicesAdmin />} />
               <Route path="industries" element={<IndustriesAdmin />} />
