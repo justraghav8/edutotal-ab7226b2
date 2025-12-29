@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Target, Heart, Globe, Users, TrendingUp, Award } from "lucide-react";
+import { Target, Heart, Globe, Users, TrendingUp, Award, Gem, Flame, Shield, Globe2, Handshake, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const values = [
   { icon: Target, title: "Knowledge Based Guidance", description: "Expert insights driving informed decision-making" },
@@ -12,12 +13,12 @@ const values = [
 ];
 
 const pillars = [
-  { title: "Value", description: "Delivering measurable impact and sustainable worth" },
-  { title: "Passion", description: "Unwavering commitment to educational excellence" },
-  { title: "Integrity", description: "Ethical practices and transparency in every engagement" },
-  { title: "Global", description: "International standards and worldwide perspective" },
-  { title: "Relationship", description: "Building lasting, meaningful partnerships" },
-  { title: "Diversity", description: "Embracing varied approaches and inclusive solutions" },
+  { title: "Value", description: "Delivering measurable impact and sustainable worth", icon: Gem },
+  { title: "Passion", description: "Unwavering commitment to educational excellence", icon: Flame },
+  { title: "Integrity", description: "Ethical practices and transparency in every engagement", icon: Shield },
+  { title: "Global", description: "International standards and worldwide perspective", icon: Globe2 },
+  { title: "Relationship", description: "Building lasting, meaningful partnerships", icon: Handshake },
+  { title: "Diversity", description: "Embracing varied approaches and inclusive solutions", icon: Sparkles },
 ];
 
 export default function About() {
@@ -85,22 +86,90 @@ export default function About() {
         </div>
       </section>
 
-      {/* Foundation Pillars */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Foundation Pillars</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {/* Foundation Pillars - Impressive Design */}
+      <section className="py-32 bg-foreground text-background overflow-hidden relative">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-[10%] w-72 h-72 rounded-full bg-accent/10 blur-3xl" />
+          <div className="absolute bottom-20 right-[10%] w-96 h-96 rounded-full bg-accent/5 blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <span className="text-sm uppercase tracking-[0.3em] text-background/50 mb-4 block">
+              What We Stand For
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif">Foundation Pillars</h2>
+          </motion.div>
+
+          {/* Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 max-w-6xl mx-auto">
             {pillars.map((pillar, index) => (
-              <Card key={index} className="text-center hover-lift border-2">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-primary">{pillar.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{pillar.description}</p>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative p-10 lg:p-12 border-b border-r border-background/10 last:border-r-0 md:[&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r lg:[&:nth-child(3)]:border-r-0 lg:[&:nth-child(4)]:border-b-0 lg:[&:nth-child(5)]:border-b-0 lg:[&:nth-child(6)]:border-b-0 md:[&:nth-child(5)]:border-b-0 md:[&:nth-child(6)]:border-b-0"
+              >
+                {/* Hover background */}
+                <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/10 transition-colors duration-500" />
+                
+                {/* Large number */}
+                <span className="absolute top-6 right-8 text-7xl lg:text-8xl font-serif text-background/5 group-hover:text-accent/20 transition-colors duration-500">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                
+                {/* Icon */}
+                <motion.div 
+                  className="relative mb-6"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center group-hover:bg-accent transition-colors duration-300">
+                    <pillar.icon className="w-7 h-7 text-accent group-hover:text-background transition-colors duration-300" />
+                  </div>
+                </motion.div>
+                
+                {/* Content */}
+                <div className="relative">
+                  <h3 className="text-3xl lg:text-4xl font-serif mb-4 group-hover:text-accent transition-colors duration-300">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-background/60 text-lg leading-relaxed group-hover:text-background/80 transition-colors duration-300">
+                    {pillar.description}
+                  </p>
+                </div>
+                
+                {/* Bottom accent line */}
+                <motion.div 
+                  className="absolute bottom-0 left-10 h-0.5 bg-accent"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: 40 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                />
+              </motion.div>
             ))}
           </div>
+
+          {/* Bottom tagline */}
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="text-center text-xl font-serif text-background/60 mt-20 max-w-2xl mx-auto"
+          >
+            These pillars guide every decision we make and every partnership we build.
+          </motion.p>
         </div>
       </section>
 
