@@ -36,10 +36,10 @@ export default function About() {
       <section className="py-24 lg:py-32 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
           {/* Mission Block */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24 lg:mb-32">
+          <div className="max-w-4xl mx-auto text-center mb-24 lg:mb-32">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
@@ -50,36 +50,17 @@ export default function About() {
                 Transforming Education Through{" "}
                 <span className="text-accent">Excellence</span>
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
                 EduTotal was created to provide Quality, Innovative and Internationally benchmarked framework 
                 for end-to-end solutions in the Indian Education sector. We take pride in adopting projects that 
                 bring quality change and revolution in the education environment.
               </p>
-              <div className="relative pl-6 border-l-4 border-accent">
+              <div className="relative inline-block text-left pl-6 border-l-4 border-accent max-w-2xl">
                 <Quote className="absolute -left-4 -top-2 w-8 h-8 text-accent/20" />
                 <p className="text-xl font-serif italic text-foreground/80">
                   "We are the trustworthy partners to progression for bringing an ethical and sustainable 
                   change in the educational environment."
                 </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative">
-                <img 
-                  src={missionImage1} 
-                  alt="Educational transformation and growth" 
-                  className="w-full h-auto rounded-sm shadow-large"
-                />
-                {/* Decorative accent */}
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 rounded-sm -z-10" />
-                <div className="absolute -top-6 -left-6 w-24 h-24 border-2 border-accent/20 rounded-sm -z-10" />
               </div>
             </motion.div>
           </div>
