@@ -242,6 +242,7 @@ export type Database = {
           publish_date: string | null
           published: boolean | null
           slug: string
+          tags: string[] | null
           title: string
           type: Database["public"]["Enums"]["insight_type"]
           updated_at: string | null
@@ -257,6 +258,7 @@ export type Database = {
           publish_date?: string | null
           published?: boolean | null
           slug: string
+          tags?: string[] | null
           title: string
           type: Database["public"]["Enums"]["insight_type"]
           updated_at?: string | null
@@ -272,6 +274,7 @@ export type Database = {
           publish_date?: string | null
           published?: boolean | null
           slug?: string
+          tags?: string[] | null
           title?: string
           type?: Database["public"]["Enums"]["insight_type"]
           updated_at?: string | null
