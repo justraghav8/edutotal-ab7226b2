@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -18,92 +19,131 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
-      <nav className="container mx-auto flex h-20 items-center justify-between px-4">
-        {/* Left: Menu button + Logo */}
-        <div className="flex items-center gap-4">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b border-border/50">
+      <nav className="container mx-auto flex h-16 items-center justify-between px-4">
+        {/* Left: Logo */}
+        <Link to="/" className="flex items-center">
+          <span className="text-2xl font-serif font-bold tracking-tight text-foreground">
+            Edu<span className="text-accent">Total</span>
+          </span>
+        </Link>
+
+        {/* Right: CTA + Menu button */}
+        <div className="flex items-center gap-3">
+          <Button 
+            asChild 
+            size="sm" 
+            className="hidden sm:inline-flex bg-accent hover:bg-accent/90 text-accent-foreground rounded-none px-6"
+          >
+            <Link to="/contact">Get in Touch</Link>
+          </Button>
+          
           <button
             type="button"
-            className="p-2 hover:bg-muted rounded-sm transition-colors"
+            className="relative w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Menu"
           >
-            {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
+            <AnimatePresence mode="wait">
+              {mobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="h-5 w-5" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="h-5 w-5" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
-          
-          <Link to="/" className="flex items-center">
-            <span className="text-xl font-serif font-bold tracking-tight">
-              EduTotal
-            </span>
-          </Link>
-        </div>
-
-        {/* Center: Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-8">
-          {navigation.slice(0, 6).map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground link-underline"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Right: Search + Login */}
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            className="p-2 hover:bg-muted rounded-sm transition-colors"
-            aria-label="Search"
-          >
-            <Search className="h-5 w-5" />
-          </button>
-          
-          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
-            <Link to="/contact">Contact</Link>
-          </Button>
         </div>
       </nav>
 
-      {/* Mobile/Desktop Slide-out Navigation */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm">
-          <div className="container mx-auto px-4 pt-24">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-1">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="block py-4 text-3xl md:text-4xl font-serif text-foreground hover:text-accent transition-colors border-b border-border"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-              
-              <div className="hidden md:block">
-                <div className="text-sm text-muted-foreground mb-4 uppercase tracking-wider">Featured</div>
-                <div className="space-y-4">
-                  <p className="text-lg font-serif">
-                    Transforming education through strategic excellence and innovative solutions.
-                  </p>
-                  <Button asChild variant="outline" size="lg" onClick={() => setMobileMenuOpen(false)}>
-                    <Link to="/contact">Get Started</Link>
-                  </Button>
+      {/* Full-screen Navigation Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-background"
+            style={{ top: "64px" }}
+          >
+            <div className="container mx-auto px-4 py-12 h-full overflow-auto">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+                {/* Navigation Links */}
+                <div className="space-y-0">
+                  {navigation.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                    >
+                      <Link
+                        to={item.href}
+                        className="group flex items-center justify-between py-5 text-3xl md:text-4xl lg:text-5xl font-serif text-foreground hover:text-accent transition-colors border-b border-border/30"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span>{item.name}</span>
+                        <motion.span 
+                          className="text-accent opacity-0 group-hover:opacity-100 transition-opacity"
+                          whileHover={{ x: 5 }}
+                        >
+                          →
+                        </motion.span>
+                      </Link>
+                    </motion.div>
+                  ))}
                 </div>
+                
+                {/* Featured Section */}
+                <motion.div 
+                  className="hidden lg:flex flex-col justify-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <div className="max-w-md">
+                    <p className="text-sm text-muted-foreground mb-4 uppercase tracking-widest">
+                      About Us
+                    </p>
+                    <h3 className="text-2xl lg:text-3xl font-serif mb-6 leading-tight">
+                      Transforming education through strategic excellence and innovative solutions.
+                    </h3>
+                    <p className="text-muted-foreground mb-8 leading-relaxed">
+                      We are the trustworthy partners to progression for bringing an ethical and sustainable 
+                      change in the educational environment.
+                    </p>
+                    <Button 
+                      asChild 
+                      variant="outline" 
+                      size="lg" 
+                      className="rounded-none border-foreground text-foreground hover:bg-foreground hover:text-background"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Link to="/about">Learn More</Link>
+                    </Button>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
