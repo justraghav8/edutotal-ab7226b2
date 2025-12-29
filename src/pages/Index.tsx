@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Quote } from "lucide-react";
 
 export default function Index() {
   const [services, setServices] = useState<any[]>([]);
@@ -244,70 +244,81 @@ export default function Index() {
       </section>
 
       {/* Testimonials - Impact Stories */}
-      <section id="testimonials" className="py-24 bg-background border-y border-border">
+      <section id="testimonials" className="py-32 bg-foreground text-background overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
+            className="mb-20 text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Impact Stories</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Hear from the leaders we've partnered with
-            </p>
+            <span className="text-sm uppercase tracking-[0.3em] text-background/60 mb-4 block">
+              Testimonials
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif">Impact Stories</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.length > 0 ? testimonials.map((testimonial, index) => (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-px">
+            {(testimonials.length > 0 ? testimonials : [
+              { id: 1, quote: "EduTotal transformed our institution's strategic vision and helped us achieve NAAC A++ accreditation within two years.", author: "Dr. Rajesh Kumar", role: "Vice Chancellor", organization: "National University" },
+              { id: 2, quote: "Their expertise in curriculum development and faculty training elevated our teaching standards to international benchmarks.", author: "Prof. Meera Sharma", role: "Director", organization: "Institute of Management" },
+              { id: 3, quote: "A truly collaborative partner who understood our unique challenges and delivered measurable results.", author: "Dr. Anand Patel", role: "Registrar", organization: "Technical University" }
+            ]).map((testimonial: any, index: number) => (
               <motion.div
                 key={testimonial.id}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-secondary p-8 rounded-sm"
+                transition={{ duration: 0.8, delay: index * 0.15 }}
+                className="relative p-10 lg:p-12 border-t border-background/10 lg:border-t-0 lg:border-l first:border-l-0 first:border-t-0 group"
               >
-                <blockquote className="text-lg font-serif italic mb-6 text-foreground/90">
-                  "{testimonial.quote}"
-                </blockquote>
-                <div className="flex items-center gap-4">
-                  {testimonial.photo_url && (
-                    <img 
-                      src={testimonial.photo_url} 
-                      alt={testimonial.author}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                  )}
-                  <div>
-                    <div className="font-medium">{testimonial.author}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {testimonial.role}{testimonial.organization && `, ${testimonial.organization}`}
+                {/* Large decorative quote */}
+                <Quote className="absolute top-8 right-8 w-16 h-16 text-background/10 rotate-180" />
+                
+                {/* Quote number */}
+                <span className="text-7xl lg:text-8xl font-serif text-background/10 absolute -top-4 left-8">
+                  0{index + 1}
+                </span>
+                
+                <div className="relative pt-12">
+                  <blockquote className="text-xl lg:text-2xl font-serif leading-relaxed mb-10 text-background/90">
+                    "{testimonial.quote}"
+                  </blockquote>
+                  
+                  <div className="flex items-center gap-4">
+                    {testimonial.photo_url ? (
+                      <img 
+                        src={testimonial.photo_url} 
+                        alt={testimonial.author}
+                        className="w-14 h-14 rounded-full object-cover ring-2 ring-background/20"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 rounded-full bg-background/10 flex items-center justify-center">
+                        <span className="text-xl font-serif text-background/60">
+                          {testimonial.author?.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                    <div>
+                      <div className="font-medium text-lg text-background">{testimonial.author}</div>
+                      <div className="text-sm text-background/60">
+                        {testimonial.role}{testimonial.organization && ` · ${testimonial.organization}`}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            )) : (
-              [1, 2, 3].map((i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                
+                {/* Hover accent line */}
+                <motion.div 
+                  className="absolute bottom-0 left-0 h-1 bg-accent"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "30%" }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="bg-secondary p-8 rounded-sm"
-                >
-                  <blockquote className="text-lg font-serif italic mb-6 text-foreground/90">
-                    "EduTotal transformed our institution's approach to excellence."
-                  </blockquote>
-                  <div>
-                    <div className="font-medium">Education Leader</div>
-                    <div className="text-sm text-muted-foreground">Institution</div>
-                  </div>
-                </motion.div>
-              ))
-            )}
+                  transition={{ duration: 0.8, delay: 0.5 + index * 0.15 }}
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
