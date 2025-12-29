@@ -262,43 +262,129 @@ export default function About() {
         </div>
       </section>
 
-      {/* Expertise Areas */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Expertise</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl text-primary">Domestic Services</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p>
-                  For schools, Colleges, Universities that want to explore new geography within the country, 
-                  we provide in-depth due diligence. Realistic risk mapping enabling bold concrete steps for 
-                  successful sustainable model.
-                </p>
-                <p>
-                  Special expertise on integrated multi-disciplinary learning with emphasis on applied 
-                  Skill/Vocational training.
-                </p>
-              </CardContent>
-            </Card>
+      {/* Expertise Areas - Full Width Image Cards */}
+      <section className="py-0">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center py-20 bg-background"
+        >
+          <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block">
+            What We Do Best
+          </span>
+          <h2 className="text-4xl md:text-5xl font-serif text-foreground">Our Expertise</h2>
+        </motion.div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl text-accent">International Services</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p>
-                  To ensure knowledge travels across, Edutotal provides services across borders. We partner 
-                  with finest schools around the world to help them expand in unknown territories with confidence.
-                </p>
-                <p>
-                  We have worked in creative sciences, technical areas, management and leadership development.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Domestic Services */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
+          >
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+              style={{ 
+                backgroundImage: `url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')` 
+              }}
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/70 to-foreground/30" />
+            
+            {/* Content */}
+            <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16 text-background">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <span className="text-sm uppercase tracking-[0.2em] text-accent mb-4 block font-medium">
+                  India Focus
+                </span>
+                <h3 className="text-3xl md:text-4xl font-serif mb-6">Domestic Services</h3>
+                <div className="space-y-4 text-background/80 max-w-lg">
+                  <p className="text-lg leading-relaxed">
+                    For schools, Colleges, Universities that want to explore new geography within the country, 
+                    we provide in-depth due diligence and realistic risk mapping.
+                  </p>
+                  <ul className="space-y-2 text-base">
+                    <li className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      Multi-disciplinary learning frameworks
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      Applied Skill & Vocational training
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      Sustainable institutional models
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* International Services */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
+          >
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+              style={{ 
+                backgroundImage: `url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')` 
+              }}
+            />
+            {/* Gradient Overlay - using accent color */}
+            <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
+            
+            {/* Content */}
+            <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16 text-white">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <span className="text-sm uppercase tracking-[0.2em] text-white/80 mb-4 block font-medium">
+                  Global Reach
+                </span>
+                <h3 className="text-3xl md:text-4xl font-serif mb-6">International Services</h3>
+                <div className="space-y-4 text-white/80 max-w-lg">
+                  <p className="text-lg leading-relaxed">
+                    We partner with finest schools around the world to help them expand 
+                    in unknown territories with confidence and strategic clarity.
+                  </p>
+                  <ul className="space-y-2 text-base">
+                    <li className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                      Cross-border educational partnerships
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                      Creative sciences & technical areas
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                      Management & leadership development
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
