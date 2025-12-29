@@ -26,8 +26,8 @@ export function HeroSection({
   const {
     scrollY
   } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const y = useTransform(scrollY, [0, 800], [0, 80]);
+  const opacity = useTransform(scrollY, [0, 600], [1, 0.3]);
   return <section className="relative min-h-[90vh] flex items-center bg-background overflow-hidden">
       <motion.div style={{
       y,
