@@ -71,12 +71,13 @@ export default function ServiceDetail() {
       {/* Header */}
       <section className="bg-gradient-hero text-white py-16">
         <div className="container mx-auto px-4">
-          <Button asChild variant="ghost" className="text-white mb-6 hover:bg-white/10">
-            <Link to="/services">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Services
-            </Link>
-          </Button>
+          <Link 
+            to="/services" 
+            className="inline-flex items-center text-white/80 hover:text-white transition-colors mb-8 text-sm"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Services
+          </Link>
           <Badge className="mb-4 bg-white/20">{service.category}</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{service.title}</h1>
           <p className="text-xl text-white/90 max-w-3xl">{service.overview}</p>
