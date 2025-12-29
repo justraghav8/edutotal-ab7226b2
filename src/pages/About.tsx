@@ -1,7 +1,9 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Target, Heart, Globe, Users, TrendingUp, Award, Gem, Flame, Shield, Globe2, Handshake, Sparkles } from "lucide-react";
+import { Target, Heart, Globe, Users, TrendingUp, Award, Gem, Flame, Shield, Globe2, Handshake, Sparkles, Quote } from "lucide-react";
 import { motion } from "framer-motion";
+import missionImage1 from "@/assets/about-mission-1.jpg";
+import missionImage2 from "@/assets/about-mission-2.jpg";
 
 const values = [
   { icon: Target, title: "Knowledge Based Guidance", description: "Expert insights driving informed decision-making" },
@@ -30,36 +32,143 @@ export default function About() {
         minimal
       />
 
-      {/* Mission & Overview */}
-      <section className="py-20 bg-background">
+      {/* Mission & Motto Combined Section */}
+      <section className="py-24 lg:py-32 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Edu Total was created to provide Quality, Innovative and Internationally benchmarked framework 
-              for end-to-end solution in Indian Education sector. We take pride in adopting projects that 
-              bring quality change and revolution in the education environment. We are the pioneers in 
-              bringing new types of education model to the society providing excellence through our actions.
-            </p>
-            <div className="bg-gradient-accent text-white rounded-2xl p-8 shadow-large">
-              <p className="text-xl font-semibold italic">
-                "We are the trustworthy partners to progression for bringing an ethical and sustainable 
-                change in the educational environment."
+          {/* Mission Block */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24 lg:mb-32">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-sm uppercase tracking-[0.3em] text-accent mb-4 block font-medium">
+                Our Mission
+              </span>
+              <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
+                Transforming Education Through{" "}
+                <span className="text-accent">Excellence</span>
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                EduTotal was created to provide Quality, Innovative and Internationally benchmarked framework 
+                for end-to-end solutions in the Indian Education sector. We take pride in adopting projects that 
+                bring quality change and revolution in the education environment.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
+              <div className="relative pl-6 border-l-4 border-accent">
+                <Quote className="absolute -left-4 -top-2 w-8 h-8 text-accent/20" />
+                <p className="text-xl font-serif italic text-foreground/80">
+                  "We are the trustworthy partners to progression for bringing an ethical and sustainable 
+                  change in the educational environment."
+                </p>
+              </div>
+            </motion.div>
 
-      {/* Our Motto */}
-      <section className="py-20 bg-gradient-hero text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Motto</h2>
-            <p className="text-xl leading-relaxed">
-              "You dream, we create; you desire, we build. You dream for small; we help you make it big; 
-              You dream for big, sky is the limit for imagination."
-            </p>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative">
+                <img 
+                  src={missionImage1} 
+                  alt="Educational transformation and growth" 
+                  className="w-full h-auto rounded-sm shadow-large"
+                />
+                {/* Decorative accent */}
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 rounded-sm -z-10" />
+                <div className="absolute -top-6 -left-6 w-24 h-24 border-2 border-accent/20 rounded-sm -z-10" />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Motto Block - Reversed Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative order-2 lg:order-1"
+            >
+              <div className="relative">
+                <img 
+                  src={missionImage2} 
+                  alt="Dreams and aspirations in education" 
+                  className="w-full h-auto rounded-sm shadow-large"
+                />
+                {/* Decorative accent */}
+                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-accent/10 rounded-sm -z-10" />
+                <div className="absolute -top-6 -right-6 w-24 h-24 border-2 border-accent/20 rounded-sm -z-10" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="order-1 lg:order-2"
+            >
+              <span className="text-sm uppercase tracking-[0.3em] text-accent mb-4 block font-medium">
+                Our Motto
+              </span>
+              <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
+                Dream Big,{" "}
+                <span className="text-accent">Achieve Bigger</span>
+              </h2>
+              <div className="space-y-6">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-1">
+                    <span className="text-accent font-serif text-xl">1</span>
+                  </div>
+                  <div>
+                    <p className="text-xl font-serif text-foreground">You dream, we create</p>
+                    <p className="text-muted-foreground">Turning your vision into reality</p>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-1">
+                    <span className="text-accent font-serif text-xl">2</span>
+                  </div>
+                  <div>
+                    <p className="text-xl font-serif text-foreground">You desire, we build</p>
+                    <p className="text-muted-foreground">Constructing the foundations of success</p>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-1">
+                    <span className="text-accent font-serif text-xl">3</span>
+                  </div>
+                  <div>
+                    <p className="text-xl font-serif text-foreground">Sky is the limit</p>
+                    <p className="text-muted-foreground">No dream too big for imagination</p>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
