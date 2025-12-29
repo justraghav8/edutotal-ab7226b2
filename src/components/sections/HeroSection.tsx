@@ -48,10 +48,10 @@ export function HeroSection({
   }
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-foreground">
-      {/* Animated gradient background */}
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-background">
+      {/* Light gradient background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground to-accent/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary" />
         
         {/* Geometric accent shapes */}
         <motion.div 
@@ -67,8 +67,8 @@ export function HeroSection({
         <div 
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`,
             backgroundSize: '60px 60px'
           }}
         />
@@ -91,7 +91,7 @@ export function HeroSection({
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-sm uppercase tracking-[0.3em] text-background/60 mb-8"
+            className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-8"
           >
             Welcome to EduTotal
           </motion.p>
@@ -100,7 +100,7 @@ export function HeroSection({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-[1.05] mb-10 text-background"
+            className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-[1.05] mb-10 text-foreground"
           >
             {title.split(' ').map((word, i) => (
               <motion.span
@@ -120,7 +120,7 @@ export function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl md:text-2xl text-background/70 max-w-2xl leading-relaxed font-light"
+              className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed font-light"
             >
               {subtitle}
             </motion.p>
@@ -136,7 +136,7 @@ export function HeroSection({
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-6 h-10 border-2 border-background/30 rounded-full flex items-start justify-center p-2"
+              className="w-6 h-10 border-2 border-foreground/20 rounded-full flex items-start justify-center p-2"
             >
               <motion.div className="w-1 h-2 bg-accent rounded-full" />
             </motion.div>
