@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { HeroSection } from "@/components/sections/HeroSection";
+import { HeroCarousel } from "@/components/sections/HeroCarousel";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -12,23 +11,26 @@ export default function Index() {
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [clients, setClients] = useState<any[]>([]);
   const [insights, setInsights] = useState<any[]>([]);
+  const [heroSlides, setHeroSlides] = useState<any[]>([]);
 
   useEffect(() => {
     loadData();
   }, []);
 
   async function loadData() {
-    const [servicesRes, testimonialsRes, clientsRes, insightsRes] = await Promise.all([
+    const [servicesRes, testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
       supabase.from("services").select("*").eq("published", true).order("order_index").limit(4),
       supabase.from("testimonials").select("*").eq("published", true).limit(3),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(8),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
+      supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
     ]);
 
     if (servicesRes.data) setServices(servicesRes.data);
     if (testimonialsRes.data) setTestimonials(testimonialsRes.data);
     if (clientsRes.data) setClients(clientsRes.data);
     if (insightsRes.data) setInsights(insightsRes.data);
+    if (heroSlidesRes.data) setHeroSlides(heroSlidesRes.data);
   }
 
   // Tab state
@@ -56,10 +58,7 @@ export default function Index() {
 
   return (
     <>
-      <HeroSection
-        title="Unlocking the Potential of Those Who Advance Education"
-        subtitle="End-to-end consulting solutions for educational institutions and corporate learning"
-      />
+      <HeroCarousel slides={heroSlides} />
 
       {/* BCG-style Tab Navigation */}
       <section className="py-8 border-b border-border bg-background sticky top-20 z-30">
@@ -190,7 +189,7 @@ export default function Index() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.length > 0 ? services.map((service, index) => (
               <motion.div
                 key={service.id}
@@ -198,18 +197,34 @@ export default function Index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-background p-8 group"
+                className="group relative overflow-hidden rounded-lg aspect-[16/9]"
               >
                 <Link to={`/services/${service.slug}`} className="block h-full">
-                  <h3 className="text-lg font-serif mb-3 group-hover:text-accent transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
-                    {service.overview}
-                  </p>
-                  <span className="text-sm font-medium inline-flex items-center group-hover:text-accent transition-colors">
-                    Learn More <ArrowRight className="ml-2 h-3 w-3" />
-                  </span>
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={`/images/services/service-${index + 1}.jpg`}
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        e.currentTarget.src = '/placeholder.svg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/50 to-transparent" />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                    <h3 className="text-xl md:text-2xl font-serif text-background mb-2 group-hover:text-accent transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-background/80 text-sm line-clamp-2 mb-4">
+                      {service.overview}
+                    </p>
+                    <span className="text-sm font-medium inline-flex items-center text-background group-hover:text-accent transition-colors">
+                      Learn More <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
                 </Link>
               </motion.div>
             )) : (
@@ -220,15 +235,18 @@ export default function Index() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-background p-8"
+                  className="group relative overflow-hidden rounded-lg aspect-[16/9]"
                 >
-                  <h3 className="text-lg font-serif mb-3">{title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Strategic consulting excellence for educational institutions.
-                  </p>
-                  <span className="text-sm font-medium inline-flex items-center">
-                    Learn More <ArrowRight className="ml-2 h-3 w-3" />
-                  </span>
+                  <div className="absolute inset-0 bg-foreground/80" />
+                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                    <h3 className="text-xl md:text-2xl font-serif text-background mb-2">{title}</h3>
+                    <p className="text-background/80 text-sm mb-4">
+                      Strategic consulting excellence for educational institutions.
+                    </p>
+                    <span className="text-sm font-medium inline-flex items-center text-background">
+                      Learn More <ArrowRight className="ml-2 h-3 w-3" />
+                    </span>
+                  </div>
                 </motion.div>
               ))
             )}
