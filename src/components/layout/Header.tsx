@@ -31,6 +31,20 @@ export function Header() {
             </span>
           </Link>
 
+          {/* Center: Navigation Links (Desktop) */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navigation.slice(1).map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+              >
+                {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ))}
+          </div>
+
           {/* Right: Search + CTA + Menu button */}
           <div className="flex items-center gap-2">
             <button
