@@ -13,7 +13,6 @@ const navigation = [
   { name: "Industries", href: "/industries" },
   { name: "Insights", href: "/insights" },
   { name: "Careers", href: "/careers" },
-  { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
@@ -32,7 +31,15 @@ export function Header() {
           </Link>
 
           {/* Center: Navigation Links (Desktop) */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
+            <button
+              type="button"
+              className="relative w-8 h-8 flex items-center justify-center hover:bg-muted/50 transition-colors rounded-full"
+              aria-label="Search"
+              onClick={() => setSearchOpen(true)}
+            >
+              <Search className="h-4 w-4" />
+            </button>
             {navigation.slice(1).map((item) => (
               <Link
                 key={item.name}
@@ -45,11 +52,11 @@ export function Header() {
             ))}
           </div>
 
-          {/* Right: Search + CTA + Menu button */}
+          {/* Right: Search (mobile) + CTA + Menu button */}
           <div className="flex items-center gap-2">
             <button
               type="button"
-              className="relative w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
+              className="lg:hidden relative w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
               aria-label="Search"
               onClick={() => setSearchOpen(true)}
             >
