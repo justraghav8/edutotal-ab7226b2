@@ -153,37 +153,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Leadership Section */}
-      <section id="leadership" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
-                Our Leadership
-              </span>
-              <h2 className="text-3xl md:text-4xl font-serif mb-6">
-                Guided by Vision, Driven by Expertise
-              </h2>
-              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                Our leadership team comprises distinguished educators, industry veterans, and strategic thinkers 
-                who bring decades of experience in higher education, corporate training, and institutional development. 
-                Their collective wisdom shapes our approach and ensures excellence in every engagement.
-              </p>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/who-we-are">
-                  Meet Our Team <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Services - Clean Grid */}
       <section id="services" className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
@@ -279,6 +248,37 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Leadership Section */}
+      <section id="leadership" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
+                Our Leadership
+              </span>
+              <h2 className="text-3xl md:text-4xl font-serif mb-6">
+                Guided by Vision, Driven by Expertise
+              </h2>
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                Our leadership team comprises distinguished educators, industry veterans, and strategic thinkers 
+                who bring decades of experience in higher education, corporate training, and institutional development. 
+                Their collective wisdom shapes our approach and ensures excellence in every engagement.
+              </p>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/who-we-are">
+                  Meet Our Team <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials - Impact Stories */}
       <section id="testimonials" className="py-32 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
@@ -358,41 +358,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-      {/* Clients */}
-      {clients.length > 0 && (
-        <section id="clients" className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-2xl font-serif text-center mb-12"
-            >
-              Trusted By Leading Organizations
-            </motion.h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-              {clients.map((client, index) => (
-                <motion.div 
-                  key={client.id}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all"
-                >
-                  {client.logo_url ? (
-                    <img src={client.logo_url} alt={client.name} className="max-h-12 object-contain" />
-                  ) : (
-                    <span className="text-lg font-medium text-muted-foreground">{client.name}</span>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* CTA Section - Minimal & Elegant */}
       <section className="py-24 bg-foreground text-background">
