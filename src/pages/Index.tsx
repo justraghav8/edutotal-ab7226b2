@@ -12,6 +12,7 @@ export default function Index() {
   const [clients, setClients] = useState<any[]>([]);
   const [insights, setInsights] = useState<any[]>([]);
   const [heroSlides, setHeroSlides] = useState<any[]>([]);
+  const [heroLoading, setHeroLoading] = useState(true);
 
   useEffect(() => {
     loadData();
@@ -31,6 +32,7 @@ export default function Index() {
     if (clientsRes.data) setClients(clientsRes.data);
     if (insightsRes.data) setInsights(insightsRes.data);
     if (heroSlidesRes.data) setHeroSlides(heroSlidesRes.data);
+    setHeroLoading(false);
   }
 
   // Tab state
@@ -58,7 +60,7 @@ export default function Index() {
 
   return (
     <>
-      <HeroCarousel slides={heroSlides} />
+      <HeroCarousel slides={heroSlides} isLoading={heroLoading} />
 
       {/* BCG-style Tab Navigation */}
       <section className="py-8 border-b border-border bg-background sticky top-20 z-30">
