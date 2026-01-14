@@ -37,8 +37,8 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState(0);
   const tabs = [
     { name: "EduTotal Spotlight", section: "spotlight" },
-    { name: "Consulting", section: "services" },
-    { name: "Education", section: "spotlight" },
+    { name: "Services", section: "services" },
+    { name: "Leadership", section: "leadership" },
     { name: "Impact Stories", section: "testimonials" },
   ];
 
@@ -84,92 +84,103 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Featured Insights - BCG Editorial Style */}
+      {/* EduTotal Spotlight - About Section with Counters */}
       <section id="spotlight" className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Latest Thinking</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl">
-              Insights and perspectives shaping the future of education
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {insights.length > 0 ? insights.map((insight, index) => (
-              <motion.article
-                key={insight.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group"
-              >
-                <Link to={`/insights/${insight.slug}`}>
-                  {insight.cover_image_url && (
-                    <div className="aspect-[4/3] overflow-hidden rounded-sm mb-4">
-                      <img
-                        src={insight.cover_image_url}
-                        alt={insight.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground mb-2 block">
-                    {insight.type}
-                  </span>
-                  <h3 className="text-xl font-serif mb-2 group-hover:text-accent transition-colors">
-                    {insight.title}
-                  </h3>
-                  <p className="text-muted-foreground line-clamp-2 text-sm">
-                    {insight.excerpt}
-                  </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: About EduTotal */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
+                About Us
+              </span>
+              <h2 className="text-3xl md:text-4xl font-serif mb-6">
+                Transforming Education, Empowering Institutions
+              </h2>
+              <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                EduTotal is a premier education consulting firm dedicated to helping institutions achieve excellence. 
+                With decades of combined experience, we provide strategic guidance, capacity building, and 
+                transformation services that drive measurable outcomes.
+              </p>
+              <p className="text-muted-foreground mb-8">
+                From regulatory compliance to digital transformation, our holistic approach ensures 
+                sustainable growth and lasting impact for educational organizations across India and beyond.
+              </p>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/about">
+                  Learn More About Us <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-              </motion.article>
-            )) : (
-              // Placeholder cards
-              [1, 2, 3].map((i) => (
-                <motion.article
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="group"
-                >
-                  <div className="aspect-[4/3] bg-muted rounded-sm mb-4" />
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground mb-2 block">
-                    Article
-                  </span>
-                  <h3 className="text-xl font-serif mb-2">
-                    Educational Excellence Framework
-                  </h3>
-                  <p className="text-muted-foreground line-clamp-2 text-sm">
-                    Strategic approaches to transforming educational outcomes.
-                  </p>
-                </motion.article>
-              ))
-            )}
-          </div>
+              </Button>
+            </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-12"
-          >
-            <Button asChild variant="outline" size="lg">
-              <Link to="/insights">
-                View All Insights <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </motion.div>
+            {/* Right: Achievement Counters */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  { value: "200+", label: "Institutions Served" },
+                  { value: "25+", label: "Years of Excellence" },
+                  { value: "50+", label: "Expert Consultants" },
+                  { value: "15+", label: "Countries Reached" },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    className="bg-secondary p-8 rounded-lg text-center"
+                  >
+                    <div className="text-4xl md:text-5xl font-serif text-foreground mb-2">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground uppercase tracking-wider">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Section */}
+      <section id="leadership" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
+                Our Leadership
+              </span>
+              <h2 className="text-3xl md:text-4xl font-serif mb-6">
+                Guided by Vision, Driven by Expertise
+              </h2>
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                Our leadership team comprises distinguished educators, industry veterans, and strategic thinkers 
+                who bring decades of experience in higher education, corporate training, and institutional development. 
+                Their collective wisdom shapes our approach and ensures excellence in every engagement.
+              </p>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/who-we-are">
+                  Meet Our Team <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </section>
 
