@@ -341,19 +341,19 @@ export default function Index() {
       </section>
 
       {/* Testimonials - Impact Stories */}
-      <section id="testimonials" className="py-32 bg-background overflow-hidden">
+      <section id="testimonials" className="py-20 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-20 text-center"
+            className="mb-12 text-center"
           >
-            <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block">
+            <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
               Testimonials
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground">Impact Stories</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-foreground">Impact Stories</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-px bg-border">
