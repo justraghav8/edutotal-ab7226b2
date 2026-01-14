@@ -359,19 +359,29 @@ export default function Index() {
         </div>
       </section>
 
-      {/* CTA Section - Minimal & Elegant */}
-      <section className="py-24 bg-foreground text-background">
+      {/* CTA Section - With Background Image */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="/images/cta-background.jpg"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-foreground/80" />
+        </div>
+        
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="container mx-auto px-4 text-center max-w-3xl"
+          className="container mx-auto px-4 text-center max-w-3xl relative z-10"
         >
-          <h2 className="text-3xl md:text-4xl font-serif mb-6">
+          <h2 className="text-3xl md:text-4xl font-serif mb-6 text-background">
             Ready to Transform Your Institution?
           </h2>
-          <p className="text-lg text-background/70 mb-10">
+          <p className="text-lg text-background/80 mb-10">
             Let's discuss how we can help you achieve your educational goals
           </p>
           <Button 
