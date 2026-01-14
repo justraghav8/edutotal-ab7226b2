@@ -68,6 +68,7 @@ export default function Careers() {
         title="Join Our Team"
         subtitle="Build your career in educational consulting and make a real impact"
         minimal
+        pageKey="careers"
       />
 
       <section className="py-20 bg-background">

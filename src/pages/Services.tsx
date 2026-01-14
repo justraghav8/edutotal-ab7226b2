@@ -40,6 +40,7 @@ export default function Services() {
         title="Our Services"
         subtitle="Comprehensive consulting solutions for educational excellence"
         minimal
+        pageKey="services"
       />
 
       {/* Category Filter */}

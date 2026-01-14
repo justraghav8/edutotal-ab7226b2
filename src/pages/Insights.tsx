@@ -47,6 +47,7 @@ export default function Insights() {
         title="Insights & Thought Leadership"
         subtitle="Latest trends, research, and best practices in education"
         minimal
+        pageKey="insights"
       />
 
       {/* Type Filter */}

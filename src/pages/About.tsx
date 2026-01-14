@@ -29,6 +29,7 @@ export default function About() {
         title="About EduTotal"
         subtitle="Your trusted partner in educational transformation"
         minimal
+        pageKey="about"
       />
 
       {/* Mission & Motto Combined Section */}

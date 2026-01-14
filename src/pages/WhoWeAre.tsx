@@ -113,6 +113,7 @@ export default function WhoWeAre() {
         title="Who We Are"
         subtitle="Meet the team driving educational transformation"
         minimal
+        pageKey="who-we-are"
       />
 
       {/* Floating Tab Navigation */}

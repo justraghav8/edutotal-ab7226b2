@@ -1,4 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface HeroSectionProps {
   title: string;
@@ -6,28 +8,82 @@ interface HeroSectionProps {
   backgroundImage?: string;
   videoUrl?: string;
   minimal?: boolean;
+  pageKey?: string; // For fetching from CMS
 }
+
+// Default abstract backgrounds for each page
+const defaultBackgrounds: Record<string, string> = {
+  services: "/images/hero/services-hero.jpg",
+  industries: "/images/hero/industries-hero.jpg",
+  insights: "/images/hero/insights-hero.jpg",
+  careers: "/images/hero/careers-hero.jpg",
+  contact: "/images/hero/contact-hero.jpg",
+  about: "/images/hero/about-hero.jpg",
+  "who-we-are": "/images/hero/who-we-are-hero.jpg",
+};
 
 export function HeroSection({
   title,
   subtitle,
+  backgroundImage,
   minimal = false,
+  pageKey,
 }: HeroSectionProps) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 800], [0, 100]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const scale = useTransform(scrollY, [0, 400], [1, 0.95]);
+  const [bgImage, setBgImage] = useState<string | null>(backgroundImage || null);
+
+  useEffect(() => {
+    if (pageKey) {
+      loadHeroBanner();
+    }
+  }, [pageKey]);
+
+  async function loadHeroBanner() {
+    const { data } = await supabase
+      .from("hero_banners")
+      .select("background_image_url")
+      .eq("page_key", pageKey)
+      .single();
+    
+    if (data?.background_image_url) {
+      setBgImage(data.background_image_url);
+    } else if (pageKey && defaultBackgrounds[pageKey]) {
+      setBgImage(defaultBackgrounds[pageKey]);
+    }
+  }
+
+  // Get fallback image
+  const displayBg = bgImage || (pageKey ? defaultBackgrounds[pageKey] : null);
 
   if (minimal) {
     return (
-      <section className="relative py-20 md:py-28 bg-secondary overflow-hidden">
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        {/* Background Image */}
+        {displayBg && (
+          <div className="absolute inset-0">
+            <img
+              src={displayBg}
+              alt=""
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            <div className="absolute inset-0 bg-foreground/70" />
+          </div>
+        )}
+        {!displayBg && <div className="absolute inset-0 bg-secondary" />}
+        
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-6"
+              className={`text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-6 ${displayBg ? 'text-background' : 'text-foreground'}`}
             >
               {title}
             </motion.h1>
@@ -36,7 +92,7 @@ export function HeroSection({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+                className={`text-lg md:text-xl max-w-2xl leading-relaxed ${displayBg ? 'text-background/80' : 'text-muted-foreground'}`}
               >
                 {subtitle}
               </motion.p>
