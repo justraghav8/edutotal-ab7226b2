@@ -63,6 +63,7 @@ export default function Industries() {
         title="Industries We Serve"
         subtitle="Specialized expertise across education sectors"
         minimal
+        pageKey="industries"
       />
 
       <section className="py-20 bg-background">

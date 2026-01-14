@@ -55,6 +55,7 @@ export default function Contact() {
         title="Get In Touch"
         subtitle="Let's discuss how we can help transform your educational institution"
         minimal
+        pageKey="contact"
       />
 
       <section className="py-20 bg-background">
