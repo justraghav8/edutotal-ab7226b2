@@ -1,10 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { HeroCarousel } from "@/components/sections/HeroCarousel";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, Quote } from "lucide-react";
+import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import { ArrowRight, Quote, GraduationCap, Users, Globe, Award } from "lucide-react";
+
+// Animated Counter Component
+function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
+  const display = useTransform(spring, (current) => Math.round(current));
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (isInView) {
+      spring.set(value);
+    }
+  }, [isInView, spring, value]);
+
+  useEffect(() => {
+    return display.on("change", (latest) => {
+      setDisplayValue(latest);
+    });
+  }, [display]);
+
+  return (
+    <span ref={ref}>
+      {displayValue}{suffix}
+    </span>
+  );
+}
 
 export default function Index() {
   const [services, setServices] = useState<any[]>([]);
@@ -86,22 +113,31 @@ export default function Index() {
         </div>
       </section>
 
-      {/* EduTotal Spotlight - About Section with Counters */}
-      <section id="spotlight" className="py-20 bg-background">
+      {/* EduTotal Spotlight - Enhanced About Section */}
+      <section id="spotlight" className="py-24 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: About EduTotal */}
             <motion.div 
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-6"
             >
-              <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
-                About Us
-              </span>
-              <h2 className="text-3xl md:text-4xl font-serif mb-6">
-                Transforming Education, Empowering Institutions
+              <motion.span 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-accent mb-6"
+              >
+                <span className="w-8 h-px bg-accent" />
+                About EduTotal
+              </motion.span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6 leading-tight">
+                Transforming Education,{" "}
+                <span className="text-accent">Empowering</span> Institutions
               </h2>
               <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
                 EduTotal is a premier education consulting firm dedicated to helping institutions achieve excellence. 
@@ -112,44 +148,67 @@ export default function Index() {
                 From regulatory compliance to digital transformation, our holistic approach ensures 
                 sustainable growth and lasting impact for educational organizations across India and beyond.
               </p>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild size="lg" className="group">
                 <Link to="/about">
-                  Learn More About Us <ArrowRight className="ml-2 h-4 w-4" />
+                  Discover Our Story 
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </motion.div>
 
-            {/* Right: Achievement Counters */}
+            {/* Right: Achievement Stats with Icons */}
             <motion.div 
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="lg:col-span-6"
             >
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {[
-                  { value: "200+", label: "Institutions Served" },
-                  { value: "25+", label: "Years of Excellence" },
-                  { value: "50+", label: "Expert Consultants" },
-                  { value: "15+", label: "Countries Reached" },
+                  { value: 200, suffix: "+", label: "Institutions Served", icon: GraduationCap, color: "bg-accent/10 text-accent" },
+                  { value: 25, suffix: "+", label: "Years of Excellence", icon: Award, color: "bg-primary/10 text-primary" },
+                  { value: 50, suffix: "+", label: "Expert Consultants", icon: Users, color: "bg-accent/10 text-accent" },
+                  { value: 15, suffix: "+", label: "Countries Reached", icon: Globe, color: "bg-primary/10 text-primary" },
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    className="bg-secondary p-8 rounded-lg text-center"
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                    className="relative bg-card border border-border p-6 md:p-8 rounded-xl group hover:shadow-lg hover:border-accent/30 transition-all duration-300"
                   >
-                    <div className="text-4xl md:text-5xl font-serif text-foreground mb-2">
-                      {stat.value}
+                    {/* Icon */}
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg ${stat.color} mb-4`}>
+                      <stat.icon className="w-6 h-6" />
                     </div>
-                    <div className="text-sm text-muted-foreground uppercase tracking-wider">
+                    
+                    {/* Value with animated counter */}
+                    <div className="text-4xl md:text-5xl font-serif text-foreground mb-2">
+                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                    </div>
+                    
+                    {/* Label */}
+                    <div className="text-sm text-muted-foreground font-medium">
                       {stat.label}
                     </div>
+                    
+                    {/* Decorative accent line */}
+                    <motion.div 
+                      className="absolute bottom-0 left-0 h-1 bg-accent rounded-b-xl"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "40%" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
+                    />
                   </motion.div>
                 ))}
               </div>
+              
+              {/* Decorative background element */}
+              <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
             </motion.div>
           </div>
         </div>
