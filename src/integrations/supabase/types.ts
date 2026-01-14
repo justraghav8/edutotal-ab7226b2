@@ -290,6 +290,7 @@ export type Database = {
           domestic_expertise: string | null
           icon_key: string | null
           id: string
+          image_url: string | null
           international_expertise: string | null
           order_index: number | null
           overview: string
@@ -306,6 +307,7 @@ export type Database = {
           domestic_expertise?: string | null
           icon_key?: string | null
           id?: string
+          image_url?: string | null
           international_expertise?: string | null
           order_index?: number | null
           overview: string
@@ -322,6 +324,7 @@ export type Database = {
           domestic_expertise?: string | null
           icon_key?: string | null
           id?: string
+          image_url?: string | null
           international_expertise?: string | null
           order_index?: number | null
           overview?: string

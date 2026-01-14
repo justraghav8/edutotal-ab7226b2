@@ -66,27 +66,47 @@ export default function ServiceDetail() {
     );
   }
 
+  // Get service index for fallback image
+  const getServiceImageIndex = () => {
+    const hash = service?.id?.charCodeAt(0) || 1;
+    return (hash % 4) + 1;
+  };
+
   return (
     <>
-      {/* Header */}
-      <section className="bg-gradient-hero text-white py-16">
-        <div className="container mx-auto px-4">
+      {/* Hero with Cover Image */}
+      <section className="relative min-h-[50vh] flex items-end">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={service.image_url || `/images/services/service-${getServiceImageIndex()}.jpg`}
+            alt={service.title}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = '/placeholder.svg';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/70 to-foreground/30" />
+        </div>
+        
+        {/* Content */}
+        <div className="container mx-auto px-4 py-16 relative z-10">
           <Link 
             to="/services" 
-            className="inline-flex items-center text-white/80 hover:text-white transition-colors mb-8 text-sm"
+            className="inline-flex items-center text-background/80 hover:text-background transition-colors mb-8 text-sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Services
           </Link>
           <div className="mt-6 mb-4">
             <Link to={`/services?category=${encodeURIComponent(service.category)}`}>
-              <Badge className="bg-white/20 hover:bg-white/30 cursor-pointer transition-colors">
+              <Badge className="bg-background/20 hover:bg-background/30 text-background cursor-pointer transition-colors">
                 {service.category}
               </Badge>
             </Link>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{service.title}</h1>
-          <p className="text-xl text-white/90 max-w-3xl">{service.overview}</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-background">{service.title}</h1>
+          <p className="text-xl text-background/90 max-w-3xl">{service.overview}</p>
         </div>
       </section>
 
