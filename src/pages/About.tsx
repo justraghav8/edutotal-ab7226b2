@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { NextPageCTA } from "@/components/sections/NextPageCTA";
+import { ImageGallery } from "@/components/sections/ImageGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, Heart, Globe, Users, TrendingUp, Award, Gem, Flame, Shield, Globe2, Handshake, Sparkles, Quote } from "lucide-react";
 import { motion } from "framer-motion";
@@ -388,6 +389,9 @@ export default function About() {
           </motion.div>
         </div>
       </section>
+
+      {/* Image Gallery */}
+      <ImageGallery />
 
       {/* Service Philosophy */}
       <section className="py-20 bg-gradient-accent text-white">

@@ -32,6 +32,7 @@ import Testimonials from "./pages/admin/Testimonials";
 import CareersAdmin from "./pages/admin/CareersAdmin";
 import Contacts from "./pages/admin/Contacts";
 import Images from "./pages/admin/Images";
+import Gallery from "./pages/admin/Gallery";
 
 const queryClient = new QueryClient();
 
@@ -79,6 +80,7 @@ const App = () => (
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="careers" element={<CareersAdmin />} />
               <Route path="contacts" element={<Contacts />} />
+              <Route path="gallery" element={<Gallery />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

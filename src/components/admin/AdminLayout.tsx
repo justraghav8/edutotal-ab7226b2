@@ -13,7 +13,8 @@ import {
   LogOut,
   Settings,
   Mail,
-  ImageIcon
+  ImageIcon,
+  Images
 } from "lucide-react";
 
 export function AdminLayout() {
@@ -38,6 +39,7 @@ export function AdminLayout() {
     { icon: MessageSquare, label: "Testimonials", path: "/admin/testimonials" },
     { icon: Briefcase, label: "Careers", path: "/admin/careers" },
     { icon: Mail, label: "Contact Forms", path: "/admin/contacts" },
+    { icon: Images, label: "Gallery", path: "/admin/gallery" },
   ];
 
   return (
