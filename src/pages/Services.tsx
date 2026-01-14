@@ -78,8 +78,19 @@ export default function Services() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredServices.map((service) => (
-                <Card key={service.id} className="hover-lift flex flex-col">
+              {filteredServices.map((service, index) => (
+                <Card key={service.id} className="hover-lift flex flex-col overflow-hidden">
+                  {/* Service Image */}
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img
+                      src={service.image_url || `/images/services/service-${(index % 4) + 1}.jpg`}
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      onError={(e) => {
+                        e.currentTarget.src = '/placeholder.svg';
+                      }}
+                    />
+                  </div>
                   <CardHeader>
                     <Badge className="w-fit mb-2">{service.category}</Badge>
                     <CardTitle className="text-xl">{service.title}</CardTitle>
