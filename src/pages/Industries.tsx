@@ -4,8 +4,38 @@ import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { 
+  ArrowRight, 
+  Loader2, 
+  GraduationCap, 
+  Building2, 
+  Landmark, 
+  Briefcase, 
+  School, 
+  BookOpen, 
+  Microscope,
+  Globe,
+  Users,
+  Award
+} from "lucide-react";
 import { motion } from "framer-motion";
+
+// Icon mapping for industries
+const industryIcons: Record<string, React.ElementType> = {
+  "graduation-cap": GraduationCap,
+  "building": Building2,
+  "landmark": Landmark,
+  "briefcase": Briefcase,
+  "school": School,
+  "book-open": BookOpen,
+  "microscope": Microscope,
+  "globe": Globe,
+  "users": Users,
+  "award": Award,
+};
+
+// Default icons for industries based on index
+const defaultIcons = [GraduationCap, Building2, Landmark, Briefcase, School, BookOpen, Microscope, Globe, Users, Award];
 
 export default function Industries() {
   const [industries, setIndustries] = useState<any[]>([]);
@@ -60,28 +90,38 @@ export default function Industries() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-              {industries.map((industry, index) => (
-                <motion.article
-                  key={industry.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-background p-8 group"
-                >
-                  <Link to={`/industries/${industry.slug}`} className="block h-full">
-                    <h3 className="text-xl font-serif mb-3 group-hover:text-accent transition-colors">
-                      {industry.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm line-clamp-3 mb-6">
-                      {industry.description}
-                    </p>
-                    <span className="text-sm font-medium inline-flex items-center group-hover:text-accent transition-colors uppercase tracking-wider">
-                      Explore <ArrowRight className="ml-2 h-3 w-3" />
-                    </span>
-                  </Link>
-                </motion.article>
-              ))}
+              {industries.map((industry, index) => {
+                const IconComponent = industry.icon_key 
+                  ? industryIcons[industry.icon_key] || defaultIcons[index % defaultIcons.length]
+                  : defaultIcons[index % defaultIcons.length];
+                
+                return (
+                  <motion.article
+                    key={industry.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-background p-8 group"
+                  >
+                    <Link to={`/industries/${industry.slug}`} className="block h-full">
+                      {/* Icon */}
+                      <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center mb-5 group-hover:bg-accent/10 transition-colors">
+                        <IconComponent className="w-7 h-7 text-foreground group-hover:text-accent transition-colors" />
+                      </div>
+                      <h3 className="text-xl font-serif mb-3 group-hover:text-accent transition-colors">
+                        {industry.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm line-clamp-3 mb-6">
+                        {industry.description}
+                      </p>
+                      <span className="text-sm font-medium inline-flex items-center group-hover:text-accent transition-colors uppercase tracking-wider">
+                        Explore <ArrowRight className="ml-2 h-3 w-3" />
+                      </span>
+                    </Link>
+                  </motion.article>
+                );
+              })}
             </div>
           )}
 
