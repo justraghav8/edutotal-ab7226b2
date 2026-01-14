@@ -116,6 +116,39 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_images: {
+        Row: {
+          caption: string | null
+          created_at: string | null
+          id: string
+          image_url: string
+          order_index: number | null
+          published: boolean | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string | null
+          id?: string
+          image_url: string
+          order_index?: number | null
+          published?: boolean | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string | null
+          id?: string
+          image_url?: string
+          order_index?: number | null
+          published?: boolean | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       hero_banners: {
         Row: {
           background_image_url: string | null
