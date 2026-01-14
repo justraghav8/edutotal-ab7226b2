@@ -15,9 +15,10 @@ interface Slide {
 
 interface HeroCarouselProps {
   slides: Slide[];
+  isLoading?: boolean;
 }
 
-export function HeroCarousel({ slides }: HeroCarouselProps) {
+export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -57,6 +58,24 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
   }, [nextSlide, slides.length]);
+
+  // Show loading skeleton while data is being fetched
+  if (isLoading) {
+    return (
+      <section className="relative min-h-[85vh] flex items-center bg-foreground">
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl animate-pulse">
+            <div className="h-4 w-32 bg-background/20 rounded mb-4" />
+            <div className="h-12 md:h-16 lg:h-20 w-3/4 bg-background/20 rounded mb-4" />
+            <div className="h-12 md:h-16 lg:h-20 w-1/2 bg-background/20 rounded mb-6" />
+            <div className="h-6 w-2/3 bg-background/10 rounded mb-8" />
+            <div className="h-12 w-36 bg-background/20 rounded" />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (slides.length === 0) {
     return (
