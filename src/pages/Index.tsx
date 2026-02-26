@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { HeroCarousel } from "@/components/sections/HeroCarousel";
+import { TestimonialsSlider } from "@/components/sections/TestimonialsSlider";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Quote, GraduationCap, Users, Globe, Award } from "lucide-react";
+import { ArrowRight, GraduationCap, Users, Globe, Award } from "lucide-react";
 
 // Animated Counter Component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -48,7 +49,7 @@ export default function Index() {
   async function loadData() {
     const [servicesRes, testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
       supabase.from("services").select("*").eq("published", true).order("order_index").limit(4),
-      supabase.from("testimonials").select("*").eq("published", true).limit(3),
+      supabase.from("testimonials").select("*").eq("published", true).limit(10),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(8),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
       supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
@@ -341,84 +342,7 @@ export default function Index() {
       </section>
 
       {/* Testimonials - Impact Stories */}
-      <section id="testimonials" className="py-20 bg-background overflow-hidden">
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12 text-center"
-          >
-            <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
-              Testimonials
-            </span>
-            <h2 className="text-3xl md:text-4xl font-serif text-foreground">Impact Stories</h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-px bg-border">
-            {(testimonials.length > 0 ? testimonials : [
-              { id: 1, quote: "EduTotal transformed our institution's strategic vision and helped us achieve NAAC A++ accreditation within two years.", author: "Dr. Rajesh Kumar", role: "Vice Chancellor", organization: "National University" },
-              { id: 2, quote: "Their expertise in curriculum development and faculty training elevated our teaching standards to international benchmarks.", author: "Prof. Meera Sharma", role: "Director", organization: "Institute of Management" },
-              { id: 3, quote: "A truly collaborative partner who understood our unique challenges and delivered measurable results.", author: "Dr. Anand Patel", role: "Registrar", organization: "Technical University" }
-            ]).map((testimonial: any, index: number) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.15 }}
-                className="relative p-10 lg:p-12 bg-background group"
-              >
-                {/* Large decorative quote */}
-                <Quote className="absolute top-8 right-8 w-16 h-16 text-muted/30 rotate-180" />
-                
-                {/* Quote number */}
-                <span className="text-7xl lg:text-8xl font-serif text-muted/20 absolute -top-4 left-8">
-                  0{index + 1}
-                </span>
-                
-                <div className="relative pt-12">
-                  <blockquote className="text-xl lg:text-2xl font-serif leading-relaxed mb-10 text-foreground/90">
-                    "{testimonial.quote}"
-                  </blockquote>
-                  
-                  <div className="flex items-center gap-4">
-                    {testimonial.photo_url ? (
-                      <img 
-                        src={testimonial.photo_url} 
-                        alt={testimonial.author}
-                        className="w-14 h-14 rounded-full object-cover ring-2 ring-border"
-                      />
-                    ) : (
-                      <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center">
-                        <span className="text-xl font-serif text-muted-foreground">
-                          {testimonial.author?.charAt(0)}
-                        </span>
-                      </div>
-                    )}
-                    <div>
-                      <div className="font-medium text-lg text-foreground">{testimonial.author}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {testimonial.role}{testimonial.organization && ` · ${testimonial.organization}`}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Hover accent line */}
-                <motion.div 
-                  className="absolute bottom-0 left-0 h-1 bg-accent"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "30%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.5 + index * 0.15 }}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialsSlider testimonials={testimonials} />
 
       {/* CTA Section - With Background Image */}
       <section className="relative py-32 overflow-hidden">
