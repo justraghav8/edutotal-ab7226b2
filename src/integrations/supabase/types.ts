@@ -541,13 +541,16 @@ export type Database = {
         | "Blog"
         | "Event"
       service_category:
-        | "Institution Development"
-        | "HR & Training"
-        | "Corporate Consulting"
-        | "Financial Services"
-        | "Digital & Technology"
-        | "Real Estate & Infrastructure"
-        | "Communication & Marketing"
+        | "Institution Development & Internationalisation"
+        | "Human Resources & Recruitment"
+        | "Corporate Consulting, M&A & Regulation"
+        | "Financial & Legal Services"
+        | "Digital Learning & Innovation"
+        | "Educational Real Estate & Campus Development"
+        | "Media, Branding & PR"
+        | "Testing & Examination Services"
+        | "Conferences & Workshops"
+        | "Country Office"
       team_category: "Leadership" | "Advisory" | "Staff" | "Team"
     }
     CompositeTypes: {
@@ -685,13 +688,16 @@ export const Constants = {
         "Event",
       ],
       service_category: [
-        "Institution Development",
-        "HR & Training",
-        "Corporate Consulting",
-        "Financial Services",
-        "Digital & Technology",
-        "Real Estate & Infrastructure",
-        "Communication & Marketing",
+        "Institution Development & Internationalisation",
+        "Human Resources & Recruitment",
+        "Corporate Consulting, M&A & Regulation",
+        "Financial & Legal Services",
+        "Digital Learning & Innovation",
+        "Educational Real Estate & Campus Development",
+        "Media, Branding & PR",
+        "Testing & Examination Services",
+        "Conferences & Workshops",
+        "Country Office",
       ],
       team_category: ["Leadership", "Advisory", "Staff", "Team"],
     },
