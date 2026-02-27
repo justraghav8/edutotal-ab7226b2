@@ -225,10 +225,19 @@ export default function Index() {
             transition={{ duration: 0.6 }}
             className="mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Our Expertise</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl">
-              Comprehensive consulting solutions tailored to your needs
-            </p>
+            <div className="flex items-end justify-between gap-6">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-serif mb-2">Our Expertise</h2>
+                <p className="text-muted-foreground text-lg max-w-2xl">
+                  Comprehensive consulting solutions tailored to your needs
+                </p>
+              </div>
+              <Button asChild variant="outline" size="lg" className="hidden md:inline-flex shrink-0">
+                <Link to="/services">
+                  View All Services <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -294,19 +303,14 @@ export default function Index() {
             )}
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-12"
-          >
+          {/* Mobile-only View All button */}
+          <div className="mt-10 md:hidden">
             <Button asChild variant="outline" size="lg">
               <Link to="/services">
                 View All Services <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 
