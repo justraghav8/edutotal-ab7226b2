@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { HeroCarousel } from "@/components/sections/HeroCarousel";
 import { TestimonialsSlider } from "@/components/sections/TestimonialsSlider";
+import { ClientLogos } from "@/components/sections/ClientLogos";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
@@ -50,7 +51,7 @@ export default function Index() {
     const [servicesRes, testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
       supabase.from("services").select("*").eq("published", true).order("order_index").limit(4),
       supabase.from("testimonials").select("*").eq("published", true).limit(10),
-      supabase.from("clients").select("*").eq("published", true).order("order_index").limit(8),
+      supabase.from("clients").select("*").eq("published", true).order("order_index").limit(20),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
       supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
     ]);
@@ -344,6 +345,9 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Client Logos */}
+      <ClientLogos clients={clients} />
 
       {/* Testimonials - Impact Stories */}
       <TestimonialsSlider testimonials={testimonials} />
