@@ -346,11 +346,11 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Client Logos */}
-      <ClientLogos clients={clients} />
-
       {/* Testimonials - Impact Stories */}
       <TestimonialsSlider testimonials={testimonials} />
+
+      {/* Client Logos */}
+      <ClientLogos clients={clients} />
 
       {/* CTA Section - With Background Image */}
       <section className="relative py-32 overflow-hidden">
