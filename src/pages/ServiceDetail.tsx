@@ -61,11 +61,11 @@ export default function ServiceDetail() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-foreground text-background py-20 md:py-28">
+      <section className="bg-primary text-primary-foreground py-20 md:py-28">
         <div className="container mx-auto px-4">
           <Link
             to="/services"
-            className="inline-flex items-center text-background/60 hover:text-background transition-colors mb-8 text-sm"
+            className="inline-flex items-center text-primary-foreground/60 hover:text-primary-foreground transition-colors mb-8 text-sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             All Services
@@ -92,7 +92,7 @@ export default function ServiceDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl text-background/80 leading-relaxed max-w-3xl"
+              className="text-xl text-primary-foreground/80 leading-relaxed max-w-3xl"
             >
               {service.overview}
             </motion.p>
@@ -144,7 +144,7 @@ export default function ServiceDetail() {
                   <ul className="space-y-4">
                     {service.benefits.map((benefit: string, index: number) => (
                       <li key={index} className="flex items-start gap-3">
-                        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-accent text-background text-xs font-bold shrink-0 mt-0.5">
+                        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-accent text-accent-foreground text-xs font-bold shrink-0 mt-0.5">
                           {index + 1}
                         </span>
                         <span className="text-base">{benefit}</span>
@@ -195,19 +195,19 @@ export default function ServiceDetail() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-foreground text-background rounded-xl p-10 text-center"
+              className="bg-primary text-primary-foreground rounded-xl p-10 text-center"
             >
               <h3 className="text-2xl font-serif mb-4">
                 Interested in this service?
               </h3>
-              <p className="mb-6 text-background/80">
+              <p className="mb-6 text-primary-foreground/80">
                 Let's discuss how we can help you achieve your goals
               </p>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-background text-background hover:bg-background hover:text-foreground"
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
               >
                 <Link to="/contact">Contact Us</Link>
               </Button>

@@ -182,10 +182,10 @@ export default function Services() {
                         alt={g.category}
                         className="w-full h-full object-cover min-h-[280px] lg:min-h-full"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-foreground/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
                       {/* Category Label Overlay */}
                       <div className="absolute bottom-6 left-6">
-                        <span className="text-7xl font-serif font-bold text-background/20">
+                        <span className="text-7xl font-serif font-bold text-white/20">
                           {g.label}
                         </span>
                       </div>
@@ -242,7 +242,7 @@ export default function Services() {
                                   alt={service.title}
                                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                                 <span className="absolute top-3 left-3 text-xs font-mono bg-background/90 text-foreground px-2 py-0.5 rounded">
                                   {String(service.order_index).padStart(2, "0")}
                                 </span>

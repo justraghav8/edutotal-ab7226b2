@@ -273,10 +273,10 @@ export default function Index() {
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
                     <span className="text-xs font-mono text-accent mb-1">{cat.label}</span>
-                    <h3 className="text-sm md:text-base font-serif text-background leading-tight group-hover:text-accent transition-colors">
+                    <h3 className="text-sm md:text-base font-serif text-white leading-tight group-hover:text-accent transition-colors">
                       {cat.shortName}
                     </h3>
                   </div>
@@ -339,7 +339,7 @@ export default function Index() {
             alt=""
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-foreground/80" />
+          <div className="absolute inset-0 bg-black/80" />
         </div>
         
         <motion.div 
@@ -349,17 +349,17 @@ export default function Index() {
           transition={{ duration: 0.8 }}
           className="container mx-auto px-4 text-center max-w-3xl relative z-10"
         >
-          <h2 className="text-3xl md:text-4xl font-serif mb-6 text-background">
+          <h2 className="text-3xl md:text-4xl font-serif mb-6 text-white">
             Ready to Transform Your Institution?
           </h2>
-          <p className="text-lg text-background/80 mb-10">
+          <p className="text-lg text-white/80 mb-10">
             Let's discuss how we can help you achieve your educational goals
           </p>
           <Button 
             asChild 
             variant="outline" 
             size="lg" 
-            className="border-background text-background hover:bg-background hover:text-foreground"
+            className="border-white text-white hover:bg-white hover:text-black"
           >
             <Link to="/contact">Get In Touch</Link>
           </Button>
