@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { SearchDialog } from "@/components/SearchDialog";
 
@@ -51,6 +52,7 @@ export function Header() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
+            <ThemeToggle />
           </div>
 
           {/* Right: Search (mobile) + CTA + Menu button */}
@@ -99,15 +101,18 @@ export function Header() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[60] bg-background pt-16"
           >
-            {/* Close button at top right */}
-            <button
-              type="button"
-              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <X className="h-6 w-6" />
-            </button>
+            {/* Top right controls */}
+            <div className="absolute top-4 right-4 flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                type="button"
+                className="w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
 
             <div className="container mx-auto px-4 py-12 h-full overflow-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">

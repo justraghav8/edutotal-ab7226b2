@@ -72,7 +72,7 @@ export function HeroSection({
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <div className="absolute inset-0 bg-foreground/70" />
+            <div className="absolute inset-0 bg-black/70" />
           </div>
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
@@ -83,7 +83,7 @@ export function HeroSection({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className={`text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-6 ${displayBg ? 'text-background' : 'text-foreground'}`}
+              className={`text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-6 ${displayBg ? 'text-white' : 'text-foreground'}`}
             >
               {title}
             </motion.h1>
@@ -92,7 +92,7 @@ export function HeroSection({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className={`text-lg md:text-xl max-w-2xl leading-relaxed ${displayBg ? 'text-background/80' : 'text-muted-foreground'}`}
+                className={`text-lg md:text-xl max-w-2xl leading-relaxed ${displayBg ? 'text-white/80' : 'text-muted-foreground'}`}
               >
                 {subtitle}
               </motion.p>
