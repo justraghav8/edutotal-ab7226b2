@@ -18,6 +18,7 @@ import InsightDetail from "./pages/InsightDetail";
 import WhoWeAre from "./pages/WhoWeAre";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
+import ClientsPage from "./pages/ClientsPage";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
@@ -54,6 +55,7 @@ const App = () => (
               <Route path="industries/:slug" element={<IndustryDetail />} />
               <Route path="insights" element={<Insights />} />
               <Route path="insights/:slug" element={<InsightDetail />} />
+              <Route path="clients" element={<ClientsPage />} />
               <Route path="careers" element={<Careers />} />
               <Route path="contact" element={<Contact />} />
             </Route>

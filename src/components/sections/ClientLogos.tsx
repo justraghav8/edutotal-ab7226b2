@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 interface Client {
   id: string;
@@ -66,6 +69,16 @@ export function ClientLogos({ clients }: ClientLogosProps) {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* View All button */}
+      <div className="container mx-auto px-4 mt-12 text-center">
+        <Button asChild variant="outline" size="lg" className="group">
+          <Link to="/clients">
+            View All Clients
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </Button>
       </div>
     </section>
   );

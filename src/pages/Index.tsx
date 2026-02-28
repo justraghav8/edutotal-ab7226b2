@@ -160,7 +160,7 @@ export default function Index() {
                 From regulatory compliance to digital transformation, our holistic approach ensures 
                 sustainable growth and lasting impact for educational organizations across India and beyond.
               </p>
-              <Button asChild size="lg" className="group">
+              <Button asChild variant="outline" size="lg" className="group">
                 <Link to="/about">
                   Discover Our Story 
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -225,6 +225,9 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Client Logos - after spotlight */}
+      <ClientLogos clients={clients} />
 
       {/* Services - Category Grid */}
       <section id="services" className="py-20 bg-secondary">
@@ -314,9 +317,9 @@ export default function Index() {
                 who bring decades of experience in higher education, corporate training, and institutional development. 
                 Their collective wisdom shapes our approach and ensures excellence in every engagement.
               </p>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg" className="group">
                 <Link to="/who-we-are">
-                  Meet Our Team <ArrowRight className="ml-2 h-4 w-4" />
+                  Meet Our Team <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </motion.div>
@@ -326,9 +329,6 @@ export default function Index() {
 
       {/* Testimonials - Impact Stories */}
       <TestimonialsSlider testimonials={testimonials} />
-
-      {/* Client Logos */}
-      <ClientLogos clients={clients} />
 
       {/* CTA Section - With Background Image */}
       <section className="relative py-32 overflow-hidden">
