@@ -44,13 +44,13 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
   return (
     <section
       id="testimonials"
-      className="relative py-24 md:py-32 bg-neutral-900 overflow-hidden"
+      className="relative py-24 md:py-32 bg-secondary dark:bg-neutral-900 overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Decorative large quotation mark */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 select-none pointer-events-none">
-        <span className="text-[12rem] md:text-[18rem] font-serif leading-none text-white/[0.04]">
+        <span className="text-[12rem] md:text-[18rem] font-serif leading-none text-foreground/[0.04] dark:text-white/[0.04]">
           "
         </span>
       </div>
@@ -69,7 +69,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
             Testimonials
             <span className="w-8 h-px bg-accent" />
           </span>
-          <h2 className="text-3xl md:text-4xl font-serif text-white">Impact Stories</h2>
+          <h2 className="text-3xl md:text-4xl font-serif text-foreground dark:text-white">Impact Stories</h2>
         </motion.div>
 
         {/* Slider Content */}
@@ -83,7 +83,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               transition={{ duration: 0.5 }}
               className="text-center w-full"
             >
-              <blockquote className="text-xl md:text-2xl lg:text-3xl font-serif text-white/90 leading-relaxed mb-10">
+              <blockquote className="text-xl md:text-2xl lg:text-3xl font-serif text-foreground/90 dark:text-white/90 leading-relaxed mb-10">
                 "{current.quote}"
               </blockquote>
 
@@ -96,15 +96,15 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
                     className="w-14 h-14 rounded-full object-cover ring-2 ring-white/20"
                   />
                 ) : (
-                  <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
-                    <span className="text-xl font-serif text-white/70">
+                  <div className="w-14 h-14 rounded-full bg-foreground/10 dark:bg-white/10 flex items-center justify-center">
+                    <span className="text-xl font-serif text-foreground/70 dark:text-white/70">
                       {current.author?.charAt(0)}
                     </span>
                   </div>
                 )}
                 <div className="text-left">
-                  <div className="font-medium text-lg text-white">{current.author}</div>
-                  <div className="text-sm text-white/50">
+                  <div className="font-medium text-lg text-foreground dark:text-white">{current.author}</div>
+                  <div className="text-sm text-muted-foreground dark:text-white/50">
                     {current.role}
                     {current.organization && ` · ${current.organization}`}
                   </div>
@@ -119,7 +119,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
           <div className="flex items-center justify-center gap-6 mt-12">
             <button
               onClick={prev}
-              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"
+              className="w-12 h-12 rounded-full border border-foreground/20 dark:border-white/20 flex items-center justify-center text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white hover:border-foreground/40 dark:hover:border-white/40 transition-colors"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -134,7 +134,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     index === currentIndex
                       ? "w-8 bg-accent"
-                      : "w-3 bg-white/25 hover:bg-white/40"
+                      : "w-3 bg-foreground/20 hover:bg-foreground/40 dark:bg-white/25 dark:hover:bg-white/40"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -143,7 +143,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
 
             <button
               onClick={next}
-              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"
+              className="w-12 h-12 rounded-full border border-foreground/20 dark:border-white/20 flex items-center justify-center text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white hover:border-foreground/40 dark:hover:border-white/40 transition-colors"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
