@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { motion } from "framer-motion";
 
 interface Client {
@@ -32,7 +33,8 @@ export default function ClientsPage() {
       <HeroSection
         title="Our Clients"
         subtitle="Institutions and organizations that trust EduTotal to drive transformation and excellence"
-        backgroundImage="/images/hero/who-we-are-hero.jpg"
+        minimal
+        pageKey="who-we-are"
       />
 
       <section className="py-20 bg-background">
@@ -91,6 +93,14 @@ export default function ClientsPage() {
           )}
         </div>
       </section>
+
+      <NextPageCTA
+        headline="Explore Our Services"
+        description="Discover how we help institutions achieve excellence across 10 domains"
+        linkText="View Services"
+        linkHref="/services"
+        variant="inverted"
+      />
     </>
   );
 }
