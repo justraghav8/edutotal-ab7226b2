@@ -57,6 +57,12 @@ export default function Services() {
     loadServices();
   }, []);
 
+  useEffect(() => {
+    if (!loading && activeCategory) {
+      setTimeout(() => scrollToCategory(activeCategory), 300);
+    }
+  }, [loading, activeCategory]);
+
   async function loadServices() {
     setLoading(true);
     const { data } = await supabase
