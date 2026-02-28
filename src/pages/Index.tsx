@@ -35,8 +35,20 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
   );
 }
 
+const serviceCategories = [
+  { name: "Institution Development & Internationalisation", shortName: "Institution Development", label: "A", image: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=600&q=80" },
+  { name: "Human Resources & Recruitment", shortName: "HR & Recruitment", label: "B", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80" },
+  { name: "Corporate Consulting, M&A & Regulation", shortName: "Corporate & M&A", label: "C", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" },
+  { name: "Financial & Legal Services", shortName: "Financial & Legal", label: "D", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" },
+  { name: "Digital Learning & Innovation", shortName: "Digital Learning", label: "E", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" },
+  { name: "Testing & Examination Services", shortName: "Testing & Exams", label: "F", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80" },
+  { name: "Educational Real Estate & Campus Development", shortName: "Campus Development", label: "G", image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80" },
+  { name: "Conferences & Workshops", shortName: "Conferences", label: "H", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" },
+  { name: "Media, Branding & PR", shortName: "Media & Branding", label: "I", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" },
+  { name: "Country Office", shortName: "Country Office", label: "J", image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&q=80" },
+];
+
 export default function Index() {
-  const [services, setServices] = useState<any[]>([]);
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [clients, setClients] = useState<any[]>([]);
   const [insights, setInsights] = useState<any[]>([]);
@@ -48,15 +60,13 @@ export default function Index() {
   }, []);
 
   async function loadData() {
-    const [servicesRes, testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
-      supabase.from("services").select("*").eq("published", true).order("order_index").limit(4),
+    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
       supabase.from("testimonials").select("*").eq("published", true).limit(10),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(20),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
       supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
     ]);
 
-    if (servicesRes.data) setServices(servicesRes.data);
     if (testimonialsRes.data) setTestimonials(testimonialsRes.data);
     if (clientsRes.data) setClients(clientsRes.data);
     if (insightsRes.data) setInsights(insightsRes.data);
@@ -216,7 +226,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Services - Clean Grid */}
+      {/* Services - Category Grid */}
       <section id="services" className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -230,7 +240,7 @@ export default function Index() {
               <div>
                 <h2 className="text-3xl md:text-4xl font-serif mb-2">Our Expertise</h2>
                 <p className="text-muted-foreground text-lg max-w-2xl">
-                  Comprehensive consulting solutions tailored to your needs
+                  An integrated portfolio across 10 domains of educational excellence
                 </p>
               </div>
               <Button asChild variant="outline" size="lg" className="hidden md:inline-flex shrink-0">
@@ -241,67 +251,35 @@ export default function Index() {
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {services.length > 0 ? services.map((service, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {serviceCategories.map((cat, index) => (
               <motion.div
-                key={service.id}
+                key={cat.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-lg aspect-[16/9]"
+                transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <Link to={`/services/${service.slug}`} className="block h-full">
-                  {/* Background Image */}
-                  <div className="absolute inset-0">
-                    <img
-                      src={`/images/services/service-${index + 1}.jpg`}
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      onError={(e) => {
-                        e.currentTarget.src = '/placeholder.svg';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/50 to-transparent" />
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
-                    <h3 className="text-xl md:text-2xl font-serif text-background mb-2 group-hover:text-accent transition-colors">
-                      {service.title}
+                <Link
+                  to={`/services?category=${encodeURIComponent(cat.name)}`}
+                  className="group block relative overflow-hidden rounded-xl aspect-[3/4] hover:shadow-xl transition-shadow duration-300"
+                >
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-transparent" />
+                  <div className="absolute inset-0 p-4 flex flex-col justify-end">
+                    <span className="text-xs font-mono text-accent mb-1">{cat.label}</span>
+                    <h3 className="text-sm md:text-base font-serif text-background leading-tight group-hover:text-accent transition-colors">
+                      {cat.shortName}
                     </h3>
-                    <p className="text-background/80 text-sm line-clamp-2 mb-4">
-                      {service.overview}
-                    </p>
-                    <span className="text-sm font-medium inline-flex items-center text-background group-hover:text-accent transition-colors">
-                      Learn More <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                    </span>
                   </div>
                 </Link>
               </motion.div>
-            )) : (
-              ["Institution Building", "Corporate Solutions", "Digital Transformation", "Regulatory Excellence"].map((title, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-lg aspect-[16/9]"
-                >
-                  <div className="absolute inset-0 bg-foreground/80" />
-                  <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
-                    <h3 className="text-xl md:text-2xl font-serif text-background mb-2">{title}</h3>
-                    <p className="text-background/80 text-sm mb-4">
-                      Strategic consulting excellence for educational institutions.
-                    </p>
-                    <span className="text-sm font-medium inline-flex items-center text-background">
-                      Learn More <ArrowRight className="ml-2 h-3 w-3" />
-                    </span>
-                  </div>
-                </motion.div>
-              ))
-            )}
+            ))}
           </div>
 
           {/* Mobile-only View All button */}
