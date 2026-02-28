@@ -33,7 +33,32 @@ const categoryLabels: Record<string, string> = {
   "Country Office": "J",
 };
 
-// Ordered categories matching the document structure
+const categoryImages: Record<string, string> = {
+  "Institution Development & Internationalisation": "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=800&q=80",
+  "Human Resources & Recruitment": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80",
+  "Corporate Consulting, M&A & Regulation": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+  "Financial & Legal Services": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+  "Digital Learning & Innovation": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
+  "Testing & Examination Services": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
+  "Educational Real Estate & Campus Development": "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80",
+  "Conferences & Workshops": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+  "Media, Branding & PR": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
+  "Country Office": "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800&q=80",
+};
+
+const categoryDescriptions: Record<string, string> = {
+  "Institution Development & Internationalisation": "Strategic guidance for institutions seeking global partnerships, accreditation, and academic excellence.",
+  "Human Resources & Recruitment": "End-to-end talent solutions for educational institutions — from leadership search to faculty recruitment.",
+  "Corporate Consulting, M&A & Regulation": "Expert advisory on mergers, acquisitions, regulatory compliance, and corporate structuring in education.",
+  "Financial & Legal Services": "Comprehensive financial planning, legal counsel, and compliance services for educational entities.",
+  "Digital Learning & Innovation": "Transforming education through technology — LMS, EdTech, and digital curriculum design.",
+  "Testing & Examination Services": "Designing and managing assessments, entrance examinations, and evaluation frameworks.",
+  "Educational Real Estate & Campus Development": "From site selection to campus master-planning, creating world-class learning environments.",
+  "Conferences & Workshops": "Curating impactful events, summits, and professional development workshops for educators.",
+  "Media, Branding & PR": "Building powerful institutional brands through strategic communications and media outreach.",
+  "Country Office": "Establishing and managing international representative offices for global education outreach.",
+};
+
 const categoryOrder = [
   "Institution Development & Internationalisation",
   "Human Resources & Recruitment",
@@ -74,12 +99,13 @@ export default function Services() {
     setLoading(false);
   }
 
-  // Group services by category
   const grouped = categoryOrder
     .map((cat) => ({
       category: cat,
       label: categoryLabels[cat],
       Icon: categoryIcons[cat] || Briefcase,
+      image: categoryImages[cat],
+      description: categoryDescriptions[cat],
       services: services.filter((s) => s.category === cat),
     }))
     .filter((g) => g.services.length > 0);
@@ -103,18 +129,18 @@ export default function Services() {
       />
 
       {/* Category Navigation */}
-      <section className="py-6 border-b border-border bg-background sticky top-20 z-30">
+      <section className="py-4 border-b border-border bg-background/95 backdrop-blur-sm sticky top-20 z-30">
         <div className="container mx-auto px-4">
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {grouped.map((g) => {
               const Icon = g.Icon;
               return (
                 <button
                   key={g.category}
                   onClick={() => scrollToCategory(g.category)}
-                  className="flex items-center gap-2 text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-border hover:border-accent hover:text-accent transition-colors whitespace-nowrap shrink-0"
+                  className="flex items-center gap-2 text-[11px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-border hover:border-accent hover:text-accent hover:bg-accent/5 transition-all whitespace-nowrap shrink-0"
                 >
-                  <Icon className="h-3.5 w-3.5" />
+                  <Icon className="h-3 w-3" />
                   {g.category}
                 </button>
               );
@@ -123,82 +149,137 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Services by Category */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-          ) : (
-            <div className="space-y-24">
-              {grouped.map((g, groupIdx) => {
-                const Icon = g.Icon;
-                return (
-                  <div
-                    key={g.category}
-                    id={`cat-${g.category.replace(/[^a-zA-Z]/g, "")}`}
-                  >
-                    {/* Category Header */}
+      {/* Services by Category - Visual Layout */}
+      <section className="bg-background">
+        {loading ? (
+          <div className="flex justify-center items-center py-32">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <>
+            {grouped.map((g, groupIdx) => {
+              const Icon = g.Icon;
+              const isReversed = groupIdx % 2 !== 0;
+
+              return (
+                <div
+                  key={g.category}
+                  id={`cat-${g.category.replace(/[^a-zA-Z]/g, "")}`}
+                  className={groupIdx % 2 === 0 ? "bg-background" : "bg-muted/30"}
+                >
+                  {/* Category Hero Banner */}
+                  <div className={`grid grid-cols-1 lg:grid-cols-2 min-h-[420px] ${isReversed ? "lg:direction-rtl" : ""}`}>
+                    {/* Image Side */}
                     <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5 }}
-                      className="flex items-center gap-4 mb-10"
+                      initial={{ opacity: 0, x: isReversed ? 40 : -40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.7 }}
+                      className={`relative overflow-hidden ${isReversed ? "lg:order-2" : "lg:order-1"}`}
                     >
-                      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 text-accent shrink-0">
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <span className="text-xs uppercase tracking-[0.2em] text-accent font-medium">
-                          {g.label}.
+                      <img
+                        src={g.image}
+                        alt={g.category}
+                        className="w-full h-full object-cover min-h-[280px] lg:min-h-full"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-foreground/30 to-transparent" />
+                      {/* Category Label Overlay */}
+                      <div className="absolute bottom-6 left-6">
+                        <span className="text-7xl font-serif font-bold text-background/20">
+                          {g.label}
                         </span>
-                        <h2 className="text-2xl md:text-3xl font-serif">
-                          {g.category}
-                        </h2>
                       </div>
                     </motion.div>
 
-                    {/* Services Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {/* Content Side */}
+                    <motion.div
+                      initial={{ opacity: 0, x: isReversed ? -40 : 40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.7, delay: 0.15 }}
+                      className={`flex flex-col justify-center p-8 lg:p-16 ${isReversed ? "lg:order-1" : "lg:order-2"}`}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-accent/10 text-accent">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <span className="text-xs uppercase tracking-[0.25em] text-accent font-semibold">
+                          {g.label}. Category
+                        </span>
+                      </div>
+                      <h2 className="text-2xl lg:text-3xl font-serif mb-4 text-foreground">
+                        {g.category}
+                      </h2>
+                      <p className="text-muted-foreground leading-relaxed mb-6 max-w-lg">
+                        {g.description}
+                      </p>
+                      <div className="text-sm text-muted-foreground">
+                        <span className="font-semibold text-foreground">{g.services.length}</span> specialized services
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Services Cards */}
+                  <div className="container mx-auto px-4 py-12 lg:py-16">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                       {g.services.map((service, idx) => (
                         <motion.div
                           key={service.id}
-                          initial={{ opacity: 0, y: 20 }}
+                          initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.4, delay: idx * 0.05 }}
+                          viewport={{ once: true, margin: "-50px" }}
+                          transition={{ duration: 0.5, delay: idx * 0.08 }}
                         >
                           <Link
                             to={`/services/${service.slug}`}
-                            className="group block h-full border border-border rounded-xl p-6 hover:border-accent/40 hover:shadow-lg transition-all duration-300 bg-card"
+                            className="group block h-full relative overflow-hidden rounded-xl bg-card border border-border hover:border-accent/30 transition-all duration-500 hover:shadow-lg"
                           >
-                            <div className="flex items-start justify-between mb-4">
-                              <span className="text-xs font-mono text-muted-foreground">
-                                {String(service.order_index).padStart(2, "0")}
+                            {/* Card Image */}
+                            {service.image_url && (
+                              <div className="relative h-44 overflow-hidden">
+                                <img
+                                  src={service.image_url}
+                                  alt={service.title}
+                                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
+                                <span className="absolute top-3 left-3 text-xs font-mono bg-background/90 text-foreground px-2 py-0.5 rounded">
+                                  {String(service.order_index).padStart(2, "0")}
+                                </span>
+                              </div>
+                            )}
+                            {!service.image_url && (
+                              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-accent/10 via-muted to-accent/5 flex items-center justify-center">
+                                <Icon className="h-16 w-16 text-accent/20" />
+                                <span className="absolute top-3 left-3 text-xs font-mono text-muted-foreground">
+                                  {String(service.order_index).padStart(2, "0")}
+                                </span>
+                              </div>
+                            )}
+
+                            {/* Card Content */}
+                            <div className="p-5">
+                              <h3 className="text-base font-serif mb-2 group-hover:text-accent transition-colors leading-snug">
+                                {service.title}
+                              </h3>
+                              <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
+                                {service.overview}
+                              </p>
+                              <span className="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-accent translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                Explore
+                                <ArrowRight className="ml-1.5 h-3 w-3 transition-transform group-hover:translate-x-1" />
                               </span>
                             </div>
-                            <h3 className="text-lg font-serif mb-3 group-hover:text-accent transition-colors">
-                              {service.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
-                              {service.overview}
-                            </p>
-                            <span className="text-sm font-medium inline-flex items-center text-accent opacity-0 group-hover:opacity-100 transition-opacity">
-                              Learn More{" "}
-                              <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                            </span>
                           </Link>
                         </motion.div>
                       ))}
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+                </div>
+              );
+            })}
+          </>
+        )}
       </section>
 
       {/* CTA Section */}
