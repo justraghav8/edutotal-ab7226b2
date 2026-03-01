@@ -50,18 +50,18 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
     >
       {/* Animated glow background elements */}
       <motion.div
-        className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-accent/[0.07] dark:bg-accent/[0.12] blur-[120px] pointer-events-none"
+        className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-accent/20 dark:bg-accent/[0.12] blur-[120px] pointer-events-none"
         animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.15, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] rounded-full bg-primary/[0.06] dark:bg-primary/[0.10] blur-[100px] pointer-events-none"
+        className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] rounded-full bg-primary/15 dark:bg-primary/[0.10] blur-[100px] pointer-events-none"
         animate={{ x: [0, -30, 0], y: [0, 40, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       />
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-accent/[0.04] dark:bg-accent/[0.08] blur-[80px] pointer-events-none"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-accent/15 dark:bg-accent/[0.08] blur-[80px] pointer-events-none"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
 
