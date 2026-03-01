@@ -23,7 +23,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b border-border/50">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md backdrop-saturate-150 border-b border-border/50 supports-[backdrop-filter]:bg-background/60">
         <nav className="container mx-auto flex h-16 items-center justify-between px-4">
           {/* Left: Logo */}
           <Link to="/" className="flex items-center">

@@ -102,7 +102,7 @@ export default function Index() {
       <HeroCarousel slides={heroSlides} isLoading={heroLoading} />
 
       {/* BCG-style Tab Navigation */}
-      <section className="py-8 border-b border-border bg-background sticky top-20 z-30">
+      <section className="py-8 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-16 z-30">
         <div className="container mx-auto px-4">
           <div className="flex gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
