@@ -32,8 +32,8 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Right-aligned: Navigation Links (Desktop) */}
-          <div className="hidden lg:flex items-center gap-6 ml-auto">
+          {/* Center: Navigation Links (Desktop) */}
+          <div className="hidden lg:flex items-center gap-6">
             <button
               type="button"
               className="relative w-8 h-8 flex items-center justify-center hover:bg-muted/50 transition-colors rounded-full"
