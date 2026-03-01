@@ -226,9 +226,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Client Logos - after spotlight */}
-      <ClientLogos clients={clients} />
-
       {/* Services - Category Grid */}
       <section id="services" className="py-28 bg-background">
         <div className="container mx-auto px-4">
@@ -329,6 +326,9 @@ export default function Index() {
 
       {/* Testimonials - Impact Stories */}
       <TestimonialsSlider testimonials={testimonials} />
+
+      {/* Client Logos - after impact stories */}
+      <ClientLogos clients={clients} />
 
       {/* CTA Section - With Background Image */}
       <section className="relative py-36 overflow-hidden">
