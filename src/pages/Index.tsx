@@ -126,7 +126,7 @@ export default function Index() {
       </section>
 
       {/* EduTotal Spotlight - Enhanced About Section */}
-      <section id="spotlight" className="py-24 bg-background overflow-hidden">
+      <section id="spotlight" className="py-28 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: About EduTotal */}
@@ -230,7 +230,7 @@ export default function Index() {
       <ClientLogos clients={clients} />
 
       {/* Services - Category Grid */}
-      <section id="services" className="py-20 bg-secondary">
+      <section id="services" className="py-28 bg-background">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -297,7 +297,7 @@ export default function Index() {
       </section>
 
       {/* Leadership Section */}
-      <section id="leadership" className="py-20 bg-muted/30">
+      <section id="leadership" className="py-28 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div 
@@ -331,7 +331,7 @@ export default function Index() {
       <TestimonialsSlider testimonials={testimonials} />
 
       {/* CTA Section - With Background Image */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-36 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img

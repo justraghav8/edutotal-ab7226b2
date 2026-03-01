@@ -44,7 +44,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
   return (
     <section
       id="testimonials"
-      className="relative py-24 md:py-32 bg-secondary dark:bg-neutral-900 overflow-hidden"
+      className="relative py-28 md:py-36 bg-background overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
