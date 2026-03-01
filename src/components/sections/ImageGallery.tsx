@@ -116,11 +116,12 @@ export function ImageGallery() {
         </div>
 
         {/* Scrollable Gallery - Bigger images */}
-        <div
-          ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none", paddingLeft: "max(2rem, calc((100vw - 1280px) / 2 + 1rem))", paddingRight: "1rem" }}
-        >
+        <div className="container mx-auto px-4">
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
           {images.map((image, index) => (
             <motion.div
               key={image.id}
@@ -152,6 +153,7 @@ export function ImageGallery() {
               )}
             </motion.div>
           ))}
+          </div>
         </div>
 
         {/* Mobile scroll indicator */}
