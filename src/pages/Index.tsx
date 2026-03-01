@@ -5,7 +5,7 @@ import { ClientLogos } from "@/components/sections/ClientLogos";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
-import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useSpring, useTransform, useScroll } from "framer-motion";
 import { ArrowRight, GraduationCap, Users, Globe, Award } from "lucide-react";
 
 // Animated Counter Component
@@ -47,6 +47,53 @@ const serviceCategories = [
   { name: "Media, Branding & PR", shortName: "Media & Branding", label: "I", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" },
   { name: "Country Office", shortName: "Country Office", label: "J", image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&q=80" },
 ];
+
+function ParallaxCTA() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+
+  return (
+    <section ref={ref} className="relative py-36 overflow-hidden">
+      {/* Parallax Background Image */}
+      <motion.div className="absolute inset-[-20%] z-0" style={{ y }}>
+        <img
+          src="/images/cta-background.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/80" />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="container mx-auto px-4 text-center max-w-3xl relative z-10"
+      >
+        <h2 className="text-3xl md:text-4xl font-serif mb-6 text-white">
+          Ready to Transform Your Institution?
+        </h2>
+        <p className="text-lg text-white/80 mb-10">
+          Let's discuss how we can help you achieve your educational goals
+        </p>
+        <Button
+          asChild
+          variant="outline"
+          size="lg"
+          className="border-white text-white hover:bg-white hover:text-black"
+        >
+          <Link to="/contact">Get In Touch</Link>
+        </Button>
+      </motion.div>
+    </section>
+  );
+}
+
 
 export default function Index() {
   const [testimonials, setTestimonials] = useState<any[]>([]);
@@ -330,41 +377,8 @@ export default function Index() {
       {/* Client Logos - after impact stories */}
       <ClientLogos clients={clients} />
 
-      {/* CTA Section - With Background Image */}
-      <section className="relative py-36 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            src="/images/cta-background.jpg"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/80" />
-        </div>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="container mx-auto px-4 text-center max-w-3xl relative z-10"
-        >
-          <h2 className="text-3xl md:text-4xl font-serif mb-6 text-white">
-            Ready to Transform Your Institution?
-          </h2>
-          <p className="text-lg text-white/80 mb-10">
-            Let's discuss how we can help you achieve your educational goals
-          </p>
-          <Button 
-            asChild 
-            variant="outline" 
-            size="lg" 
-            className="border-white text-white hover:bg-white hover:text-black"
-          >
-            <Link to="/contact">Get In Touch</Link>
-          </Button>
-        </motion.div>
-      </section>
+      {/* CTA Section - With Parallax Background Image */}
+      <ParallaxCTA />
     </>
   );
 }
