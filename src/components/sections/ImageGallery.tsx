@@ -118,7 +118,7 @@ export function ImageGallery() {
         {/* Scrollable Gallery - Bigger images */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide px-4 md:px-[calc((100vw-1280px)/2+1rem)] pb-4 snap-x snap-mandatory"
+          className="flex gap-6 overflow-x-auto scrollbar-hide pl-8 pr-4 md:pl-[calc((100vw-1280px)/2+1rem)] md:pr-[calc((100vw-1280px)/2+1rem)] pb-4 snap-x snap-mandatory"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {images.map((image, index) => (
