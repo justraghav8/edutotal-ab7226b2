@@ -38,6 +38,11 @@ export function Footer() {
                   Insights
                 </Link>
               </li>
+              <li>
+                <Link to="/about#gallery" className="text-muted-foreground hover:text-primary transition-colors">
+                  Gallery
+                </Link>
+              </li>
             </ul>
           </div>
 

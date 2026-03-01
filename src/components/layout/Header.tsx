@@ -15,6 +15,7 @@ const navigation = [
   { name: "Insights", href: "/insights" },
   { name: "Clients", href: "/clients" },
   { name: "Careers", href: "/careers" },
+  { name: "Gallery", href: "/about#gallery" },
 ];
 
 export function Header() {
