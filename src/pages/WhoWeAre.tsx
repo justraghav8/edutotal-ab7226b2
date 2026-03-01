@@ -3,7 +3,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { Loader2, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface TeamMember {
@@ -18,18 +18,12 @@ interface TeamMember {
   order_index: number;
 }
 
-interface Client {
-  id: string;
-  name: string;
-  logo_url: string | null;
-  website: string | null;
-}
 
 export default function WhoWeAre() {
   const [leadership, setLeadership] = useState<TeamMember[]>([]);
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [advisory, setAdvisory] = useState<TeamMember[]>([]);
-  const [partners, setPartners] = useState<Client[]>([]);
+  
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -37,7 +31,6 @@ export default function WhoWeAre() {
     { name: "Leadership", section: "leadership" },
     { name: "Team", section: "team" },
     { name: "Advisory Panel", section: "advisory" },
-    { name: "Partners", section: "partners" },
   ];
 
   useEffect(() => {
@@ -46,7 +39,7 @@ export default function WhoWeAre() {
 
   async function loadData() {
     setLoading(true);
-    const [leadershipRes, teamRes, advisoryRes, partnersRes] = await Promise.all([
+    const [leadershipRes, teamRes, advisoryRes] = await Promise.all([
       supabase
         .from("team_members")
         .select("*")
@@ -65,17 +58,12 @@ export default function WhoWeAre() {
         .eq("published", true)
         .eq("category", "Advisory")
         .order("order_index"),
-      supabase
-        .from("clients")
-        .select("*")
-        .eq("published", true)
-        .order("order_index"),
     ]);
 
     if (leadershipRes.data) setLeadership(leadershipRes.data);
     if (teamRes.data) setTeam(teamRes.data);
     if (advisoryRes.data) setAdvisory(advisoryRes.data);
-    if (partnersRes.data) setPartners(partnersRes.data);
+    
     setLoading(false);
   }
 
@@ -416,73 +404,6 @@ export default function WhoWeAre() {
             </div>
           </section>
 
-          {/* Partners Section - Logo grid with hover effects */}
-          <section id="partners" className="py-20 bg-secondary">
-            <div className="container mx-auto px-4">
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="mb-16 text-center"
-              >
-                <h2 className="text-3xl md:text-4xl font-serif mb-4">Our Partners</h2>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  Trusted by leading institutions and organizations worldwide
-                </p>
-              </motion.div>
-
-              {partners.length === 0 ? (
-                <p className="text-center text-muted-foreground">No partners found.</p>
-              ) : (
-                <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                  {partners.map((partner) => (
-                    <motion.div key={partner.id} variants={itemVariants}>
-                      <Card className="group relative overflow-hidden hover:shadow-lg transition-all duration-300 aspect-[3/2] bg-background">
-                        <CardContent className="p-6 h-full flex items-center justify-center">
-                          {partner.logo_url ? (
-                            <img
-                              src={partner.logo_url}
-                              alt={partner.name}
-                              className="max-h-16 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                            />
-                          ) : (
-                            <span className="text-center font-semibold text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                              {partner.name}
-                            </span>
-                          )}
-                        </CardContent>
-                        
-                        {/* Hover overlay with name and link */}
-                        <div className="absolute inset-0 bg-primary/95 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-                          <span className="text-primary-foreground font-semibold text-center text-sm mb-2">
-                            {partner.name}
-                          </span>
-                          {partner.website && (
-                            <a
-                              href={partner.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1 text-xs text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-                            >
-                              <ExternalLink className="h-3 w-3" />
-                              Visit Website
-                            </a>
-                          )}
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </div>
-          </section>
         </>
       )}
 
