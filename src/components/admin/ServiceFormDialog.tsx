@@ -235,7 +235,19 @@ export function ServiceFormDialog({
 
             <FormField
               control={form.control}
-              name="domestic_expertise"
+              name="image_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image URL (Optional)</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Paste image URL from Image Library" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Domestic Expertise (Optional)</FormLabel>
