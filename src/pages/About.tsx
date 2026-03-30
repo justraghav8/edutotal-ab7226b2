@@ -362,9 +362,11 @@ export default function About() {
             className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
           >
             <img 
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80" 
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80" 
               alt="Domestic educational services" 
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="eager"
+              onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80'; }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
             <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
