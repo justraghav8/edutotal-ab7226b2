@@ -247,7 +247,9 @@ export function ServiceFormDialog({
               )}
             />
 
-
+            <FormField
+              control={form.control}
+              name="domestic_expertise"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Domestic Expertise (Optional)</FormLabel>
