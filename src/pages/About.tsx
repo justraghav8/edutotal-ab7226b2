@@ -396,12 +396,12 @@ export default function About() {
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
               style={{ backgroundImage: `url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
-            <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16 text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
+            <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}>
-                <span className="text-sm uppercase tracking-[0.2em] text-white/80 mb-4 block font-medium">Global Reach</span>
-                <h3 className="text-3xl md:text-4xl font-serif mb-6">International Services</h3>
-                <div className="space-y-4 text-white/80 max-w-lg">
+                <span className="text-sm uppercase tracking-[0.2em] text-accent mb-4 block font-medium">Global Reach</span>
+                <h3 className="text-3xl md:text-4xl font-serif mb-6 text-white">International Services</h3>
+                <div className="space-y-4 text-white/85 max-w-lg">
                   <p className="text-lg leading-relaxed">
                     We partner with finest schools around the world to help them expand 
                     in unknown territories with confidence and strategic clarity.
