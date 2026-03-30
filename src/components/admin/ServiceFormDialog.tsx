@@ -36,6 +36,7 @@ const formSchema = z.object({
   slug: z.string().min(1, "Slug is required").max(200),
   category: z.string().min(1, "Category is required"),
   overview: z.string().min(1, "Overview is required"),
+  image_url: z.string().optional(),
   domestic_expertise: z.string().optional(),
   international_expertise: z.string().optional(),
   icon_key: z.string().optional(),
@@ -64,6 +65,7 @@ export function ServiceFormDialog({
       slug: "",
       category: "",
       overview: "",
+      image_url: "",
       domestic_expertise: "",
       international_expertise: "",
       icon_key: "",
@@ -79,6 +81,7 @@ export function ServiceFormDialog({
         slug: service.slug || "",
         category: service.category || "",
         overview: service.overview || "",
+        image_url: service.image_url || "",
         domestic_expertise: service.domestic_expertise || "",
         international_expertise: service.international_expertise || "",
         icon_key: service.icon_key || "",
@@ -91,6 +94,7 @@ export function ServiceFormDialog({
         slug: "",
         category: "",
         overview: "",
+        image_url: "",
         domestic_expertise: "",
         international_expertise: "",
         icon_key: "",
@@ -107,6 +111,7 @@ export function ServiceFormDialog({
         slug: data.slug,
         category: data.category,
         overview: data.overview,
+        image_url: data.image_url || null,
         domestic_expertise: data.domestic_expertise || null,
         international_expertise: data.international_expertise || null,
         icon_key: data.icon_key || null,
@@ -222,6 +227,20 @@ export function ServiceFormDialog({
                   <FormLabel>Overview</FormLabel>
                   <FormControl>
                     <Textarea {...field} rows={4} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="image_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image URL (Optional)</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Paste image URL from Image Library" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
