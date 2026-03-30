@@ -361,9 +361,10 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
           >
-            <div 
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-              style={{ backgroundImage: `url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')` }}
+            <img 
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80" 
+              alt="Domestic educational services" 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
             <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
@@ -392,9 +393,10 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
           >
-            <div 
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-              style={{ backgroundImage: `url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')` }}
+            <img 
+              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80" 
+              alt="International educational services" 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
             <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
