@@ -81,6 +81,7 @@ export function ServiceFormDialog({
         slug: service.slug || "",
         category: service.category || "",
         overview: service.overview || "",
+        image_url: service.image_url || "",
         domestic_expertise: service.domestic_expertise || "",
         international_expertise: service.international_expertise || "",
         icon_key: service.icon_key || "",
