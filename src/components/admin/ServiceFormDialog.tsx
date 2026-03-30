@@ -111,6 +111,7 @@ export function ServiceFormDialog({
         slug: data.slug,
         category: data.category,
         overview: data.overview,
+        image_url: data.image_url || null,
         domestic_expertise: data.domestic_expertise || null,
         international_expertise: data.international_expertise || null,
         icon_key: data.icon_key || null,
