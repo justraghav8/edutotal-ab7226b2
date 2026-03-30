@@ -65,6 +65,7 @@ export function ServiceFormDialog({
       slug: "",
       category: "",
       overview: "",
+      image_url: "",
       domestic_expertise: "",
       international_expertise: "",
       icon_key: "",
