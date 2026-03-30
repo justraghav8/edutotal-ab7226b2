@@ -145,10 +145,13 @@ export default function Services() {
                 <button
                   key={g.category}
                   onClick={() => scrollToCategory(g.category)}
-                  className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-border hover:border-accent hover:text-accent hover:bg-accent/5 transition-all whitespace-nowrap shrink-0"
+                  className="group/nav flex items-center gap-1.5 text-[11px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-border hover:border-accent hover:text-accent hover:bg-accent/5 transition-all whitespace-nowrap shrink-0"
                 >
                   <Icon className="h-3 w-3" />
-                  {g.label}
+                  <span>{g.label}</span>
+                  <span className="max-w-0 overflow-hidden group-hover/nav:max-w-[200px] transition-all duration-300 ease-out">
+                    <span className="pl-0.5">{g.category}</span>
+                  </span>
                 </button>
               );
             })}
