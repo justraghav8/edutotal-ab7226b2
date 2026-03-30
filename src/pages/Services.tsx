@@ -198,8 +198,7 @@ export default function Services() {
                     {/* Service Cards with images */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                       {g.services.map((service, idx) => {
-                        const fallbackImg = defaultServiceImages[idx % defaultServiceImages.length];
-                        const imgSrc = service.image_url || fallbackImg;
+                        const imgSrc = service.image_url || getFallbackImage(service.title);
 
                         return (
                           <motion.div
