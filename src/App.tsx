@@ -32,8 +32,9 @@ import Clients from "./pages/admin/Clients";
 import Testimonials from "./pages/admin/Testimonials";
 import CareersAdmin from "./pages/admin/CareersAdmin";
 import Contacts from "./pages/admin/Contacts";
+import Gallery from "./pages/Gallery";
 import Images from "./pages/admin/Images";
-import Gallery from "./pages/admin/Gallery";
+import GalleryAdmin from "./pages/admin/Gallery";
 
 const queryClient = new QueryClient();
 
