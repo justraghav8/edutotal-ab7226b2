@@ -9,6 +9,7 @@ interface Testimonial {
   role?: string | null;
   organization?: string | null;
   photo_url?: string | null;
+  logo_url?: string | null;
 }
 
 interface TestimonialsSliderProps {
@@ -89,8 +90,8 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
           <h2 className="text-3xl md:text-4xl font-serif text-foreground dark:text-white">Impact Stories</h2>
         </motion.div>
 
-        {/* Slider Content */}
-        <div className="max-w-4xl mx-auto min-h-[280px] md:min-h-[320px] flex items-center">
+        {/* Slider Content - structured block */}
+        <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -98,32 +99,60 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="text-center w-full"
+              className="rounded-2xl border border-border bg-card/60 backdrop-blur-sm shadow-xl shadow-foreground/5 overflow-hidden"
             >
-              <blockquote className="text-xl md:text-2xl lg:text-3xl font-serif text-foreground/90 dark:text-white/90 leading-relaxed mb-10">
-                "{current.quote}"
-              </blockquote>
+              <div className="grid md:grid-cols-[260px_1fr] gap-0">
+                {/* Logo block */}
+                <div className="flex items-center justify-center bg-muted/40 dark:bg-white/[0.03] p-8 border-b md:border-b-0 md:border-r border-border min-h-[160px]">
+                  {current.logo_url ? (
+                    <img
+                      src={current.logo_url}
+                      alt={current.organization || current.author}
+                      className="max-h-20 w-auto object-contain"
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto rounded-full bg-accent/10 flex items-center justify-center mb-2">
+                        <span className="text-2xl font-serif text-accent">
+                          {(current.organization || current.author)?.charAt(0)}
+                        </span>
+                      </div>
+                      <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                        {current.organization || "Client"}
+                      </div>
+                    </div>
+                  )}
+                </div>
 
-              {/* Author */}
-              <div className="flex items-center justify-center gap-4">
-                {current.photo_url ? (
-                  <img
-                    src={current.photo_url}
-                    alt={current.author}
-                    className="w-14 h-14 rounded-full object-cover ring-2 ring-white/20"
-                  />
-                ) : (
-                  <div className="w-14 h-14 rounded-full bg-foreground/10 dark:bg-white/10 flex items-center justify-center">
-                    <span className="text-xl font-serif text-foreground/70 dark:text-white/70">
-                      {current.author?.charAt(0)}
-                    </span>
-                  </div>
-                )}
-                <div className="text-left">
-                  <div className="font-medium text-lg text-foreground dark:text-white">{current.author}</div>
-                  <div className="text-sm text-muted-foreground dark:text-white/50">
-                    {current.role}
-                    {current.organization && ` · ${current.organization}`}
+                {/* Content block */}
+                <div className="p-8 md:p-10">
+                  <blockquote className="text-lg md:text-xl font-serif text-foreground/90 dark:text-white/90 leading-relaxed mb-8">
+                    "{current.quote}"
+                  </blockquote>
+
+                  <div className="flex items-center gap-4 pt-6 border-t border-border">
+                    {current.photo_url ? (
+                      <img
+                        src={current.photo_url}
+                        alt={current.author}
+                        className="w-14 h-14 rounded-full object-cover ring-2 ring-accent/30"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
+                        <span className="text-xl font-serif text-accent">
+                          {current.author?.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                    <div>
+                      <div className="font-semibold text-base text-foreground dark:text-white">{current.author}</div>
+                      {current.role && (
+                        <div className="text-sm text-accent font-medium">{current.role}</div>
+                      )}
+                      {current.organization && (
+                        <div className="text-xs text-muted-foreground dark:text-white/50">{current.organization}</div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
