@@ -134,43 +134,54 @@ export default function Contact() {
                   <CardTitle className="text-2xl">Contact Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("E-7, Defence Colony, New Delhi - 110024, India")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 group hover:text-primary transition-colors"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Address</h4>
-                      <p className="text-muted-foreground">
+                      <p className="text-muted-foreground group-hover:text-primary transition-colors">
                         E-7, Defence Colony<br />
                         New Delhi - 110024<br />
                         India
                       </p>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                  <a
+                    href="tel:+911141328320"
+                    className="flex items-start gap-4 group hover:text-primary transition-colors"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Phone</h4>
-                      <a href="tel:+911141328320" className="text-muted-foreground hover:text-primary">
+                      <span className="text-muted-foreground group-hover:text-primary transition-colors">
                         +91 11 4132 8320
-                      </a>
+                      </span>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                  <a
+                    href="mailto:info@edutotal.in"
+                    className="flex items-start gap-4 group hover:text-primary transition-colors"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
-                      <a href="mailto:info@edutotal.in" className="text-muted-foreground hover:text-primary">
+                      <span className="text-muted-foreground group-hover:text-primary transition-colors">
                         info@edutotal.in
-                      </a>
+                      </span>
                     </div>
-                  </div>
+                  </a>
                 </CardContent>
               </Card>
 

@@ -32,8 +32,9 @@ import Clients from "./pages/admin/Clients";
 import Testimonials from "./pages/admin/Testimonials";
 import CareersAdmin from "./pages/admin/CareersAdmin";
 import Contacts from "./pages/admin/Contacts";
+import Gallery from "./pages/Gallery";
 import Images from "./pages/admin/Images";
-import Gallery from "./pages/admin/Gallery";
+import GalleryAdmin from "./pages/admin/Gallery";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => (
               <Route path="insights/:slug" element={<InsightDetail />} />
               <Route path="clients" element={<ClientsPage />} />
               <Route path="careers" element={<Careers />} />
+              <Route path="gallery" element={<Gallery />} />
               <Route path="contact" element={<Contact />} />
             </Route>
 
@@ -82,7 +84,7 @@ const App = () => (
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="careers" element={<CareersAdmin />} />
               <Route path="contacts" element={<Contacts />} />
-              <Route path="gallery" element={<Gallery />} />
+              <Route path="gallery" element={<GalleryAdmin />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

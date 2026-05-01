@@ -56,6 +56,7 @@ export type Database = {
       clients: {
         Row: {
           created_at: string | null
+          description: string | null
           id: string
           logo_url: string | null
           name: string
@@ -66,6 +67,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          description?: string | null
           id?: string
           logo_url?: string | null
           name: string
@@ -76,6 +78,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          description?: string | null
           id?: string
           logo_url?: string | null
           name?: string
@@ -193,11 +196,13 @@ export type Database = {
       }
       industries: {
         Row: {
+          content_box: string | null
           created_at: string | null
           description: string
           focus_areas: Json | null
           icon_key: string | null
           id: string
+          image_url: string | null
           order_index: number | null
           published: boolean | null
           slug: string
@@ -205,11 +210,13 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          content_box?: string | null
           created_at?: string | null
           description: string
           focus_areas?: Json | null
           icon_key?: string | null
           id?: string
+          image_url?: string | null
           order_index?: number | null
           published?: boolean | null
           slug: string
@@ -217,11 +224,13 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          content_box?: string | null
           created_at?: string | null
           description?: string
           focus_areas?: Json | null
           icon_key?: string | null
           id?: string
+          image_url?: string | null
           order_index?: number | null
           published?: boolean | null
           slug?: string
@@ -379,8 +388,11 @@ export type Database = {
           logo_url: string | null
           primary_color: string | null
           social_facebook: string | null
+          social_instagram: string | null
           social_linkedin: string | null
+          social_links: Json | null
           social_twitter: string | null
+          social_youtube: string | null
           tagline: string
           updated_at: string | null
         }
@@ -394,8 +406,11 @@ export type Database = {
           logo_url?: string | null
           primary_color?: string | null
           social_facebook?: string | null
+          social_instagram?: string | null
           social_linkedin?: string | null
+          social_links?: Json | null
           social_twitter?: string | null
+          social_youtube?: string | null
           tagline?: string
           updated_at?: string | null
         }
@@ -409,8 +424,11 @@ export type Database = {
           logo_url?: string | null
           primary_color?: string | null
           social_facebook?: string | null
+          social_instagram?: string | null
           social_linkedin?: string | null
+          social_links?: Json | null
           social_twitter?: string | null
+          social_youtube?: string | null
           tagline?: string
           updated_at?: string | null
         }
@@ -429,6 +447,8 @@ export type Database = {
           order_index: number | null
           photo_url: string | null
           published: boolean | null
+          show_email: boolean | null
+          show_linkedin: boolean | null
           updated_at: string | null
         }
         Insert: {
@@ -443,6 +463,8 @@ export type Database = {
           order_index?: number | null
           photo_url?: string | null
           published?: boolean | null
+          show_email?: boolean | null
+          show_linkedin?: boolean | null
           updated_at?: string | null
         }
         Update: {
@@ -457,6 +479,8 @@ export type Database = {
           order_index?: number | null
           photo_url?: string | null
           published?: boolean | null
+          show_email?: boolean | null
+          show_linkedin?: boolean | null
           updated_at?: string | null
         }
         Relationships: []
@@ -466,6 +490,7 @@ export type Database = {
           author: string
           created_at: string | null
           id: string
+          logo_url: string | null
           organization: string | null
           photo_url: string | null
           published: boolean | null
@@ -477,6 +502,7 @@ export type Database = {
           author: string
           created_at?: string | null
           id?: string
+          logo_url?: string | null
           organization?: string | null
           photo_url?: string | null
           published?: boolean | null
@@ -488,6 +514,7 @@ export type Database = {
           author?: string
           created_at?: string | null
           id?: string
+          logo_url?: string | null
           organization?: string | null
           photo_url?: string | null
           published?: boolean | null

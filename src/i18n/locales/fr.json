@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "whoWeAre": "Qui sommes-nous",
+    "services": "Services",
+    "industries": "Secteurs",
+    "insights": "Analyses",
+    "clients": "Clients",
+    "careers": "Carrières",
+    "gallery": "Galerie",
+    "contact": "Contact",
+    "getInTouch": "Nous contacter",
+    "search": "Rechercher"
+  },
+  "common": {
+    "learnMore": "En savoir plus",
+    "explore": "Explorer",
+    "viewAll": "Voir tout",
+    "readMore": "Lire la suite",
+    "submit": "Envoyer",
+    "loading": "Chargement…",
+    "language": "Langue"
+  },
+  "footer": {
+    "tagline": "Transformer l'éducation par l'excellence stratégique. Votre partenaire de confiance en conseil éducatif.",
+    "quickLinks": "Liens rapides",
+    "services": "Services",
+    "contact": "Contact",
+    "rights": "Tous droits réservés.",
+    "follow": "Suivez-nous"
+  },
+  "contact": {
+    "title": "Nous contacter",
+    "subtitle": "Discutons de la façon dont nous pouvons aider à transformer votre établissement éducatif",
+    "send": "Envoyez-nous un message",
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "service": "Service d'intérêt",
+    "message": "Message",
+    "sending": "Envoi…",
+    "sendMessage": "Envoyer le message",
+    "info": "Informations de contact",
+    "address": "Adresse",
+    "hours": "Heures d'ouverture"
+  }
+}
