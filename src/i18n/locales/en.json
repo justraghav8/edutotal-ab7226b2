@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "whoWeAre": "Who We Are",
+    "services": "Services",
+    "industries": "Industries",
+    "insights": "Insights",
+    "clients": "Clients",
+    "careers": "Careers",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "getInTouch": "Get in Touch",
+    "search": "Search"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "explore": "Explore",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "submit": "Submit",
+    "loading": "Loading…",
+    "language": "Language"
+  },
+  "footer": {
+    "tagline": "Transforming education through strategic excellence. Your trusted partner in educational consulting.",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "follow": "Follow Us"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Let's discuss how we can help transform your educational institution",
+    "send": "Send us a message",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "service": "Service Interest",
+    "message": "Message",
+    "sending": "Sending…",
+    "sendMessage": "Send Message",
+    "info": "Contact Information",
+    "address": "Address",
+    "hours": "Business Hours"
+  }
+}
