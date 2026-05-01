@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
@@ -26,6 +27,7 @@ const formSchema = z.object({
   name: z.string().min(1, "Name is required").max(200),
   website: z.string().url().optional().or(z.literal("")),
   logo_url: z.string().url().optional().or(z.literal("")),
+  description: z.string().max(500).optional().or(z.literal("")),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
 });
@@ -50,6 +52,7 @@ export function ClientFormDialog({
       name: "",
       website: "",
       logo_url: "",
+      description: "",
       published: true,
       order_index: 0,
     },
@@ -61,6 +64,7 @@ export function ClientFormDialog({
         name: client.name || "",
         website: client.website || "",
         logo_url: client.logo_url || "",
+        description: client.description || "",
         published: client.published ?? true,
         order_index: client.order_index || 0,
       });
@@ -69,6 +73,7 @@ export function ClientFormDialog({
         name: "",
         website: "",
         logo_url: "",
+        description: "",
         published: true,
         order_index: 0,
       });
@@ -81,6 +86,7 @@ export function ClientFormDialog({
         name: data.name,
         website: data.website || null,
         logo_url: data.logo_url || null,
+        description: data.description || null,
         published: data.published,
         order_index: data.order_index,
       };
@@ -165,6 +171,20 @@ export function ClientFormDialog({
                   <FormLabel>Logo URL (Optional)</FormLabel>
                   <FormControl>
                     <Input {...field} type="url" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description (3-4 lines, shown on hover)</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} rows={4} placeholder="Brief description of work done with this client" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
