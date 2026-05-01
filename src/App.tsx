@@ -58,6 +58,7 @@ const App = () => (
               <Route path="insights/:slug" element={<InsightDetail />} />
               <Route path="clients" element={<ClientsPage />} />
               <Route path="careers" element={<Careers />} />
+              <Route path="gallery" element={<Gallery />} />
               <Route path="contact" element={<Contact />} />
             </Route>
 
@@ -83,7 +84,7 @@ const App = () => (
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="careers" element={<CareersAdmin />} />
               <Route path="contacts" element={<Contacts />} />
-              <Route path="gallery" element={<Gallery />} />
+              <Route path="gallery" element={<GalleryAdmin />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
