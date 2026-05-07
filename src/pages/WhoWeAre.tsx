@@ -204,7 +204,7 @@ export default function WhoWeAre() {
 
                         {/* Contact Links */}
                         <div className="flex gap-4 pt-4">
-                          {member.linkedin_url && (
+                          {member.linkedin_url && member.show_linkedin !== false && (
                             <a
                               href={member.linkedin_url}
                               target="_blank"
@@ -215,7 +215,7 @@ export default function WhoWeAre() {
                               <span>LinkedIn</span>
                             </a>
                           )}
-                          {member.email && (
+                          {member.email && member.show_email !== false && (
                             <a
                               href={`mailto:${member.email}`}
                               className="flex items-center gap-2 px-4 py-2 bg-accent/10 hover:bg-accent/20 rounded-lg text-accent transition-colors"
@@ -279,7 +279,7 @@ export default function WhoWeAre() {
                           {/* Overlay with links */}
                           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
                             <div className="flex gap-3">
-                              {member.linkedin_url && (
+                              {member.linkedin_url && member.show_linkedin !== false && (
                                 <a
                                   href={member.linkedin_url}
                                   target="_blank"
@@ -289,7 +289,7 @@ export default function WhoWeAre() {
                                   <Linkedin className="h-4 w-4" />
                                 </a>
                               )}
-                              {member.email && (
+                              {member.email && member.show_email !== false && (
                                 <a
                                   href={`mailto:${member.email}`}
                                   className="p-2 bg-accent text-accent-foreground rounded-full hover:bg-accent/90 transition-colors"
@@ -377,7 +377,7 @@ export default function WhoWeAre() {
                             </div>
                             {/* Links */}
                             <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-                              {member.linkedin_url && (
+                              {member.linkedin_url && member.show_linkedin !== false && (
                                 <a
                                   href={member.linkedin_url}
                                   target="_blank"
@@ -387,7 +387,7 @@ export default function WhoWeAre() {
                                   <Linkedin className="h-5 w-5" />
                                 </a>
                               )}
-                              {member.email && (
+                              {member.email && member.show_email !== false && (
                                 <a
                                   href={`mailto:${member.email}`}
                                   className="text-muted-foreground hover:text-accent transition-colors"
