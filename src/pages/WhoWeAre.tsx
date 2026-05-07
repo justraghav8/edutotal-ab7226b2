@@ -14,6 +14,8 @@ interface TeamMember {
   photo_url: string | null;
   linkedin_url: string | null;
   email: string | null;
+  show_linkedin: boolean | null;
+  show_email: boolean | null;
   category: string;
   order_index: number;
 }
