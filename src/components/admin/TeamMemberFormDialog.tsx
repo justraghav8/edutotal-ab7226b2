@@ -267,7 +267,34 @@ export function TeamMemberFormDialog({
                 )}
               />
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
+                control={form.control}
+                name="show_linkedin"
+                render={({ field }) => (
+                  <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                    <FormLabel className="text-sm">Show LinkedIn icon</FormLabel>
+                    <FormControl>
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="show_email"
+                render={({ field }) => (
+                  <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                    <FormLabel className="text-sm">Show Email icon</FormLabel>
+                    <FormControl>
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
