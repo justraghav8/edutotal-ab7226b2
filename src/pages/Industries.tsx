@@ -19,6 +19,7 @@ import {
   Award
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SafeImage } from "@/components/SafeImage";
 
 // Icon mapping for industries
 const industryIcons: Record<string, React.ElementType> = {
