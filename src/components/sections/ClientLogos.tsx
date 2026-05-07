@@ -8,6 +8,7 @@ interface Client {
   name: string;
   logo_url: string | null;
   website: string | null;
+  description?: string | null;
 }
 
 interface ClientLogosProps {
