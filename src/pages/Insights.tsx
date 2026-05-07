@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, Loader2 } from "lucide-react";
 import { format } from "date-fns";
+import { SafeImage } from "@/components/SafeImage";
 
 const insightTypes = ["All", "Thought Leadership", "Case Study", "Whitepaper", "Blog", "Event"];
 
@@ -81,13 +82,12 @@ export default function Insights() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {insights.map((insight) => (
                 <Card key={insight.id} className="hover-lift flex flex-col">
-                  {insight.cover_image_url && (
-                    <img
-                      src={insight.cover_image_url}
-                      alt={insight.title}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                  )}
+                  <SafeImage
+                    src={insight.cover_image_url}
+                    alt={insight.title}
+                    fallbackSeed={`insight-${insight.slug}`}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  />
                   <CardHeader>
                     <div className="flex items-center gap-2 mb-2">
                       <Badge variant="secondary">{insight.type}</Badge>

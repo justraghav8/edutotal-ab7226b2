@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { motion, AnimatePresence } from "framer-motion";
 import { SearchDialog } from "@/components/SearchDialog";
-import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 
 export function Header() {
-  const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
@@ -26,15 +23,15 @@ export function Header() {
   }, []);
 
   const navigation = [
-    { name: t("nav.home"), href: "/" },
-    { name: t("nav.about"), href: "/about" },
-    { name: t("nav.whoWeAre"), href: "/who-we-are" },
-    { name: t("nav.services"), href: "/services" },
-    { name: t("nav.industries"), href: "/industries" },
-    { name: t("nav.insights"), href: "/insights" },
-    { name: t("nav.clients"), href: "/clients" },
-    { name: t("nav.careers"), href: "/careers" },
-    { name: t("nav.gallery"), href: "/gallery" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Who We Are", href: "/who-we-are" },
+    { name: "Services", href: "/services" },
+    { name: "Industries", href: "/industries" },
+    { name: "Insights", href: "/insights" },
+    { name: "Clients", href: "/clients" },
+    { name: "Careers", href: "/careers" },
+    { name: "Gallery", href: "/gallery" },
   ];
 
   return (
@@ -61,7 +58,7 @@ export function Header() {
             <button
               type="button"
               className="relative w-8 h-8 flex items-center justify-center hover:bg-muted/50 transition-colors rounded-full"
-              aria-label={t("nav.search")}
+              aria-label="Search"
               onClick={() => setSearchOpen(true)}
             >
               <Search className="h-4 w-4" />
@@ -76,7 +73,6 @@ export function Header() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
-            <LanguageSwitcher />
             <ThemeToggle />
           </div>
 
@@ -85,21 +81,17 @@ export function Header() {
             <button
               type="button"
               className="lg:hidden relative w-10 h-10 flex items-center justify-center hover:bg-muted/50 transition-colors"
-              aria-label={t("nav.search")}
+              aria-label="Search"
               onClick={() => setSearchOpen(true)}
             >
               <Search className="h-5 w-5" />
             </button>
 
-            <div className="lg:hidden">
-              <LanguageSwitcher />
-            </div>
-
             <Link
               to="/contact"
               className="hidden sm:inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-2 text-sm font-medium overflow-hidden relative group transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
             >
-              <span className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1">{t("nav.getInTouch")}</span>
+              <span className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1">Get In Touch</span>
               <span className="relative z-10 transition-all duration-300 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0">→</span>
               <span className="absolute inset-0 bg-accent-foreground/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             </Link>
@@ -131,7 +123,6 @@ export function Header() {
             className="fixed inset-0 z-[60] bg-background pt-16"
           >
             <div className="absolute top-4 right-4 flex items-center gap-2">
-              <LanguageSwitcher />
               <ThemeToggle />
               <button
                 type="button"
@@ -175,7 +166,7 @@ export function Header() {
                 >
                   <div className="max-w-md">
                     <p className="text-sm text-muted-foreground mb-4 uppercase tracking-widest">
-                      {t("nav.about")}
+                      About
                     </p>
                     <h3 className="text-2xl lg:text-3xl font-serif mb-6 leading-tight">
                       Transforming education through strategic excellence and innovative solutions.
@@ -187,7 +178,7 @@ export function Header() {
                       className="rounded-none border-foreground text-foreground hover:bg-foreground hover:text-background"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <Link to="/about">{t("common.learnMore")}</Link>
+                      <Link to="/about">Learn More</Link>
                     </Button>
                   </div>
                 </motion.div>

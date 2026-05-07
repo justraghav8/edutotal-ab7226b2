@@ -39,6 +39,8 @@ const formSchema = z.object({
   photo_url: z.string().url().optional().or(z.literal("")),
   linkedin_url: z.string().url().optional().or(z.literal("")),
   email: z.string().email().optional().or(z.literal("")),
+  show_linkedin: z.boolean().default(true),
+  show_email: z.boolean().default(true),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
 });
@@ -67,6 +69,8 @@ export function TeamMemberFormDialog({
       photo_url: "",
       linkedin_url: "",
       email: "",
+      show_linkedin: true,
+      show_email: true,
       published: true,
       order_index: 0,
     },
@@ -82,6 +86,8 @@ export function TeamMemberFormDialog({
         photo_url: member.photo_url || "",
         linkedin_url: member.linkedin_url || "",
         email: member.email || "",
+        show_linkedin: member.show_linkedin ?? true,
+        show_email: member.show_email ?? true,
         published: member.published ?? true,
         order_index: member.order_index || 0,
       });
@@ -94,6 +100,8 @@ export function TeamMemberFormDialog({
         photo_url: "",
         linkedin_url: "",
         email: "",
+        show_linkedin: true,
+        show_email: true,
         published: true,
         order_index: 0,
       });
@@ -110,6 +118,8 @@ export function TeamMemberFormDialog({
         photo_url: data.photo_url || null,
         linkedin_url: data.linkedin_url || null,
         email: data.email || null,
+        show_linkedin: data.show_linkedin,
+        show_email: data.show_email,
         published: data.published,
         order_index: data.order_index,
       };
@@ -257,7 +267,34 @@ export function TeamMemberFormDialog({
                 )}
               />
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
+                control={form.control}
+                name="show_linkedin"
+                render={({ field }) => (
+                  <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                    <FormLabel className="text-sm">Show LinkedIn icon</FormLabel>
+                    <FormControl>
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="show_email"
+                render={({ field }) => (
+                  <FormItem className="flex items-center justify-between rounded-lg border p-3">
+                    <FormLabel className="text-sm">Show Email icon</FormLabel>
+                    <FormControl>
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (

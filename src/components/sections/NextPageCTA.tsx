@@ -21,8 +21,31 @@ export function NextPageCTA({
   const isInverted = variant === "inverted";
   
   return (
-    <section className={`py-20 ${isInverted ? 'bg-neutral-900' : 'bg-muted/30'}`}>
-      <div className="container mx-auto px-4">
+    <section className={`relative overflow-hidden py-20 ${isInverted ? 'bg-neutral-900' : 'bg-muted/30'}`}>
+      {/* Geometric watermark */}
+      <svg
+        aria-hidden="true"
+        className={`pointer-events-none absolute -right-20 -bottom-20 w-[480px] h-[480px] ${isInverted ? 'text-white/[0.04]' : 'text-foreground/[0.05]'}`}
+        viewBox="0 0 200 200"
+        fill="none"
+      >
+        <circle cx="100" cy="100" r="90" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="100" cy="100" r="60" stroke="currentColor" strokeWidth="0.5" />
+        <circle cx="100" cy="100" r="30" stroke="currentColor" strokeWidth="0.5" />
+        <path d="M10 100 L190 100 M100 10 L100 190" stroke="currentColor" strokeWidth="0.5" />
+        <path d="M30 30 L170 170 M170 30 L30 170" stroke="currentColor" strokeWidth="0.3" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        className={`pointer-events-none absolute -left-16 -top-16 w-72 h-72 ${isInverted ? 'text-accent/10' : 'text-accent/15'}`}
+        viewBox="0 0 100 100"
+        fill="none"
+      >
+        <rect x="10" y="10" width="80" height="80" stroke="currentColor" strokeWidth="0.4" />
+        <rect x="20" y="20" width="60" height="60" stroke="currentColor" strokeWidth="0.4" />
+        <rect x="30" y="30" width="40" height="40" stroke="currentColor" strokeWidth="0.4" />
+      </svg>
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

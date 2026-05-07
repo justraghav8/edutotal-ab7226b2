@@ -28,6 +28,8 @@ const formSchema = z.object({
   slug: z.string().min(1, "Slug is required").max(200),
   description: z.string().min(1, "Description is required"),
   icon_key: z.string().optional(),
+  image_url: z.string().url().optional().or(z.literal("")),
+  content_box: z.string().optional(),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
 });
@@ -53,6 +55,8 @@ export function IndustryFormDialog({
       slug: "",
       description: "",
       icon_key: "",
+      image_url: "",
+      content_box: "",
       published: true,
       order_index: 0,
     },
@@ -65,6 +69,8 @@ export function IndustryFormDialog({
         slug: industry.slug || "",
         description: industry.description || "",
         icon_key: industry.icon_key || "",
+        image_url: industry.image_url || "",
+        content_box: industry.content_box || "",
         published: industry.published ?? true,
         order_index: industry.order_index || 0,
       });
@@ -74,6 +80,8 @@ export function IndustryFormDialog({
         slug: "",
         description: "",
         icon_key: "",
+        image_url: "",
+        content_box: "",
         published: true,
         order_index: 0,
       });
@@ -87,6 +95,8 @@ export function IndustryFormDialog({
         slug: data.slug,
         description: data.description,
         icon_key: data.icon_key || null,
+        image_url: data.image_url || null,
+        content_box: data.content_box || null,
         published: data.published,
         order_index: data.order_index,
       };
@@ -171,6 +181,34 @@ export function IndustryFormDialog({
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea {...field} rows={6} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="image_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Hero Image URL (Optional)</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="url" placeholder="https://..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="content_box"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Content Box (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} rows={6} placeholder="Long-form content displayed beneath the hero image" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

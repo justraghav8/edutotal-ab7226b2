@@ -8,6 +8,7 @@ interface Client {
   name: string;
   logo_url: string | null;
   website: string | null;
+  description?: string | null;
 }
 
 interface ClientLogosProps {
@@ -64,6 +65,14 @@ export function ClientLogos({ clients }: ClientLogosProps) {
                   <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight group-hover:text-foreground transition-colors duration-300">
                     {client.name}
                   </span>
+                )}
+                {client.description && (
+                  <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 z-20 w-56 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    <div className="rounded-md bg-foreground text-background text-xs leading-relaxed px-3 py-2 shadow-lg">
+                      <p className="font-semibold mb-0.5">{client.name}</p>
+                      <p className="text-background/80">{client.description}</p>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>

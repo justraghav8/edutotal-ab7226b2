@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { SafeImage } from "@/components/SafeImage";
 
 export default function IndustryDetail() {
   const { slug } = useParams();
@@ -89,6 +90,25 @@ export default function IndustryDetail() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-12">
+            {/* Hero Image */}
+            <div className="relative w-full aspect-[16/7] overflow-hidden rounded-2xl shadow-xl">
+              <SafeImage
+                src={industry.image_url}
+                alt={industry.title}
+                fallbackSeed={`industry-${industry.slug}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Content Box */}
+            {industry.content_box && (
+              <div className="prose prose-lg max-w-none text-foreground">
+                <div className="whitespace-pre-line leading-relaxed text-muted-foreground text-lg">
+                  {industry.content_box}
+                </div>
+              </div>
+            )}
+
             {/* Focus Areas */}
             {industry.focus_areas && industry.focus_areas.length > 0 && (
               <Card>

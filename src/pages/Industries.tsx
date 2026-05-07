@@ -19,6 +19,7 @@ import {
   Award
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SafeImage } from "@/components/SafeImage";
 
 // Icon mapping for industries
 const industryIcons: Record<string, React.ElementType> = {
@@ -106,6 +107,15 @@ export default function Industries() {
                     className="bg-background p-8 group"
                   >
                     <Link to={`/industries/${industry.slug}`} className="block h-full">
+                      {/* Image */}
+                      <div className="relative w-full aspect-[16/9] mb-5 overflow-hidden rounded-lg bg-muted">
+                        <SafeImage
+                          src={industry.image_url}
+                          alt={industry.title}
+                          fallbackSeed={`industry-${industry.slug}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
                       {/* Icon */}
                       <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center mb-5 group-hover:bg-accent/10 transition-colors">
                         <IconComponent className="w-7 h-7 text-foreground group-hover:text-accent transition-colors" />
