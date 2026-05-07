@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, Loader2 } from "lucide-react";
 import { format } from "date-fns";
+import { SafeImage } from "@/components/SafeImage";
 
 const insightTypes = ["All", "Thought Leadership", "Case Study", "Whitepaper", "Blog", "Event"];
 
