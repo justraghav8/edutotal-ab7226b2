@@ -189,6 +189,34 @@ export function IndustryFormDialog({
 
             <FormField
               control={form.control}
+              name="image_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Hero Image URL (Optional)</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="url" placeholder="https://..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="content_box"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Content Box (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} rows={6} placeholder="Long-form content displayed beneath the hero image" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="icon_key"
               render={({ field }) => (
                 <FormItem>
