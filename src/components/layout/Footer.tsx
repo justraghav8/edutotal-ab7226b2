@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Settings {
@@ -18,7 +17,6 @@ interface Settings {
 }
 
 export function Footer() {
-  const { t } = useTranslation();
   const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {
