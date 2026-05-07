@@ -67,35 +67,35 @@ export function Footer() {
                 </span>
               )}
             </Link>
-            <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
+            <p className="text-sm text-muted-foreground">Transforming education through strategic excellence. Your trusted partner in education consulting.</p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-lg font-semibold">{t("footer.quickLinks")}</h3>
+            <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">{t("nav.about")}</Link></li>
-              <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">{t("nav.services")}</Link></li>
-              <li><Link to="/industries" className="text-muted-foreground hover:text-primary transition-colors">{t("nav.industries")}</Link></li>
-              <li><Link to="/insights" className="text-muted-foreground hover:text-primary transition-colors">{t("nav.insights")}</Link></li>
-              <li><Link to="/gallery" className="text-muted-foreground hover:text-primary transition-colors">{t("nav.gallery")}</Link></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link></li>
+              <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Services</Link></li>
+              <li><Link to="/industries" className="text-muted-foreground hover:text-primary transition-colors">Industries</Link></li>
+              <li><Link to="/insights" className="text-muted-foreground hover:text-primary transition-colors">Insights</Link></li>
+              <li><Link to="/gallery" className="text-muted-foreground hover:text-primary transition-colors">Gallery</Link></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="mb-4 text-lg font-semibold">{t("footer.services")}</h3>
+            <h3 className="mb-4 text-lg font-semibold">Services</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Institution Development</Link></li>
               <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Corporate Consulting</Link></li>
               <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Digital Transformation</Link></li>
-              <li><Link to="/careers" className="text-muted-foreground hover:text-primary transition-colors">{t("nav.careers")}</Link></li>
+              <li><Link to="/careers" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 text-lg font-semibold">{t("footer.contact")}</h3>
+            <h3 className="mb-4 text-lg font-semibold">Contact</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <a
@@ -152,7 +152,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} EduTotal. {t("footer.rights")}</p>
+          <p>&copy; {new Date().getFullYear()} EduTotal. All rights reserved.</p>
         </div>
       </div>
     </footer>
