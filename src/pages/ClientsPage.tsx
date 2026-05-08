@@ -9,6 +9,7 @@ interface Client {
   name: string;
   logo_url: string | null;
   website: string | null;
+  description: string | null;
 }
 
 export default function ClientsPage() {
@@ -73,20 +74,7 @@ export default function ClientsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.03 }}
                 >
-                  {client.website ? (
-                    <a
-                      href={client.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center justify-center aspect-[3/2] rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5"
-                    >
-                      <ClientInner client={client} />
-                    </a>
-                  ) : (
-                    <div className="group flex items-center justify-center aspect-[3/2] rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5">
-                      <ClientInner client={client} />
-                    </div>
-                  )}
+                  <ClientCard client={client} />
                 </motion.div>
               ))}
             </div>
@@ -105,16 +93,54 @@ export default function ClientsPage() {
   );
 }
 
-function ClientInner({ client }: { client: Client }) {
-  return client.logo_url ? (
-    <img
-      src={client.logo_url}
-      alt={client.name}
-      className="max-h-16 w-auto object-contain opacity-60 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0"
-    />
-  ) : (
-    <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight group-hover:text-foreground transition-colors duration-300">
-      {client.name}
-    </span>
+function ClientCard({ client }: { client: Client }) {
+  const Wrapper: any = client.website ? "a" : "div";
+  const wrapperProps = client.website
+    ? { href: client.website, target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
+  return (
+    <Wrapper
+      {...wrapperProps}
+      className="group relative block aspect-[3/2] rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent/60 hover:shadow-xl hover:shadow-accent/10"
+    >
+      {/* Logo layer */}
+      <div className="absolute inset-0 flex items-center justify-center p-6 transition-all duration-500 group-hover:opacity-0 group-hover:scale-95">
+        {client.logo_url ? (
+          <img
+            src={client.logo_url}
+            alt={client.name}
+            className="max-h-16 w-auto object-contain opacity-70 grayscale transition-all duration-500"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+              const fallback = (e.currentTarget.nextElementSibling as HTMLElement | null);
+              if (fallback) fallback.style.display = "block";
+            }}
+          />
+        ) : null}
+        <span
+          className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight"
+          style={{ display: client.logo_url ? "none" : "block" }}
+        >
+          {client.name}
+        </span>
+      </div>
+
+      {/* Reveal layer */}
+      <div className="absolute inset-0 flex flex-col justify-center p-5 bg-gradient-to-br from-foreground to-foreground/95 text-background opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+        <p className="text-sm font-serif font-semibold mb-2 leading-snug">{client.name}</p>
+        {client.description && (
+          <p className="text-xs leading-relaxed text-background/80 line-clamp-5">
+            {client.description}
+          </p>
+        )}
+        {client.website && (
+          <span className="mt-3 text-[10px] uppercase tracking-[0.2em] text-accent">
+            Visit Website →
+          </span>
+        )}
+      </div>
+    </Wrapper>
   );
 }
+
