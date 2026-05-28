@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,22 +10,26 @@ interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 /**
- * SafeImage renders an image, falling back to a deterministic Unsplash hero photo
- * (based on a seed) and finally a placeholder graphic if both fail.
+ * SafeImage renders an image and shows a clean placeholder graphic if the
+ * source is missing or fails to load.
  */
 export function SafeImage({
   src,
   alt,
-  fallbackSeed,
+  fallbackSeed: _fallbackSeed,
   className,
   fallbackClassName,
   ...rest
 }: SafeImageProps) {
-  const seed = encodeURIComponent(fallbackSeed || alt || "edutotal");
-  const fallback = `https://source.unsplash.com/featured/1200x800?${seed}`;
-  const initial = src && src.trim() ? src : fallback;
+  const initial = src && src.trim() ? src : "";
   const [current, setCurrent] = useState(initial);
-  const [errored, setErrored] = useState(false);
+  const [errored, setErrored] = useState(!initial);
+
+  useEffect(() => {
+    const next = src && src.trim() ? src : "";
+    setCurrent(next);
+    setErrored(!next);
+  }, [src]);
 
   if (errored) {
     return (
@@ -47,14 +51,10 @@ export function SafeImage({
       {...rest}
       src={current}
       alt={alt}
+      loading={rest.loading ?? "lazy"}
+      referrerPolicy={rest.referrerPolicy ?? "no-referrer"}
       className={className}
-      onError={() => {
-        if (current !== fallback) {
-          setCurrent(fallback);
-        } else {
-          setErrored(true);
-        }
-      }}
+      onError={() => setErrored(true)}
     />
   );
 }
