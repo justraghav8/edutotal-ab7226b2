@@ -32,6 +32,16 @@ export default function IndustryDetail() {
 
     if (data) {
       setIndustry(data);
+
+      // Other industries (everything except current)
+      const { data: others } = await supabase
+        .from("industries")
+        .select("id, slug, title, tagline, description, image_url, order_index")
+        .eq("published", true)
+        .neq("id", data.id)
+        .order("order_index");
+      setOtherIndustries(others || []);
+
       const { data: relations } = await supabase
         .from("industry_services")
         .select("service_id")
@@ -51,6 +61,7 @@ export default function IndustryDetail() {
       }
     } else {
       setIndustry(null);
+      setOtherIndustries([]);
     }
     setLoading(false);
   }
