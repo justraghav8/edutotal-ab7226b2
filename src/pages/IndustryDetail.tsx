@@ -275,7 +275,7 @@ export default function IndustryDetail() {
 
       {/* CTA */}
       <section className="py-20 md:py-24 bg-foreground text-background">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 text-center">
           <h3 className="text-3xl md:text-4xl font-serif mb-5">
             Work with us in {industry.title.split(/[&,]/)[0].trim()}
           </h3>
