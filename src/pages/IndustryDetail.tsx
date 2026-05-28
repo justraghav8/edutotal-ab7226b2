@@ -234,7 +234,7 @@ export default function IndustryDetail() {
       {/* FOCUS AREAS (legacy support) */}
       {industry.focus_areas && industry.focus_areas.length > 0 && (
         <section className="py-16 bg-secondary/40">
-          <div className="container mx-auto px-4 max-w-5xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-serif mb-8">Focus Areas</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {industry.focus_areas.map((area: string, index: number) => (
