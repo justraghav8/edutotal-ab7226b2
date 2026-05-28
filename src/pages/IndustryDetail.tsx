@@ -124,49 +124,31 @@ export default function IndustryDetail() {
         </div>
       </section>
 
-      {/* INTRO + IMAGE */}
+      {/* INTRO */}
       <section className="py-20 md:py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-12 gap-12 items-start max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-7 space-y-5"
-            >
-              <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent">
-                Context
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl space-y-5"
+          >
+            <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent">
+              Context
+            </div>
+            <p className="text-xl md:text-2xl font-serif leading-relaxed text-foreground">
+              {industry.description}
+            </p>
+            {industry.content_box && industry.content_box !== industry.description && (
+              <div className="text-muted-foreground leading-relaxed whitespace-pre-line pt-2">
+                {industry.content_box}
               </div>
-              <p className="text-xl md:text-2xl font-serif leading-relaxed text-foreground">
-                {industry.description}
-              </p>
-              {industry.content_box && industry.content_box !== industry.description && (
-                <div className="text-muted-foreground leading-relaxed whitespace-pre-line pt-2">
-                  {industry.content_box}
-                </div>
-              )}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="lg:col-span-5"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
-                <SafeImage
-                  src={industry.image_url}
-                  alt={industry.title}
-                  fallbackSeed={`industry-${industry.slug}-2`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
-          </div>
+            )}
+          </motion.div>
         </div>
       </section>
+
 
       {/* WHAT'S HAPPENING */}
       {whatsHappening.length > 0 && (
