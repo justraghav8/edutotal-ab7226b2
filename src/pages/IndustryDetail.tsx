@@ -153,7 +153,7 @@ export default function IndustryDetail() {
       {/* WHAT'S HAPPENING */}
       {whatsHappening.length > 0 && (
         <section className="py-20 md:py-24 bg-secondary/40 border-y border-border">
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
