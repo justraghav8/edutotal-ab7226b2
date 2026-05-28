@@ -3,7 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, TrendingUp, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { SafeImage } from "@/components/SafeImage";
 
 export default function IndustryDetail() {
@@ -16,11 +17,12 @@ export default function IndustryDetail() {
     if (slug) {
       loadIndustry();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   async function loadIndustry() {
     setLoading(true);
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("industries")
       .select("*")
       .eq("slug", slug)
@@ -29,7 +31,6 @@ export default function IndustryDetail() {
 
     if (data) {
       setIndustry(data);
-      // Load related services
       const { data: relations } = await supabase
         .from("industry_services")
         .select("service_id")
@@ -44,124 +45,269 @@ export default function IndustryDetail() {
           .eq("published", true);
 
         if (servicesData) setServices(servicesData);
+      } else {
+        setServices([]);
       }
+    } else {
+      setIndustry(null);
     }
     setLoading(false);
   }
 
   if (loading) {
     return (
-      <>
-        <div className="flex justify-center items-center min-h-[60vh]">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      </>
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
     );
   }
 
   if (!industry) {
     return (
-      <>
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-4xl font-bold mb-4">Industry Not Found</h1>
-          <Button asChild>
-            <Link to="/industries">View All Industries</Link>
-          </Button>
-        </div>
-      </>
+      <div className="container mx-auto px-4 py-20 text-center">
+        <h1 className="text-4xl font-serif mb-4">Industry Not Found</h1>
+        <Button asChild>
+          <Link to="/industries">View All Industries</Link>
+        </Button>
+      </div>
     );
   }
 
+  const whatsHappening: string[] = Array.isArray(industry.whats_happening)
+    ? industry.whats_happening
+    : [];
+
   return (
     <>
-      <section className="bg-gradient-hero text-white py-16">
-        <div className="container mx-auto px-4">
-          <Button asChild variant="ghost" className="text-white mb-6 hover:bg-white/10">
+      {/* HERO */}
+      <section className="relative bg-foreground text-background overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <SafeImage
+            src={industry.image_url}
+            alt={industry.title}
+            fallbackSeed={`industry-${industry.slug}`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/90 to-foreground/40" />
+
+        <div className="relative container mx-auto px-4 py-20 md:py-28">
+          <Button
+            asChild
+            variant="ghost"
+            className="text-background/80 hover:text-background hover:bg-background/10 mb-8 -ml-3"
+          >
             <Link to="/industries">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Industries
+              All Industries
             </Link>
           </Button>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{industry.title}</h1>
-          <p className="text-xl text-white/90 max-w-3xl">{industry.description}</p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl"
+          >
+            <div className="inline-block text-xs font-medium tracking-[0.2em] uppercase text-accent mb-5">
+              Industry
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-5">
+              {industry.title}
+            </h1>
+            {industry.tagline && (
+              <p className="text-lg md:text-xl italic text-background/70 max-w-2xl">
+                {industry.tagline}
+              </p>
+            )}
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-20 bg-background">
+      {/* INTRO + IMAGE */}
+      <section className="py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-12">
-            {/* Hero Image */}
-            <div className="relative w-full aspect-[16/7] overflow-hidden rounded-2xl shadow-xl">
-              <SafeImage
-                src={industry.image_url}
-                alt={industry.title}
-                fallbackSeed={`industry-${industry.slug}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Content Box */}
-            {industry.content_box && (
-              <div className="prose prose-lg max-w-none text-foreground">
-                <div className="whitespace-pre-line leading-relaxed text-muted-foreground text-lg">
+          <div className="grid lg:grid-cols-12 gap-12 items-start max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 space-y-5"
+            >
+              <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent">
+                Context
+              </div>
+              <p className="text-xl md:text-2xl font-serif leading-relaxed text-foreground">
+                {industry.description}
+              </p>
+              {industry.content_box && industry.content_box !== industry.description && (
+                <div className="text-muted-foreground leading-relaxed whitespace-pre-line pt-2">
                   {industry.content_box}
                 </div>
+              )}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-5"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
+                <SafeImage
+                  src={industry.image_url}
+                  alt={industry.title}
+                  fallbackSeed={`industry-${industry.slug}-2`}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-            {/* Focus Areas */}
-            {industry.focus_areas && industry.focus_areas.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl">Focus Areas</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {industry.focus_areas.map((area: string, index: number) => (
-                      <li key={index} className="flex items-start">
-                        <span className="mr-3 text-accent">•</span>
-                        <span>{area}</span>
-                      </li>
+      {/* WHAT'S HAPPENING */}
+      {whatsHappening.length > 0 && (
+        <section className="py-20 md:py-24 bg-secondary/40 border-y border-border">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-12 max-w-2xl"
+            >
+              <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
+                Market Signals
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif">What's Happening</h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-px bg-border">
+              {whatsHappening.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="bg-background p-8 flex gap-5 group"
+                >
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded-sm bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                      <TrendingUp className="w-5 h-5 text-accent group-hover:text-accent-foreground" />
+                    </div>
+                  </div>
+                  <p className="text-foreground leading-relaxed text-[15px]">
+                    {item}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* HOW EDUTOTAL SUPPORTS */}
+      {industry.how_we_support && (
+        <section className="py-20 md:py-24 bg-background">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
+                Our Role
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif mb-8 max-w-3xl">
+                How EduTotal Supports
+              </h2>
+              <div className="grid md:grid-cols-12 gap-10 items-start">
+                <div className="md:col-span-1 hidden md:block">
+                  <div className="w-px h-full bg-accent mt-2" />
+                </div>
+                <div className="md:col-span-11 space-y-4">
+                  {industry.how_we_support
+                    .split(/\n+/)
+                    .filter(Boolean)
+                    .map((para: string, i: number) => (
+                      <p
+                        key={i}
+                        className="text-lg leading-relaxed text-muted-foreground"
+                      >
+                        {para}
+                      </p>
                     ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Related Services */}
-            {services.length > 0 && (
-              <div>
-                <h2 className="text-3xl font-bold mb-6">Relevant Services</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {services.map((service) => (
-                    <Card key={service.id} className="hover-lift">
-                      <CardHeader>
-                        <CardTitle className="text-lg">{service.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <Button asChild variant="ghost" size="sm">
-                          <Link to={`/services/${service.slug}`}>
-                            Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
                 </div>
               </div>
-            )}
-
-            {/* CTA */}
-            <Card className="bg-gradient-accent text-white">
-              <CardContent className="py-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">Work with us in {industry.title}</h3>
-                <p className="mb-6 text-white/90">Let's discuss your specific needs and opportunities</p>
-                <Button asChild size="lg" variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
-                  <Link to="/contact">Contact Us</Link>
-                </Button>
-              </CardContent>
-            </Card>
+            </motion.div>
           </div>
+        </section>
+      )}
+
+      {/* FOCUS AREAS (legacy support) */}
+      {industry.focus_areas && industry.focus_areas.length > 0 && (
+        <section className="py-16 bg-secondary/40">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="text-2xl md:text-3xl font-serif mb-8">Focus Areas</h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {industry.focus_areas.map((area: string, index: number) => (
+                <li key={index} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground">{area}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* RELATED SERVICES */}
+      {services.length > 0 && (
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <h2 className="text-3xl font-serif mb-8">Relevant Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {services.map((service) => (
+                <Card key={service.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{service.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Button asChild variant="ghost" size="sm">
+                      <Link to={`/services/${service.slug}`}>
+                        Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
+      <section className="py-20 md:py-24 bg-foreground text-background">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <h3 className="text-3xl md:text-4xl font-serif mb-5">
+            Work with us in {industry.title.split(/[&,]/)[0].trim()}
+          </h3>
+          <p className="text-background/70 mb-10 text-lg">
+            Let's discuss your specific needs and opportunities.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="border-background text-background hover:bg-background hover:text-foreground"
+          >
+            <Link to="/contact">Contact Us</Link>
+          </Button>
         </div>
       </section>
     </>
