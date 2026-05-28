@@ -11,6 +11,7 @@ export default function IndustryDetail() {
   const { slug } = useParams();
   const [industry, setIndustry] = useState<any>(null);
   const [services, setServices] = useState<any[]>([]);
+  const [otherIndustries, setOtherIndustries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
