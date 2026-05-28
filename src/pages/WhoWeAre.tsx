@@ -107,7 +107,7 @@ export default function WhoWeAre() {
       />
 
       {/* Floating Tab Navigation */}
-      <section className="py-8 border-b border-border bg-background sticky top-20 z-30">
+      <section className="py-6 border-b border-border bg-background sticky top-16 z-30">
         <div className="container mx-auto px-4">
           <div className="flex gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
