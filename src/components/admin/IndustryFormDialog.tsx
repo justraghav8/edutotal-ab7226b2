@@ -13,6 +13,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,10 +27,13 @@ import { Switch } from "@/components/ui/switch";
 const formSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   slug: z.string().min(1, "Slug is required").max(200),
+  tagline: z.string().optional(),
   description: z.string().min(1, "Description is required"),
   icon_key: z.string().optional(),
   image_url: z.string().url().optional().or(z.literal("")),
   content_box: z.string().optional(),
+  whats_happening: z.string().optional(),
+  how_we_support: z.string().optional(),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
 });
@@ -40,6 +44,24 @@ interface IndustryFormDialogProps {
   open: boolean;
   onClose: (success?: boolean) => void;
   industry?: any;
+}
+
+function arrayToLines(v: any): string {
+  if (!v) return "";
+  if (Array.isArray(v)) return v.join("\n");
+  try {
+    const parsed = JSON.parse(v);
+    if (Array.isArray(parsed)) return parsed.join("\n");
+  } catch {}
+  return String(v);
+}
+
+function linesToArray(v?: string): string[] {
+  if (!v) return [];
+  return v
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
 }
 
 export function IndustryFormDialog({
@@ -53,10 +75,13 @@ export function IndustryFormDialog({
     defaultValues: {
       title: "",
       slug: "",
+      tagline: "",
       description: "",
       icon_key: "",
       image_url: "",
       content_box: "",
+      whats_happening: "",
+      how_we_support: "",
       published: true,
       order_index: 0,
     },
@@ -67,10 +92,13 @@ export function IndustryFormDialog({
       form.reset({
         title: industry.title || "",
         slug: industry.slug || "",
+        tagline: industry.tagline || "",
         description: industry.description || "",
         icon_key: industry.icon_key || "",
         image_url: industry.image_url || "",
         content_box: industry.content_box || "",
+        whats_happening: arrayToLines(industry.whats_happening),
+        how_we_support: industry.how_we_support || "",
         published: industry.published ?? true,
         order_index: industry.order_index || 0,
       });
@@ -78,10 +106,13 @@ export function IndustryFormDialog({
       form.reset({
         title: "",
         slug: "",
+        tagline: "",
         description: "",
         icon_key: "",
         image_url: "",
         content_box: "",
+        whats_happening: "",
+        how_we_support: "",
         published: true,
         order_index: 0,
       });
@@ -93,10 +124,13 @@ export function IndustryFormDialog({
       const submitData: any = {
         title: data.title,
         slug: data.slug,
+        tagline: data.tagline || null,
         description: data.description,
         icon_key: data.icon_key || null,
         image_url: data.image_url || null,
         content_box: data.content_box || null,
+        whats_happening: linesToArray(data.whats_happening),
+        how_we_support: data.how_we_support || null,
         published: data.published,
         order_index: data.order_index,
       };
@@ -175,13 +209,33 @@ export function IndustryFormDialog({
 
             <FormField
               control={form.control}
+              name="tagline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tagline (Optional)</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Short italic subhead under the title"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Description / Intro</FormLabel>
                   <FormControl>
-                    <Textarea {...field} rows={6} />
+                    <Textarea {...field} rows={5} />
                   </FormControl>
+                  <FormDescription>
+                    Shown on the listing card and as the intro on the detail page.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -203,12 +257,51 @@ export function IndustryFormDialog({
 
             <FormField
               control={form.control}
+              name="whats_happening"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>What's Happening (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      rows={8}
+                      placeholder="One stat or insight per line"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Add one bullet per line. Each line renders as a separate stat card.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="how_we_support"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>How EduTotal Supports (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} rows={5} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="content_box"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content Box (Optional)</FormLabel>
+                  <FormLabel>Additional Content Box (Optional)</FormLabel>
                   <FormControl>
-                    <Textarea {...field} rows={6} placeholder="Long-form content displayed beneath the hero image" />
+                    <Textarea
+                      {...field}
+                      rows={4}
+                      placeholder="Optional extra long-form content"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

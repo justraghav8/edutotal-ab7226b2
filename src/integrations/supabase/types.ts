@@ -200,42 +200,51 @@ export type Database = {
           created_at: string | null
           description: string
           focus_areas: Json | null
+          how_we_support: string | null
           icon_key: string | null
           id: string
           image_url: string | null
           order_index: number | null
           published: boolean | null
           slug: string
+          tagline: string | null
           title: string
           updated_at: string | null
+          whats_happening: Json | null
         }
         Insert: {
           content_box?: string | null
           created_at?: string | null
           description: string
           focus_areas?: Json | null
+          how_we_support?: string | null
           icon_key?: string | null
           id?: string
           image_url?: string | null
           order_index?: number | null
           published?: boolean | null
           slug: string
+          tagline?: string | null
           title: string
           updated_at?: string | null
+          whats_happening?: Json | null
         }
         Update: {
           content_box?: string | null
           created_at?: string | null
           description?: string
           focus_areas?: Json | null
+          how_we_support?: string | null
           icon_key?: string | null
           id?: string
           image_url?: string | null
           order_index?: number | null
           published?: boolean | null
           slug?: string
+          tagline?: string | null
           title?: string
           updated_at?: string | null
+          whats_happening?: Json | null
         }
         Relationships: []
       }
