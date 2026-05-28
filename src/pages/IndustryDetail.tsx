@@ -91,7 +91,7 @@ export default function IndustryDetail() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/90 to-foreground/40" />
 
-        <div className="relative container mx-auto px-4 py-20 md:py-28">
+        <div className="relative max-w-6xl mx-auto px-4 lg:px-8 py-20 md:py-28">
           <Button
             asChild
             variant="ghost"
@@ -124,54 +124,36 @@ export default function IndustryDetail() {
         </div>
       </section>
 
-      {/* INTRO + IMAGE */}
+      {/* INTRO */}
       <section className="py-20 md:py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-12 gap-12 items-start max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-7 space-y-5"
-            >
-              <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent">
-                Context
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl space-y-5"
+          >
+            <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent">
+              Context
+            </div>
+            <p className="text-xl md:text-2xl font-serif leading-relaxed text-foreground">
+              {industry.description}
+            </p>
+            {industry.content_box && industry.content_box !== industry.description && (
+              <div className="text-muted-foreground leading-relaxed whitespace-pre-line pt-2">
+                {industry.content_box}
               </div>
-              <p className="text-xl md:text-2xl font-serif leading-relaxed text-foreground">
-                {industry.description}
-              </p>
-              {industry.content_box && industry.content_box !== industry.description && (
-                <div className="text-muted-foreground leading-relaxed whitespace-pre-line pt-2">
-                  {industry.content_box}
-                </div>
-              )}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="lg:col-span-5"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
-                <SafeImage
-                  src={industry.image_url}
-                  alt={industry.title}
-                  fallbackSeed={`industry-${industry.slug}-2`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
-          </div>
+            )}
+          </motion.div>
         </div>
       </section>
+
 
       {/* WHAT'S HAPPENING */}
       {whatsHappening.length > 0 && (
         <section className="py-20 md:py-24 bg-secondary/40 border-y border-border">
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -213,7 +195,7 @@ export default function IndustryDetail() {
       {/* HOW EDUTOTAL SUPPORTS */}
       {industry.how_we_support && (
         <section className="py-20 md:py-24 bg-background">
-          <div className="container mx-auto px-4 max-w-5xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -252,7 +234,7 @@ export default function IndustryDetail() {
       {/* FOCUS AREAS (legacy support) */}
       {industry.focus_areas && industry.focus_areas.length > 0 && (
         <section className="py-16 bg-secondary/40">
-          <div className="container mx-auto px-4 max-w-5xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-serif mb-8">Focus Areas</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {industry.focus_areas.map((area: string, index: number) => (
@@ -269,7 +251,7 @@ export default function IndustryDetail() {
       {/* RELATED SERVICES */}
       {services.length > 0 && (
         <section className="py-20 bg-background">
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <h2 className="text-3xl font-serif mb-8">Relevant Services</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {services.map((service) => (
@@ -293,7 +275,7 @@ export default function IndustryDetail() {
 
       {/* CTA */}
       <section className="py-20 md:py-24 bg-foreground text-background">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 text-center">
           <h3 className="text-3xl md:text-4xl font-serif mb-5">
             Work with us in {industry.title.split(/[&,]/)[0].trim()}
           </h3>
