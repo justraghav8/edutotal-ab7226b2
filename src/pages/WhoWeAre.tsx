@@ -276,29 +276,6 @@ export default function WhoWeAre() {
                               </span>
                             </div>
                           )}
-                          {/* Overlay with links */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                            <div className="flex gap-3">
-                              {member.linkedin_url && member.show_linkedin !== false && (
-                                <a
-                                  href={member.linkedin_url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors"
-                                >
-                                  <Linkedin className="h-4 w-4" />
-                                </a>
-                              )}
-                              {member.email && member.show_email !== false && (
-                                <a
-                                  href={`mailto:${member.email}`}
-                                  className="p-2 bg-accent text-accent-foreground rounded-full hover:bg-accent/90 transition-colors"
-                                >
-                                  <Mail className="h-4 w-4" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
                         </div>
                         <CardContent className="p-4 text-center">
                           <h3 className="font-semibold text-foreground mb-1">
@@ -307,6 +284,31 @@ export default function WhoWeAre() {
                           <p className="text-sm text-primary">
                             {member.designation}
                           </p>
+                          {((member.linkedin_url && member.show_linkedin !== false) ||
+                            (member.email && member.show_email !== false)) && (
+                            <div className="flex justify-center gap-3 mt-3">
+                              {member.linkedin_url && member.show_linkedin !== false && (
+                                <a
+                                  href={member.linkedin_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label={`${member.name} on LinkedIn`}
+                                  className="text-muted-foreground hover:text-primary transition-colors"
+                                >
+                                  <Linkedin className="h-4 w-4" />
+                                </a>
+                              )}
+                              {member.email && member.show_email !== false && (
+                                <a
+                                  href={`mailto:${member.email}`}
+                                  aria-label={`Email ${member.name}`}
+                                  className="text-muted-foreground hover:text-accent transition-colors"
+                                >
+                                  <Mail className="h-4 w-4" />
+                                </a>
+                              )}
+                            </div>
+                          )}
                         </CardContent>
                       </Card>
                     </motion.div>
