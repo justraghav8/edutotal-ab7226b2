@@ -290,10 +290,11 @@ export default function IndustryDetail() {
         const currentIdx = otherIndustries.findIndex(
           (i) => i.order_index >= (industry.order_index ?? 0),
         );
-        const ordered =
+        const ordered = (
           currentIdx > 0
             ? [...otherIndustries.slice(currentIdx), ...otherIndustries.slice(0, currentIdx)]
-            : otherIndustries;
+            : otherIndustries
+        ).slice(0, 3);
         const next = ordered[0];
         return (
           <section className="py-20 md:py-24 bg-secondary/40 border-t border-border">
@@ -317,7 +318,7 @@ export default function IndustryDetail() {
                 )}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {ordered.map((item, idx) => (
                   <motion.article
                     key={item.id}
