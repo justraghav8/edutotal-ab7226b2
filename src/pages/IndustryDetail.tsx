@@ -91,7 +91,7 @@ export default function IndustryDetail() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/90 to-foreground/40" />
 
-        <div className="relative container mx-auto px-4 py-20 md:py-28">
+        <div className="relative max-w-6xl mx-auto px-4 lg:px-8 py-20 md:py-28">
           <Button
             asChild
             variant="ghost"
