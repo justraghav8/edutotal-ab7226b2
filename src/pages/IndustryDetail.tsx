@@ -326,7 +326,7 @@ export default function IndustryDetail() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: idx * 0.06 }}
-                    className="bg-background group"
+                    className="bg-background group border border-border"
                   >
                     <Link
                       to={`/industries/${item.slug}`}
