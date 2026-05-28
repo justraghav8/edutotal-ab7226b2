@@ -11,6 +11,7 @@ export default function IndustryDetail() {
   const { slug } = useParams();
   const [industry, setIndustry] = useState<any>(null);
   const [services, setServices] = useState<any[]>([]);
+  const [otherIndustries, setOtherIndustries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,6 +32,16 @@ export default function IndustryDetail() {
 
     if (data) {
       setIndustry(data);
+
+      // Other industries (everything except current)
+      const { data: others } = await supabase
+        .from("industries")
+        .select("id, slug, title, tagline, description, image_url, order_index")
+        .eq("published", true)
+        .neq("id", data.id)
+        .order("order_index");
+      setOtherIndustries(others || []);
+
       const { data: relations } = await supabase
         .from("industry_services")
         .select("service_id")
@@ -50,6 +61,7 @@ export default function IndustryDetail() {
       }
     } else {
       setIndustry(null);
+      setOtherIndustries([]);
     }
     setLoading(false);
   }
@@ -272,6 +284,84 @@ export default function IndustryDetail() {
           </div>
         </section>
       )}
+
+      {/* EXPLORE OTHER INDUSTRIES */}
+      {otherIndustries.length > 0 && (() => {
+        const currentIdx = otherIndustries.findIndex(
+          (i) => i.order_index >= (industry.order_index ?? 0),
+        );
+        const ordered =
+          currentIdx > 0
+            ? [...otherIndustries.slice(currentIdx), ...otherIndustries.slice(0, currentIdx)]
+            : otherIndustries;
+        const next = ordered[0];
+        return (
+          <section className="py-20 md:py-24 bg-secondary/40 border-t border-border">
+            <div className="max-w-6xl mx-auto px-4 lg:px-8">
+              <div className="flex items-end justify-between mb-10 gap-6 flex-wrap">
+                <div>
+                  <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
+                    Keep Exploring
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-serif">
+                    Other Industries We Serve
+                  </h2>
+                </div>
+                {next && (
+                  <Button asChild variant="ghost" className="group">
+                    <Link to={`/industries/${next.slug}`}>
+                      Next: {next.title.split(/[&,]/)[0].trim()}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </Button>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+                {ordered.map((item, idx) => (
+                  <motion.article
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.06 }}
+                    className="bg-background group"
+                  >
+                    <Link
+                      to={`/industries/${item.slug}`}
+                      className="block h-full"
+                    >
+                      <div className="relative w-full aspect-[16/10] overflow-hidden bg-muted">
+                        <SafeImage
+                          src={item.image_url}
+                          alt={item.title}
+                          fallbackSeed={`industry-${item.slug}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-lg font-serif mb-2 group-hover:text-accent transition-colors leading-snug">
+                          {item.title}
+                        </h3>
+                        {item.tagline && (
+                          <p className="text-sm text-muted-foreground italic line-clamp-2 mb-4">
+                            {item.tagline}
+                          </p>
+                        )}
+                        <span className="text-xs font-medium uppercase tracking-wider inline-flex items-center group-hover:text-accent transition-colors">
+                          Explore <ArrowRight className="ml-2 h-3 w-3" />
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
 
       {/* CTA */}
       <section className="py-20 md:py-24 bg-foreground text-background">
