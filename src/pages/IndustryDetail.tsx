@@ -179,7 +179,7 @@ export default function IndustryDetail() {
               <h2 className="text-3xl md:text-4xl font-serif">What's Happening</h2>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-px bg-border">
+            <div className="grid md:grid-cols-2 gap-4">
               {whatsHappening.map((item, idx) => (
                 <motion.div
                   key={idx}
@@ -187,7 +187,7 @@ export default function IndustryDetail() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="bg-background p-8 flex gap-5 group"
+                  className="bg-background p-8 flex gap-5 group border border-border"
                 >
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 rounded-sm bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
