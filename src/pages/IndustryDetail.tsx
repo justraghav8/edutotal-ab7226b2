@@ -195,7 +195,7 @@ export default function IndustryDetail() {
       {/* HOW EDUTOTAL SUPPORTS */}
       {industry.how_we_support && (
         <section className="py-20 md:py-24 bg-background">
-          <div className="container mx-auto px-4 max-w-5xl">
+          <div className="max-w-6xl mx-auto px-4 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
