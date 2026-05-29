@@ -90,16 +90,16 @@ export function HeroSection({
               transition={{ duration: 0.8 }}
               className={`text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-6 ${displayBg ? 'text-white' : 'text-foreground'}`}
             >
-              {title}
+              {displayTitle}
             </motion.h1>
-            {subtitle && (
+            {displaySubtitle && (
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className={`text-lg md:text-xl max-w-2xl leading-relaxed ${displayBg ? 'text-white/80' : 'text-muted-foreground'}`}
               >
-                {subtitle}
+                {displaySubtitle}
               </motion.p>
             )}
           </div>
@@ -163,7 +163,7 @@ export function HeroSection({
             transition={{ duration: 1, delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-[1.05] mb-10 text-foreground"
           >
-            {title.split(' ').map((word, i) => (
+            {displayTitle.split(' ').map((word, i) => (
               <motion.span
                 key={i}
                 initial={{ opacity: 0, y: 40 }}
@@ -176,14 +176,14 @@ export function HeroSection({
             ))}
           </motion.h1>
           
-          {subtitle && (
+          {displaySubtitle && (
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed font-light"
             >
-              {subtitle}
+              {displaySubtitle}
             </motion.p>
           )}
 
