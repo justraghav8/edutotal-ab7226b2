@@ -7,57 +7,10 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Loader2, Building2, Users, Briefcase, Landmark, Monitor, ClipboardCheck, MapPin, CalendarDays, Megaphone, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 
-const categoryIcons: Record<string, any> = {
-  "Institution Development & Internationalisation": Building2,
-  "Human Resources & Recruitment": Users,
-  "Corporate Consulting, M&A & Regulation": Briefcase,
-  "Financial & Legal Services": Landmark,
-  "Digital Learning & Innovation": Monitor,
-  "Testing & Examination Services": ClipboardCheck,
-  "Educational Real Estate & Campus Development": MapPin,
-  "Conferences & Workshops": CalendarDays,
-  "Media, Branding & PR": Megaphone,
-  "Country Office": Globe,
+const iconMap: Record<string, any> = {
+  Building2, Users, Briefcase, Landmark, Monitor,
+  ClipboardCheck, MapPin, CalendarDays, Megaphone, Globe,
 };
-
-const categoryLabels: Record<string, string> = {
-  "Institution Development & Internationalisation": "A",
-  "Human Resources & Recruitment": "B",
-  "Corporate Consulting, M&A & Regulation": "C",
-  "Financial & Legal Services": "D",
-  "Digital Learning & Innovation": "E",
-  "Testing & Examination Services": "F",
-  "Educational Real Estate & Campus Development": "G",
-  "Conferences & Workshops": "H",
-  "Media, Branding & PR": "I",
-  "Country Office": "J",
-};
-
-const categoryDescriptions: Record<string, string> = {
-  "Institution Development & Internationalisation": "Strategic guidance for institutions seeking global partnerships, accreditation, and academic excellence.",
-  "Human Resources & Recruitment": "End-to-end talent solutions for educational institutions — from leadership search to faculty recruitment.",
-  "Corporate Consulting, M&A & Regulation": "Expert advisory on mergers, acquisitions, regulatory compliance, and corporate structuring in education.",
-  "Financial & Legal Services": "Comprehensive financial planning, legal counsel, and compliance services for educational entities.",
-  "Digital Learning & Innovation": "Transforming education through technology — LMS, EdTech, and digital curriculum design.",
-  "Testing & Examination Services": "Designing and managing assessments, entrance examinations, and evaluation frameworks.",
-  "Educational Real Estate & Campus Development": "From site selection to campus master-planning, creating world-class learning environments.",
-  "Conferences & Workshops": "Curating impactful events, summits, and professional development workshops for educators.",
-  "Media, Branding & PR": "Building powerful institutional brands through strategic communications and media outreach.",
-  "Country Office": "Establishing and managing international representative offices for global education outreach.",
-};
-
-const categoryOrder = [
-  "Institution Development & Internationalisation",
-  "Human Resources & Recruitment",
-  "Corporate Consulting, M&A & Regulation",
-  "Financial & Legal Services",
-  "Digital Learning & Innovation",
-  "Testing & Examination Services",
-  "Educational Real Estate & Campus Development",
-  "Conferences & Workshops",
-  "Media, Branding & PR",
-  "Country Office",
-];
 
 // Fallback images for services without a custom image_url - using reliable Unsplash IDs
 const defaultServiceImages = [
@@ -82,12 +35,13 @@ function getFallbackImage(title: string): string {
 
 export default function Services() {
   const [services, setServices] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const activeCategory = searchParams.get("category");
 
   useEffect(() => {
-    loadServices();
+    loadAll();
   }, []);
 
   useEffect(() => {
@@ -96,24 +50,26 @@ export default function Services() {
     }
   }, [loading, activeCategory]);
 
-  async function loadServices() {
+  async function loadAll() {
     setLoading(true);
-    const { data } = await supabase
-      .from("services")
-      .select("*")
-      .eq("published", true)
-      .order("order_index");
-    if (data) setServices(data);
+    const [{ data: svc }, { data: cats }] = await Promise.all([
+      supabase.from("services").select("*").eq("published", true).order("order_index"),
+      supabase.from("service_categories").select("*").eq("published", true).order("order_index"),
+    ]);
+    setServices(svc || []);
+    setCategories(cats || []);
     setLoading(false);
   }
 
-  const grouped = categoryOrder
-    .map((cat) => ({
-      category: cat,
-      label: categoryLabels[cat],
-      Icon: categoryIcons[cat] || Briefcase,
-      description: categoryDescriptions[cat],
-      services: services.filter((s) => s.category === cat),
+  const grouped = categories
+    .map((c) => ({
+      category: c.category_key,
+      label: c.label,
+      displayName: c.display_name,
+      Icon: iconMap[c.icon_key] || Briefcase,
+      description: c.description,
+      image_url: c.image_url,
+      services: services.filter((s) => s.category === c.category_key),
     }))
     .filter((g) => g.services.length > 0);
 
