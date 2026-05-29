@@ -332,6 +332,48 @@ export type Database = {
         }
         Relationships: []
       }
+      service_categories: {
+        Row: {
+          category_key: string
+          created_at: string
+          description: string | null
+          display_name: string
+          icon_key: string | null
+          id: string
+          image_url: string | null
+          label: string
+          order_index: number
+          published: boolean
+          updated_at: string
+        }
+        Insert: {
+          category_key: string
+          created_at?: string
+          description?: string | null
+          display_name: string
+          icon_key?: string | null
+          id?: string
+          image_url?: string | null
+          label: string
+          order_index?: number
+          published?: boolean
+          updated_at?: string
+        }
+        Update: {
+          category_key?: string
+          created_at?: string
+          description?: string | null
+          display_name?: string
+          icon_key?: string | null
+          id?: string
+          image_url?: string | null
+          label?: string
+          order_index?: number
+          published?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           approach: Json | null

@@ -31,6 +31,7 @@ export function AdminLayout() {
     { icon: Settings, label: "Site Settings", path: "/admin/settings" },
     { icon: ImageIcon, label: "Image Library", path: "/admin/images" },
     { icon: FileText, label: "Hero Banners", path: "/admin/hero-banners" },
+    { icon: Briefcase, label: "Service Categories", path: "/admin/service-categories" },
     { icon: Briefcase, label: "Services", path: "/admin/services" },
     { icon: Building2, label: "Industries", path: "/admin/industries" },
     { icon: Newspaper, label: "Insights", path: "/admin/insights" },
