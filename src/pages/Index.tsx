@@ -35,18 +35,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
   );
 }
 
-const serviceCategories = [
-  { name: "Institution Development & Internationalisation", shortName: "Institution Development", label: "A", image: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=600&q=80" },
-  { name: "Human Resources & Recruitment", shortName: "HR & Recruitment", label: "B", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80" },
-  { name: "Corporate Consulting, M&A & Regulation", shortName: "Corporate & M&A", label: "C", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" },
-  { name: "Financial & Legal Services", shortName: "Financial & Legal", label: "D", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" },
-  { name: "Digital Learning & Innovation", shortName: "Digital Learning", label: "E", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" },
-  { name: "Testing & Examination Services", shortName: "Testing & Exams", label: "F", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80" },
-  { name: "Educational Real Estate & Campus Development", shortName: "Campus Development", label: "G", image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80" },
-  { name: "Conferences & Workshops", shortName: "Conferences", label: "H", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" },
-  { name: "Media, Branding & PR", shortName: "Media & Branding", label: "I", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" },
-  { name: "Country Office", shortName: "Country Office", label: "J", image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&q=80" },
-];
+const fallbackCategoryImage = "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=600&q=80";
 
 function ParallaxCTA() {
   const ref = useRef<HTMLElement>(null);
