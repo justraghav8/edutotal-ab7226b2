@@ -97,17 +97,19 @@ export default function Index() {
   }, []);
 
   async function loadData() {
-    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
+    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes, categoriesRes] = await Promise.all([
       supabase.from("testimonials").select("*").eq("published", true).limit(10),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(20),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
       supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
+      supabase.from("service_categories").select("*").eq("published", true).order("order_index"),
     ]);
 
     if (testimonialsRes.data) setTestimonials(testimonialsRes.data);
     if (clientsRes.data) setClients(clientsRes.data);
     if (insightsRes.data) setInsights(insightsRes.data);
     if (heroSlidesRes.data) setHeroSlides(heroSlidesRes.data);
+    if (categoriesRes.data) setServiceCategories(categoriesRes.data);
     setHeroLoading(false);
   }
 
