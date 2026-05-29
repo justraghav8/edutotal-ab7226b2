@@ -92,7 +92,7 @@ export default function Services() {
       />
 
       {/* Category Navigation */}
-      <section className="py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-20 z-30">
+      <section className="py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-16 z-30">
         <div className="container mx-auto px-4">
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             {grouped.map((g) => {
