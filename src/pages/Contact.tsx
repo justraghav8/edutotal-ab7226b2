@@ -160,7 +160,7 @@ export default function Contact() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("E-7, Defence Colony, New Delhi - 110024, India")}`}
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-start gap-4 group hover:text-primary transition-colors"
@@ -170,16 +170,14 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Address</h4>
-                      <p className="text-muted-foreground group-hover:text-primary transition-colors">
-                        E-7, Defence Colony<br />
-                        New Delhi - 110024<br />
-                        India
+                      <p className="text-muted-foreground group-hover:text-primary transition-colors whitespace-pre-line">
+                        {address}
                       </p>
                     </div>
                   </a>
 
                   <a
-                    href="tel:+911141328320"
+                    href={telHref}
                     className="flex items-start gap-4 group hover:text-primary transition-colors"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -188,13 +186,13 @@ export default function Contact() {
                     <div>
                       <h4 className="font-semibold mb-1">Phone</h4>
                       <span className="text-muted-foreground group-hover:text-primary transition-colors">
-                        +91 11 4132 8320
+                        {phone}
                       </span>
                     </div>
                   </a>
 
                   <a
-                    href="mailto:info@edutotal.in"
+                    href={`mailto:${email}`}
                     className="flex items-start gap-4 group hover:text-primary transition-colors"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -203,7 +201,7 @@ export default function Contact() {
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
                       <span className="text-muted-foreground group-hover:text-primary transition-colors">
-                        info@edutotal.in
+                        {email}
                       </span>
                     </div>
                   </a>
@@ -213,11 +211,10 @@ export default function Contact() {
               <Card className="bg-gradient-hero text-white">
                 <CardContent className="py-8">
                   <h3 className="text-xl font-bold mb-4">Business Hours</h3>
-                  <div className="space-y-2 text-white/90">
-                    <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
-                    <p>Saturday: 10:00 AM - 2:00 PM IST</p>
-                    <p>Sunday: Closed</p>
+                  <div className="space-y-2 text-white/90 whitespace-pre-line">
+                    {businessHours}
                   </div>
+
                 </CardContent>
               </Card>
             </div>
