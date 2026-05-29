@@ -45,9 +45,17 @@ export default function Careers() {
   const [careers, setCareers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<any>(null);
+  const [careersEmail, setCareersEmail] = useState<string>("careers@edutotal.in");
 
   useEffect(() => {
     loadCareers();
+    supabase
+      .from("site_settings")
+      .select("careers_email")
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.careers_email) setCareersEmail(data.careers_email);
+      });
   }, []);
 
   async function loadCareers() {
