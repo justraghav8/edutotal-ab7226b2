@@ -35,18 +35,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
   );
 }
 
-const serviceCategories = [
-  { name: "Institution Development & Internationalisation", shortName: "Institution Development", label: "A", image: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=600&q=80" },
-  { name: "Human Resources & Recruitment", shortName: "HR & Recruitment", label: "B", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80" },
-  { name: "Corporate Consulting, M&A & Regulation", shortName: "Corporate & M&A", label: "C", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" },
-  { name: "Financial & Legal Services", shortName: "Financial & Legal", label: "D", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" },
-  { name: "Digital Learning & Innovation", shortName: "Digital Learning", label: "E", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" },
-  { name: "Testing & Examination Services", shortName: "Testing & Exams", label: "F", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80" },
-  { name: "Educational Real Estate & Campus Development", shortName: "Campus Development", label: "G", image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80" },
-  { name: "Conferences & Workshops", shortName: "Conferences", label: "H", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" },
-  { name: "Media, Branding & PR", shortName: "Media & Branding", label: "I", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" },
-  { name: "Country Office", shortName: "Country Office", label: "J", image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&q=80" },
-];
+const fallbackCategoryImage = "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=600&q=80";
 
 function ParallaxCTA() {
   const ref = useRef<HTMLElement>(null);
@@ -101,23 +90,26 @@ export default function Index() {
   const [insights, setInsights] = useState<any[]>([]);
   const [heroSlides, setHeroSlides] = useState<any[]>([]);
   const [heroLoading, setHeroLoading] = useState(true);
+  const [serviceCategories, setServiceCategories] = useState<any[]>([]);
 
   useEffect(() => {
     loadData();
   }, []);
 
   async function loadData() {
-    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes] = await Promise.all([
+    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes, categoriesRes] = await Promise.all([
       supabase.from("testimonials").select("*").eq("published", true).limit(10),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(20),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
       supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
+      supabase.from("service_categories").select("*").eq("published", true).order("order_index"),
     ]);
 
     if (testimonialsRes.data) setTestimonials(testimonialsRes.data);
     if (clientsRes.data) setClients(clientsRes.data);
     if (insightsRes.data) setInsights(insightsRes.data);
     if (heroSlidesRes.data) setHeroSlides(heroSlidesRes.data);
+    if (categoriesRes.data) setServiceCategories(categoriesRes.data);
     setHeroLoading(false);
   }
 
@@ -301,19 +293,19 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {serviceCategories.map((cat, index) => (
               <motion.div
-                key={cat.name}
+                key={cat.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
                 <Link
-                  to={`/services?category=${encodeURIComponent(cat.name)}`}
+                  to={`/services?category=${encodeURIComponent(cat.category_key)}`}
                   className="group block relative overflow-hidden rounded-xl aspect-[3/4] hover:shadow-xl transition-shadow duration-300"
                 >
                   <img
-                    src={cat.image}
-                    alt={cat.name}
+                    src={cat.image_url || fallbackCategoryImage}
+                    alt={cat.display_name}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
                   />
@@ -321,7 +313,7 @@ export default function Index() {
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
                     <span className="text-xs font-mono text-accent mb-1">{cat.label}</span>
                     <h3 className="text-sm md:text-base font-serif text-white leading-tight group-hover:text-accent transition-colors">
-                      {cat.shortName}
+                      {cat.display_name}
                     </h3>
                   </div>
                 </Link>
