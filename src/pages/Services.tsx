@@ -106,7 +106,7 @@ export default function Services() {
                   <Icon className="h-3 w-3" />
                   <span>{g.label}</span>
                   <span className="max-w-0 overflow-hidden group-hover/nav:max-w-[200px] transition-all duration-300 ease-out">
-                    <span className="pl-0.5">{g.category}</span>
+                    <span className="pl-0.5">{g.displayName}</span>
                   </span>
                 </button>
               );
@@ -147,7 +147,7 @@ export default function Services() {
                         </div>
                       </div>
                       <h2 className="text-2xl lg:text-3xl font-serif mb-3 text-foreground">
-                        {g.category}
+                        {g.displayName}
                       </h2>
                       <p className="text-muted-foreground leading-relaxed text-base">
                         {g.description}
