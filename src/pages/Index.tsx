@@ -90,6 +90,7 @@ export default function Index() {
   const [insights, setInsights] = useState<any[]>([]);
   const [heroSlides, setHeroSlides] = useState<any[]>([]);
   const [heroLoading, setHeroLoading] = useState(true);
+  const [serviceCategories, setServiceCategories] = useState<any[]>([]);
 
   useEffect(() => {
     loadData();
