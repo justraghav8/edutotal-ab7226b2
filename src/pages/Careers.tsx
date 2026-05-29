@@ -137,8 +137,8 @@ export default function Careers() {
               </p>
               <p className="text-muted-foreground">
                 You can still send us your resume at{" "}
-                <a href="mailto:careers@edutotal.in" className="text-primary hover:underline">
-                  careers@edutotal.in
+                <a href={`mailto:${careersEmail}`} className="text-primary hover:underline">
+                  {careersEmail}
                 </a>
               </p>
             </div>
