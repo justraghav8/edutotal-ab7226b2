@@ -34,6 +34,8 @@ export function HeroSection({
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const scale = useTransform(scrollY, [0, 400], [1, 0.95]);
   const [bgImage, setBgImage] = useState<string | null>(backgroundImage || null);
+  const [cmsTitle, setCmsTitle] = useState<string | null>(null);
+  const [cmsSubtitle, setCmsSubtitle] = useState<string | null>(null);
 
   useEffect(() => {
     if (pageKey) {
@@ -44,18 +46,21 @@ export function HeroSection({
   async function loadHeroBanner() {
     const { data } = await supabase
       .from("hero_banners")
-      .select("background_image_url")
+      .select("background_image_url, title, subtitle")
       .eq("page_key", pageKey)
-      .single();
-    
+      .maybeSingle();
+
     if (data?.background_image_url) {
       setBgImage(data.background_image_url);
     } else if (pageKey && defaultBackgrounds[pageKey]) {
       setBgImage(defaultBackgrounds[pageKey]);
     }
+    if (data?.title) setCmsTitle(data.title);
+    if (data?.subtitle) setCmsSubtitle(data.subtitle);
   }
 
-  // Get fallback image
+  const displayTitle = cmsTitle || title;
+  const displaySubtitle = cmsSubtitle || subtitle;
   const displayBg = bgImage || (pageKey ? defaultBackgrounds[pageKey] : null);
 
   if (minimal) {
