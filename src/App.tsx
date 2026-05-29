@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import ServicesAdmin from "./pages/admin/Services";
+import ServiceCategoriesAdmin from "./pages/admin/ServiceCategories";
 import Settings from "./pages/admin/Settings";
 import HeroBanners from "./pages/admin/HeroBanners";
 import IndustriesAdmin from "./pages/admin/IndustriesAdmin";
@@ -77,6 +78,7 @@ const App = () => (
               <Route path="images" element={<Images />} />
               <Route path="hero-banners" element={<HeroBanners />} />
               <Route path="services" element={<ServicesAdmin />} />
+              <Route path="service-categories" element={<ServiceCategoriesAdmin />} />
               <Route path="industries" element={<IndustriesAdmin />} />
               <Route path="insights" element={<InsightsAdmin />} />
               <Route path="team" element={<Team />} />
