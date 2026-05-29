@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 export default function ServiceDetail() {
   const { slug } = useParams();
   const [service, setService] = useState<any>(null);
+  const [category, setCategory] = useState<any>(null);
   const [relatedServices, setRelatedServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,15 +27,23 @@ export default function ServiceDetail() {
 
     if (data) {
       setService(data);
-      const { data: related } = await supabase
-        .from("services")
-        .select("*")
-        .eq("published", true)
-        .eq("category", data.category)
-        .neq("id", data.id)
-        .order("order_index")
-        .limit(4);
+      const [{ data: related }, { data: cat }] = await Promise.all([
+        supabase
+          .from("services")
+          .select("*")
+          .eq("published", true)
+          .eq("category", data.category)
+          .neq("id", data.id)
+          .order("order_index")
+          .limit(4),
+        supabase
+          .from("service_categories")
+          .select("*")
+          .eq("category_key", data.category)
+          .maybeSingle(),
+      ]);
       if (related) setRelatedServices(related);
+      if (cat) setCategory(cat);
     }
     setLoading(false);
   }
