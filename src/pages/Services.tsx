@@ -138,20 +138,39 @@ export default function Services() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-80px" }}
                       transition={{ duration: 0.5 }}
-                      className="mb-10 max-w-3xl"
+                      className="mb-10"
                     >
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-3xl font-serif font-bold text-accent/20">{g.label}</span>
-                        <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-accent/10 text-accent">
-                          <Icon className="h-4 w-4" />
+                      {g.image_url && (
+                        <div className="relative h-48 md:h-64 w-full rounded-xl overflow-hidden mb-8">
+                          <img
+                            src={g.image_url}
+                            alt={g.displayName}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                          <div className="absolute bottom-0 left-0 p-6">
+                            <span className="text-xs font-mono text-accent uppercase tracking-wider">{g.label} · Category</span>
+                            <h2 className="text-2xl md:text-3xl font-serif text-white mt-1">{g.displayName}</h2>
+                          </div>
                         </div>
+                      )}
+                      <div className="max-w-3xl">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-3xl font-serif font-bold text-accent/20">{g.label}</span>
+                          <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-accent/10 text-accent">
+                            <Icon className="h-4 w-4" />
+                          </div>
+                        </div>
+                        {!g.image_url && (
+                          <h2 className="text-2xl lg:text-3xl font-serif mb-3 text-foreground">
+                            {g.displayName}
+                          </h2>
+                        )}
+                        <p className="text-muted-foreground leading-relaxed text-base">
+                          {g.description}
+                        </p>
                       </div>
-                      <h2 className="text-2xl lg:text-3xl font-serif mb-3 text-foreground">
-                        {g.displayName}
-                      </h2>
-                      <p className="text-muted-foreground leading-relaxed text-base">
-                        {g.description}
-                      </p>
                     </motion.div>
 
                     {/* Service Cards with images */}
