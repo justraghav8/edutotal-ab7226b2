@@ -89,7 +89,18 @@ export default function Settings() {
         </div>
         <div>
           <Label htmlFor="contact_address">Contact Address</Label>
-          <Input id="contact_address" value={settings.contact_address || ""} onChange={(e) => set("contact_address", e.target.value)} />
+          <Textarea id="contact_address" rows={3} value={settings.contact_address || ""} onChange={(e) => set("contact_address", e.target.value)} />
+          <p className="text-xs text-muted-foreground mt-1">Shown on the Contact page. Line breaks are preserved.</p>
+        </div>
+        <div>
+          <Label htmlFor="business_hours">Business Hours</Label>
+          <Textarea id="business_hours" rows={4} value={settings.business_hours || ""} onChange={(e) => set("business_hours", e.target.value)} placeholder={"Monday - Friday: 9:00 AM - 6:00 PM IST\nSaturday: 10:00 AM - 2:00 PM IST\nSunday: Closed"} />
+          <p className="text-xs text-muted-foreground mt-1">Shown on the Contact page. One line per row.</p>
+        </div>
+        <div>
+          <Label htmlFor="careers_email">Careers Email</Label>
+          <Input id="careers_email" type="email" value={settings.careers_email || ""} onChange={(e) => set("careers_email", e.target.value)} placeholder="careers@edutotal.in" />
+          <p className="text-xs text-muted-foreground mt-1">Used as the apply-by-email fallback on the Careers page.</p>
         </div>
       </Card>
 
