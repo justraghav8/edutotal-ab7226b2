@@ -20,6 +20,7 @@ interface SiteSettings {
 export default function Contact() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,6 +28,23 @@ export default function Contact() {
     message: "",
     service_interest: "",
   });
+
+  useEffect(() => {
+    supabase
+      .from("site_settings")
+      .select("contact_address, contact_phone, contact_email, business_hours")
+      .maybeSingle()
+      .then(({ data }) => setSettings(data as SiteSettings | null));
+  }, []);
+
+  const address = settings?.contact_address || "E-7, Defence Colony, New Delhi - 110024, India";
+  const phone = settings?.contact_phone || "+91 11 4132 8320";
+  const email = settings?.contact_email || "info@edutotal.in";
+  const businessHours =
+    settings?.business_hours ||
+    "Monday - Friday: 9:00 AM - 6:00 PM IST\nSaturday: 10:00 AM - 2:00 PM IST\nSunday: Closed";
+  const telHref = `tel:${phone.replace(/[^+\d]/g, "")}`;
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
