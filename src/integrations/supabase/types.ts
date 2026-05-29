@@ -389,6 +389,8 @@ export type Database = {
       site_settings: {
         Row: {
           accent_color: string | null
+          business_hours: string | null
+          careers_email: string | null
           contact_address: string | null
           contact_email: string | null
           contact_phone: string | null
@@ -407,6 +409,8 @@ export type Database = {
         }
         Insert: {
           accent_color?: string | null
+          business_hours?: string | null
+          careers_email?: string | null
           contact_address?: string | null
           contact_email?: string | null
           contact_phone?: string | null
@@ -425,6 +429,8 @@ export type Database = {
         }
         Update: {
           accent_color?: string | null
+          business_hours?: string | null
+          careers_email?: string | null
           contact_address?: string | null
           contact_email?: string | null
           contact_phone?: string | null
