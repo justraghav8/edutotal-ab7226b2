@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Mail, MapPin, Phone } from "lucide-react";
+
+interface SiteSettings {
+  contact_address: string | null;
+  contact_phone: string | null;
+  contact_email: string | null;
+  business_hours: string | null;
+}
 
 export default function Contact() {
   const { toast } = useToast();
