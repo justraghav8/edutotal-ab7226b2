@@ -293,19 +293,19 @@ export default function Index() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {serviceCategories.map((cat, index) => (
               <motion.div
-                key={cat.name}
+                key={cat.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
                 <Link
-                  to={`/services?category=${encodeURIComponent(cat.name)}`}
+                  to={`/services?category=${encodeURIComponent(cat.category_key)}`}
                   className="group block relative overflow-hidden rounded-xl aspect-[3/4] hover:shadow-xl transition-shadow duration-300"
                 >
                   <img
-                    src={cat.image}
-                    alt={cat.name}
+                    src={cat.image_url || fallbackCategoryImage}
+                    alt={cat.display_name}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
                   />
@@ -313,7 +313,7 @@ export default function Index() {
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
                     <span className="text-xs font-mono text-accent mb-1">{cat.label}</span>
                     <h3 className="text-sm md:text-base font-serif text-white leading-tight group-hover:text-accent transition-colors">
-                      {cat.shortName}
+                      {cat.display_name}
                     </h3>
                   </div>
                 </Link>
