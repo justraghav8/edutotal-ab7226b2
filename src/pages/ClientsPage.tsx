@@ -35,7 +35,7 @@ export default function ClientsPage() {
         title="Our Clients"
         subtitle="Institutions and organizations that trust EduTotal to drive transformation and excellence"
         minimal
-        pageKey="who-we-are"
+        pageKey="clients"
       />
 
       <section className="py-20 bg-background">
