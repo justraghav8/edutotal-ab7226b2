@@ -73,13 +73,11 @@ export function Footer() {
           {/* About */}
           <div>
             <Link to="/" className="inline-flex items-center mb-4">
-              {settings?.logo_url ? (
-                <img src={settings.logo_url} alt="EduTotal" className="h-10 w-auto object-contain" />
-              ) : (
-                <span className="text-2xl font-serif font-bold tracking-tight text-foreground">
-                  Edu<span className="text-accent">Total</span>
-                </span>
-              )}
+              <img
+                src={isDark ? logoDark.url : logoLight.url}
+                alt="EduTotal"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
             <p className="text-sm text-muted-foreground">Transforming education through strategic excellence. Your trusted partner in education consulting.</p>
           </div>
