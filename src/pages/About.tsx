@@ -232,7 +232,7 @@ export default function About() {
       />
 
       {/* Tabbed Section: Mission / Motto / Core Values */}
-      <section className="py-24 lg:py-32 bg-background overflow-hidden">
+      <section className="pt-16 pb-24 lg:pt-20 lg:pb-32 bg-background overflow-hidden">
         <div className="container mx-auto px-4">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-16">
