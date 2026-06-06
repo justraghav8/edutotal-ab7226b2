@@ -77,7 +77,7 @@ export function HeroSection({
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <div className="absolute inset-0 bg-black/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20" />
           </div>
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
