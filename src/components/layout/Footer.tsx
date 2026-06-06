@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import logoLight from "@/assets/logo-light.png.asset.json";
+import logoDark from "@/assets/logo-dark.png.asset.json";
 
 interface Settings {
   logo_url: string | null;
@@ -18,6 +20,18 @@ interface Settings {
 
 export function Footer() {
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [isDark, setIsDark] = useState(
+    typeof document !== "undefined" && document.documentElement.classList.contains("dark"),
+  );
+
+  useEffect(() => {
+    const el = document.documentElement;
+    const update = () => setIsDark(el.classList.contains("dark"));
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(el, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     supabase
@@ -59,13 +73,11 @@ export function Footer() {
           {/* About */}
           <div>
             <Link to="/" className="inline-flex items-center mb-4">
-              {settings?.logo_url ? (
-                <img src={settings.logo_url} alt="EduTotal" className="h-10 w-auto object-contain" />
-              ) : (
-                <span className="text-2xl font-serif font-bold tracking-tight text-foreground">
-                  Edu<span className="text-accent">Total</span>
-                </span>
-              )}
+              <img
+                src={isDark ? logoDark.url : logoLight.url}
+                alt="EduTotal"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
             <p className="text-sm text-muted-foreground">Transforming education through strategic excellence. Your trusted partner in education consulting.</p>
           </div>
