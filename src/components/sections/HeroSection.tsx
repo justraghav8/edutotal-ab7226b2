@@ -33,9 +33,10 @@ export function HeroSection({
   const y = useTransform(scrollY, [0, 800], [0, 100]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const scale = useTransform(scrollY, [0, 400], [1, 0.95]);
-  const [bgImage, setBgImage] = useState<string | null>(backgroundImage || null);
+  const [bgImage, setBgImage] = useState<string | null>(backgroundImage || (pageKey ? defaultBackgrounds[pageKey] : null));
   const [cmsTitle, setCmsTitle] = useState<string | null>(null);
   const [cmsSubtitle, setCmsSubtitle] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(!pageKey);
 
   useEffect(() => {
     if (pageKey) {
@@ -57,7 +58,9 @@ export function HeroSection({
     }
     if (data?.title) setCmsTitle(data.title);
     if (data?.subtitle) setCmsSubtitle(data.subtitle);
+    setLoaded(true);
   }
+
 
   const displayTitle = cmsTitle || title;
   const displaySubtitle = cmsSubtitle || subtitle;
@@ -82,6 +85,7 @@ export function HeroSection({
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
         
+        {loaded && (
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <motion.h1
@@ -104,6 +108,8 @@ export function HeroSection({
             )}
           </div>
         </div>
+        )}
+
       </section>
     );
   }
@@ -139,6 +145,8 @@ export function HeroSection({
         style={{ opacity, scale }} 
         className="container mx-auto px-4 py-20 md:py-32 relative z-10"
       >
+        {loaded && (
+
         <div className="max-w-5xl mx-auto">
           {/* Accent line */}
           <motion.div
@@ -203,7 +211,9 @@ export function HeroSection({
             </motion.div>
           </motion.div>
         </div>
+        )}
       </motion.div>
     </section>
+
   );
 }
