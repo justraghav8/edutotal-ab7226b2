@@ -85,6 +85,7 @@ export function HeroSection({
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
         
+        {loaded && (
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <motion.h1
@@ -107,6 +108,8 @@ export function HeroSection({
             )}
           </div>
         </div>
+        )}
+
       </section>
     );
   }
