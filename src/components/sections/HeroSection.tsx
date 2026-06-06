@@ -145,6 +145,8 @@ export function HeroSection({
         style={{ opacity, scale }} 
         className="container mx-auto px-4 py-20 md:py-32 relative z-10"
       >
+        {loaded && (
+
         <div className="max-w-5xl mx-auto">
           {/* Accent line */}
           <motion.div
