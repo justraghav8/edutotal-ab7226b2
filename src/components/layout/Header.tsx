@@ -5,22 +5,26 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { SearchDialog } from "@/components/SearchDialog";
-import { supabase } from "@/integrations/supabase/client";
+import logoLight from "@/assets/logo-light.png.asset.json";
+import logoDark from "@/assets/logo-dark.png.asset.json";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [isDark, setIsDark] = useState(
+    typeof document !== "undefined" && document.documentElement.classList.contains("dark"),
+  );
 
   useEffect(() => {
-    supabase
-      .from("site_settings")
-      .select("logo_url")
-      .maybeSingle()
-      .then(({ data }) => {
-        if (data?.logo_url) setLogoUrl(data.logo_url);
-      });
+    const el = document.documentElement;
+    const update = () => setIsDark(el.classList.contains("dark"));
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(el, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
   }, []);
+
+  const logoUrl = isDark ? logoDark.url : logoLight.url;
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -40,17 +44,11 @@ export function Header() {
         <nav className="container mx-auto flex h-16 items-center justify-between px-4">
           {/* Left: Logo */}
           <Link to="/" className="flex items-center gap-2">
-            {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt="EduTotal"
-                className="h-9 w-auto object-contain"
-              />
-            ) : (
-              <span className="text-2xl font-serif font-bold tracking-tight text-foreground">
-                Edu<span className="text-accent">Total</span>
-              </span>
-            )}
+            <img
+              src={logoUrl}
+              alt="EduTotal"
+              className="h-9 w-auto object-contain"
+            />
           </Link>
 
           {/* Center: Navigation Links (Desktop) */}
