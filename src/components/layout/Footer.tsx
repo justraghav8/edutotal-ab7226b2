@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import logoLight from "@/assets/logo-light.png.asset.json";
+import logoDark from "@/assets/logo-dark.png.asset.json";
 
 interface Settings {
   logo_url: string | null;
