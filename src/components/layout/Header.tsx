@@ -44,17 +44,11 @@ export function Header() {
         <nav className="container mx-auto flex h-16 items-center justify-between px-4">
           {/* Left: Logo */}
           <Link to="/" className="flex items-center gap-2">
-            {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt="EduTotal"
-                className="h-9 w-auto object-contain"
-              />
-            ) : (
-              <span className="text-2xl font-serif font-bold tracking-tight text-foreground">
-                Edu<span className="text-accent">Total</span>
-              </span>
-            )}
+            <img
+              src={logoUrl}
+              alt="EduTotal"
+              className="h-9 w-auto object-contain"
+            />
           </Link>
 
           {/* Center: Navigation Links (Desktop) */}
