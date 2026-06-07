@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Calendar, User, Loader2 } from "lucide-react";
 import { format } from "date-fns";
+import DOMPurify from "dompurify";
 
 export default function InsightDetail() {
   const { slug } = useParams();
@@ -99,7 +100,11 @@ export default function InsightDetail() {
 
               <div 
                 className="rich-content"
-                dangerouslySetInnerHTML={{ __html: insight.body }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(insight.body, {
+                  ALLOWED_TAGS: ['p','br','strong','em','u','h1','h2','h3','h4','ul','ol','li','blockquote','a','img','code','pre','hr','span','div'],
+                  ALLOWED_ATTR: ['href','src','alt','title','class','target','rel'],
+                  ALLOW_DATA_ATTR: false,
+                }) }}
               />
             </div>
 
