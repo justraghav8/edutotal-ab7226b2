@@ -604,7 +604,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      team_members_public: {
+        Row: {
+          biography: string | null
+          category: Database["public"]["Enums"]["team_category"] | null
+          created_at: string | null
+          designation: string | null
+          email: string | null
+          id: string | null
+          linkedin_url: string | null
+          name: string | null
+          order_index: number | null
+          photo_url: string | null
+          published: boolean | null
+          show_email: boolean | null
+          show_linkedin: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          biography?: string | null
+          category?: Database["public"]["Enums"]["team_category"] | null
+          created_at?: string | null
+          designation?: string | null
+          email?: never
+          id?: string | null
+          linkedin_url?: string | null
+          name?: string | null
+          order_index?: number | null
+          photo_url?: string | null
+          published?: boolean | null
+          show_email?: boolean | null
+          show_linkedin?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          biography?: string | null
+          category?: Database["public"]["Enums"]["team_category"] | null
+          created_at?: string | null
+          designation?: string | null
+          email?: never
+          id?: string | null
+          linkedin_url?: string | null
+          name?: string | null
+          order_index?: number | null
+          photo_url?: string | null
+          published?: boolean | null
+          show_email?: boolean | null
+          show_linkedin?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
