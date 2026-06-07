@@ -93,7 +93,7 @@ export default function IndustryDetail() {
     <>
       {/* HERO */}
       <section className="relative bg-foreground text-background overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0">
           <SafeImage
             src={industry.image_url}
             alt={industry.title}
@@ -101,7 +101,8 @@ export default function IndustryDetail() {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/90 to-foreground/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/20" />
+
 
         <div className="relative max-w-6xl mx-auto px-4 lg:px-8 py-20 md:py-28">
           <Button
