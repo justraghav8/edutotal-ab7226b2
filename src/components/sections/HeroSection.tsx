@@ -36,7 +36,6 @@ export function HeroSection({
   const [bgImage, setBgImage] = useState<string | null>(backgroundImage || (pageKey ? defaultBackgrounds[pageKey] : null));
   const [cmsTitle, setCmsTitle] = useState<string | null>(null);
   const [cmsSubtitle, setCmsSubtitle] = useState<string | null>(null);
-  const [loaded, setLoaded] = useState(!pageKey);
 
   useEffect(() => {
     if (pageKey) {
