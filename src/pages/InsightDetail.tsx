@@ -105,7 +105,7 @@ export default function InsightDetail() {
                   ALLOWED_ATTR: ['href','src','alt','title','class','target','rel'],
                   ALLOW_DATA_ATTR: false,
                 }) }}
-              />)
+              />
             </div>
 
             <div className="mt-12 pt-12 border-t">
