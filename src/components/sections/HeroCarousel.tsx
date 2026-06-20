@@ -21,6 +21,9 @@ interface HeroCarouselProps {
 export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -37,27 +40,43 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
     }),
   };
 
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    if (slides.length > 1 && !isPaused) {
+      timerRef.current = setInterval(() => {
+        setDirection(1);
+        setCurrentIndex((prev) => (prev + 1) % slides.length);
+      }, 6000);
+    }
+  }, [slides.length, isPaused]);
+
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % slides.length);
-  }, [slides.length]);
+    resetTimer();
+  }, [slides.length, resetTimer]);
 
   const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
-  }, [slides.length]);
+    resetTimer();
+  }, [slides.length, resetTimer]);
 
   const goToSlide = (index: number) => {
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
+    resetTimer();
   };
 
   // Auto-advance slides
   useEffect(() => {
-    if (slides.length <= 1) return;
-    const interval = setInterval(nextSlide, 6000);
-    return () => clearInterval(interval);
-  }, [nextSlide, slides.length]);
+    resetTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [resetTimer]);
 
   // Show loading skeleton while data is being fetched
   if (isLoading) {
