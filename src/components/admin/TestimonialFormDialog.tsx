@@ -90,6 +90,7 @@ export function TestimonialFormDialog({
         quote: data.quote,
         role: data.role || null,
         organization: data.organization || null,
+        photo_url: data.photo_url || null,
         logo_url: null,
         published: data.published,
       };
