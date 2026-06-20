@@ -333,33 +333,118 @@ export default function Index() {
       </section>
 
       {/* Leadership Section */}
-      <section id="leadership" className="py-28 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
+      <section id="leadership" className="py-20 bg-background">
+        <div className="container mx-auto px-4 md:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-28 shadow-2xl"
+          >
+            {/* Animated geometric abstract background */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+              <svg className="absolute inset-0 h-full w-full opacity-[0.12]" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="leadership-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+                    <path d="M 48 0 L 0 0 0 48" fill="none" stroke="white" strokeWidth="0.6" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#leadership-grid)" />
+              </svg>
+
+              <motion.div
+                className="absolute -top-24 -right-24 h-80 w-80 rounded-full border border-white/20"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              >
+                <div className="absolute top-1/2 left-0 h-3 w-3 -translate-y-1/2 rounded-full bg-white/40" />
+              </motion.div>
+
+              <motion.div
+                className="absolute -bottom-32 -left-20 h-96 w-96 rounded-full border border-white/15"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+              >
+                <div className="absolute top-0 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-white/50" />
+              </motion.div>
+
+              <motion.svg
+                className="absolute top-12 left-10 h-24 w-24 text-white/25"
+                viewBox="0 0 100 100"
+                animate={{ rotate: [0, 90, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <polygon points="50,5 95,80 5,80" fill="none" stroke="currentColor" strokeWidth="1.5" />
+              </motion.svg>
+
+              <motion.svg
+                className="absolute bottom-16 right-16 h-28 w-28 text-white/20"
+                viewBox="0 0 100 100"
+                animate={{ rotate: [0, -45, 0], y: [0, -10, 0] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <rect x="15" y="15" width="70" height="70" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="30" y="30" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" />
+              </motion.svg>
+
+              <motion.div
+                className="absolute top-1/2 left-1/4 h-2 w-2 rounded-full bg-white/60"
+                animate={{ y: [0, -20, 0], opacity: [0.4, 1, 0.4] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute top-1/3 right-1/3 h-1.5 w-1.5 rounded-full bg-white/70"
+                animate={{ y: [0, -15, 0], opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 max-w-4xl mx-auto text-center text-white">
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-sm uppercase tracking-[0.25em] text-white/80 mb-4 block"
+              >
                 Our Leadership
-              </span>
-              <h2 className="text-3xl md:text-4xl font-serif mb-6">
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-3xl md:text-5xl font-serif mb-6 leading-tight"
+              >
                 Guided by Vision, Driven by Expertise
-              </h2>
-              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                Our leadership team comprises distinguished educators, industry veterans, and strategic thinkers 
-                who bring decades of experience in higher education, corporate training, and institutional development. 
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="text-white/90 text-lg mb-10 leading-relaxed"
+              >
+                Our leadership team comprises distinguished educators, industry veterans, and strategic thinkers
+                who bring decades of experience in higher education, corporate training, and institutional development.
                 Their collective wisdom shapes our approach and ensures excellence in every engagement.
-              </p>
-              <Button asChild variant="outline" size="lg" className="group">
-                <Link to="/who-we-are">
-                  Meet Our Team <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <Button asChild size="lg" className="group bg-white text-[#3f7a36] hover:bg-white/90">
+                  <Link to="/who-we-are">
+                    Meet Our Team <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
