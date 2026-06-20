@@ -67,7 +67,7 @@ export function TestimonialFormDialog({
         role: testimonial.role || "",
         organization: testimonial.organization || "",
         photo_url: testimonial.photo_url || "",
-        logo_url: testimonial.logo_url || "",
+        
         published: testimonial.published ?? true,
       });
     } else {
