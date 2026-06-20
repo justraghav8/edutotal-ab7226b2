@@ -11,17 +11,6 @@ interface HeroSectionProps {
   pageKey?: string; // For fetching from CMS
 }
 
-// Default abstract backgrounds for each page
-const defaultBackgrounds: Record<string, string> = {
-  services: "/images/hero/services-hero.jpg",
-  industries: "/images/hero/industries-hero.jpg",
-  insights: "/images/hero/insights-hero.jpg",
-  careers: "/images/hero/careers-hero.jpg",
-  contact: "/images/hero/contact-hero.jpg",
-  about: "/images/hero/about-hero.jpg",
-  "who-we-are": "/images/hero/who-we-are-hero.jpg",
-};
-
 export function HeroSection({
   title,
   subtitle,
@@ -33,7 +22,7 @@ export function HeroSection({
   const y = useTransform(scrollY, [0, 800], [0, 100]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const scale = useTransform(scrollY, [0, 400], [1, 0.95]);
-  const [bgImage, setBgImage] = useState<string | null>(backgroundImage || (pageKey ? defaultBackgrounds[pageKey] : null));
+  const [bgImage, setBgImage] = useState<string | null>(backgroundImage || null);
   const [cmsTitle, setCmsTitle] = useState<string | null>(null);
   const [cmsSubtitle, setCmsSubtitle] = useState<string | null>(null);
 
@@ -52,8 +41,6 @@ export function HeroSection({
 
     if (data?.background_image_url) {
       setBgImage(data.background_image_url);
-    } else if (pageKey && defaultBackgrounds[pageKey]) {
-      setBgImage(defaultBackgrounds[pageKey]);
     }
     if (data?.title) setCmsTitle(data.title);
     if (data?.subtitle) setCmsSubtitle(data.subtitle);
@@ -62,7 +49,7 @@ export function HeroSection({
 
   const displayTitle = cmsTitle || title;
   const displaySubtitle = cmsSubtitle || subtitle;
-  const displayBg = bgImage || (pageKey ? defaultBackgrounds[pageKey] : null);
+  const displayBg = bgImage;
 
   if (minimal) {
     return (
