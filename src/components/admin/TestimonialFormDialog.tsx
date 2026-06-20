@@ -210,19 +210,6 @@ export function TestimonialFormDialog({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="logo_url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Client Logo URL (Optional)</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="url" placeholder="Shown prominently in the testimonial block" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <FormField
               control={form.control}
