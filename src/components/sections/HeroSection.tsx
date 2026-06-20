@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { HeroGeometricOverlay } from "./HeroGeometricOverlay";
 
 interface HeroSectionProps {
   title: string;
