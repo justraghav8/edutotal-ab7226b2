@@ -69,6 +69,7 @@ export function HeroSection({
           </div>
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
+        <HeroGeometricOverlay pageKey={pageKey} />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <motion.h1
