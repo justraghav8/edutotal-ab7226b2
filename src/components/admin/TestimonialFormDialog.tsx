@@ -29,7 +29,7 @@ const formSchema = z.object({
   role: z.string().optional(),
   organization: z.string().optional(),
   photo_url: z.string().url().optional().or(z.literal("")),
-  logo_url: z.string().url().optional().or(z.literal("")),
+  
   published: z.boolean().default(true),
 });
 
