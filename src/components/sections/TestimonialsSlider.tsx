@@ -101,58 +101,33 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               transition={{ duration: 0.5 }}
               className="rounded-2xl border border-border bg-card/60 backdrop-blur-sm shadow-xl shadow-foreground/5 overflow-hidden"
             >
-              <div className="grid md:grid-cols-[260px_1fr] gap-0">
-                {/* Logo block */}
-                <div className="flex items-center justify-center bg-muted/40 dark:bg-white/[0.03] p-8 border-b md:border-b-0 md:border-r border-border min-h-[160px]">
-                  {current.logo_url ? (
+              <div className="p-8 md:p-12">
+                <blockquote className="text-lg md:text-xl font-serif text-foreground/90 dark:text-white/90 leading-relaxed mb-8">
+                  "{current.quote}"
+                </blockquote>
+
+                <div className="flex items-center gap-4 pt-6 border-t border-border">
+                  {current.photo_url ? (
                     <img
-                      src={current.logo_url}
-                      alt={current.organization || current.author}
-                      className="max-h-20 w-auto object-contain"
+                      src={current.photo_url}
+                      alt={current.author}
+                      className="w-14 h-14 rounded-full object-cover ring-2 ring-accent/30"
                     />
                   ) : (
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto rounded-full bg-accent/10 flex items-center justify-center mb-2">
-                        <span className="text-2xl font-serif text-accent">
-                          {(current.organization || current.author)?.charAt(0)}
-                        </span>
-                      </div>
-                      <div className="text-xs uppercase tracking-wider text-muted-foreground">
-                        {current.organization || "Client"}
-                      </div>
+                    <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
+                      <span className="text-xl font-serif text-accent">
+                        {current.author?.charAt(0)}
+                      </span>
                     </div>
                   )}
-                </div>
-
-                {/* Content block */}
-                <div className="p-8 md:p-10">
-                  <blockquote className="text-lg md:text-xl font-serif text-foreground/90 dark:text-white/90 leading-relaxed mb-8">
-                    "{current.quote}"
-                  </blockquote>
-
-                  <div className="flex items-center gap-4 pt-6 border-t border-border">
-                    {current.photo_url ? (
-                      <img
-                        src={current.photo_url}
-                        alt={current.author}
-                        className="w-14 h-14 rounded-full object-cover ring-2 ring-accent/30"
-                      />
-                    ) : (
-                      <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
-                        <span className="text-xl font-serif text-accent">
-                          {current.author?.charAt(0)}
-                        </span>
-                      </div>
+                  <div>
+                    <div className="font-semibold text-base text-foreground dark:text-white">{current.author}</div>
+                    {current.role && (
+                      <div className="text-sm text-accent font-medium">{current.role}</div>
                     )}
-                    <div>
-                      <div className="font-semibold text-base text-foreground dark:text-white">{current.author}</div>
-                      {current.role && (
-                        <div className="text-sm text-accent font-medium">{current.role}</div>
-                      )}
-                      {current.organization && (
-                        <div className="text-xs text-muted-foreground dark:text-white/50">{current.organization}</div>
-                      )}
-                    </div>
+                    {current.organization && (
+                      <div className="text-xs text-muted-foreground dark:text-white/50">{current.organization}</div>
+                    )}
                   </div>
                 </div>
               </div>
