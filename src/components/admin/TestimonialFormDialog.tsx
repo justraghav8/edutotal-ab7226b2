@@ -29,7 +29,7 @@ const formSchema = z.object({
   role: z.string().optional(),
   organization: z.string().optional(),
   photo_url: z.string().url().optional().or(z.literal("")),
-  logo_url: z.string().url().optional().or(z.literal("")),
+  
   published: z.boolean().default(true),
 });
 
@@ -55,7 +55,6 @@ export function TestimonialFormDialog({
       role: "",
       organization: "",
       photo_url: "",
-      logo_url: "",
       published: true,
     },
   });
@@ -68,7 +67,7 @@ export function TestimonialFormDialog({
         role: testimonial.role || "",
         organization: testimonial.organization || "",
         photo_url: testimonial.photo_url || "",
-        logo_url: testimonial.logo_url || "",
+        
         published: testimonial.published ?? true,
       });
     } else {
@@ -78,7 +77,7 @@ export function TestimonialFormDialog({
         role: "",
         organization: "",
         photo_url: "",
-        logo_url: "",
+        
         published: true,
       });
     }
@@ -92,7 +91,7 @@ export function TestimonialFormDialog({
         role: data.role || null,
         organization: data.organization || null,
         photo_url: data.photo_url || null,
-        logo_url: data.logo_url || null,
+        logo_url: null,
         published: data.published,
       };
 
@@ -210,19 +209,6 @@ export function TestimonialFormDialog({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="logo_url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Client Logo URL (Optional)</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="url" placeholder="Shown prominently in the testimonial block" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <FormField
               control={form.control}
