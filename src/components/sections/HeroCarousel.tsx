@@ -126,10 +126,30 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
 
   const currentSlide = slides[currentIndex];
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+    touchStartX.current = null;
+  };
+
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section
+      className="relative min-h-[85vh] flex items-center overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Background Images with Sliding Animation */}
-      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
           custom={direction}
@@ -155,7 +175,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
       </AnimatePresence>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-6 md:px-10 lg:px-12 relative z-10">
         <div className="max-w-4xl">
           <AnimatePresence mode="wait">
             <motion.div
@@ -187,42 +207,45 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
       {/* Navigation Controls */}
       {slides.length > 1 && (
         <>
-          {/* Arrow Controls */}
-          <div className="absolute bottom-8 right-4 md:right-8 z-20 flex items-center gap-4">
-            <button
-              onClick={prevSlide}
-              className="w-12 h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="w-12 h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          {/* Bottom Control Bar */}
+          <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 z-20 flex items-center justify-between">
+            {/* Slide Indicators */}
+            <div className="flex items-center gap-3">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? "w-8 bg-accent"
+                      : "w-4 bg-foreground/30 hover:bg-foreground/50 dark:bg-white/40 dark:hover:bg-white/60"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
 
-          {/* Slide Indicators */}
-          <div className="absolute bottom-8 left-4 md:left-8 z-20 flex items-center gap-3">
-            {slides.map((_, index) => (
+            {/* Arrow Controls */}
+            <div className="flex items-center gap-3">
               <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? "w-8 bg-accent" 
-                    : "w-4 bg-foreground/30 hover:bg-foreground/50 dark:bg-white/40 dark:hover:bg-white/60"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+                onClick={prevSlide}
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Slide Counter */}
-          <div className="absolute top-8 right-4 md:right-8 z-20 text-foreground/60 dark:text-white/60 font-mono text-sm">
+          <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 text-foreground/60 dark:text-white/60 font-mono text-sm">
             <span className="text-foreground dark:text-white font-medium">{String(currentIndex + 1).padStart(2, '0')}</span>
             <span className="mx-1">/</span>
             <span>{String(slides.length).padStart(2, '0')}</span>
