@@ -77,7 +77,7 @@ export function TestimonialFormDialog({
         role: "",
         organization: "",
         photo_url: "",
-        logo_url: "",
+        
         published: true,
       });
     }
