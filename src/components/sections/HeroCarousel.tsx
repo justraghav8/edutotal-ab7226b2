@@ -142,7 +142,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
 
   return (
     <section
-      className="relative min-h-[85vh] flex items-center overflow-hidden"
+      className="relative min-h-[85vh] flex items-center overflow-hidden bg-neutral-900"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -169,8 +169,8 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
           ) : (
             <div className="w-full h-full bg-neutral-900" />
           )}
-          {/* Theme-aware overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/75 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/40" />
+          {/* Dark overlay - fixed across themes */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
         </motion.div>
       </AnimatePresence>
 
