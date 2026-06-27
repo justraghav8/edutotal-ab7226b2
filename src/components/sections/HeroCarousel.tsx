@@ -188,13 +188,13 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
               <span className="inline-block text-xs uppercase tracking-[0.3em] text-accent mb-4">
                 {currentSlide.type}
               </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-foreground dark:text-white leading-[1.1] mb-6">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.1] mb-6">
                 {currentSlide.title}
               </h1>
-              <p className="text-lg md:text-xl text-foreground/80 dark:text-white/80 max-w-2xl mb-8 line-clamp-3">
+              <p className="text-lg md:text-xl text-white/80 max-w-2xl mb-8 line-clamp-3">
                 {currentSlide.excerpt}
               </p>
-              <Button asChild size="lg" variant="outline" className="border-foreground text-foreground hover:bg-foreground hover:text-background dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
+              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
                 <Link to={`/insights/${currentSlide.slug}`}>
                   Read More
                 </Link>
