@@ -218,7 +218,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     index === currentIndex
                       ? "w-8 bg-accent"
-                      : "w-4 bg-foreground/30 hover:bg-foreground/50 dark:bg-white/40 dark:hover:bg-white/60"
+                      : "w-4 bg-white/40 hover:bg-white/60"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -229,14 +229,14 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
             <div className="flex items-center gap-3">
               <button
                 onClick={prevSlide}
-                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                 aria-label="Previous slide"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={nextSlide}
-                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                 aria-label="Next slide"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -245,8 +245,8 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
           </div>
 
           {/* Slide Counter */}
-          <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 text-foreground/60 dark:text-white/60 font-mono text-sm">
-            <span className="text-foreground dark:text-white font-medium">{String(currentIndex + 1).padStart(2, '0')}</span>
+          <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 text-white/60 font-mono text-sm">
+            <span className="text-white font-medium">{String(currentIndex + 1).padStart(2, '0')}</span>
             <span className="mx-1">/</span>
             <span>{String(slides.length).padStart(2, '0')}</span>
           </div>
