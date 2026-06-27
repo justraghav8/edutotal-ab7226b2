@@ -142,7 +142,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
 
   return (
     <section
-      className="relative min-h-[85vh] flex items-center overflow-hidden"
+      className="relative min-h-[85vh] flex items-center overflow-hidden bg-neutral-900"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -169,8 +169,8 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
           ) : (
             <div className="w-full h-full bg-neutral-900" />
           )}
-          {/* Theme-aware overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/75 to-white/50 dark:from-black/90 dark:via-black/70 dark:to-black/40" />
+          {/* Dark overlay - fixed across themes */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
         </motion.div>
       </AnimatePresence>
 
@@ -188,13 +188,13 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
               <span className="inline-block text-xs uppercase tracking-[0.3em] text-accent mb-4">
                 {currentSlide.type}
               </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-foreground dark:text-white leading-[1.1] mb-6">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.1] mb-6">
                 {currentSlide.title}
               </h1>
-              <p className="text-lg md:text-xl text-foreground/80 dark:text-white/80 max-w-2xl mb-8 line-clamp-3">
+              <p className="text-lg md:text-xl text-white/80 max-w-2xl mb-8 line-clamp-3">
                 {currentSlide.excerpt}
               </p>
-              <Button asChild size="lg" variant="outline" className="border-foreground text-foreground hover:bg-foreground hover:text-background dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black">
+              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
                 <Link to={`/insights/${currentSlide.slug}`}>
                   Read More
                 </Link>
@@ -218,7 +218,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     index === currentIndex
                       ? "w-8 bg-accent"
-                      : "w-4 bg-foreground/30 hover:bg-foreground/50 dark:bg-white/40 dark:hover:bg-white/60"
+                      : "w-4 bg-white/40 hover:bg-white/60"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -229,14 +229,14 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
             <div className="flex items-center gap-3">
               <button
                 onClick={prevSlide}
-                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                 aria-label="Previous slide"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={nextSlide}
-                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-foreground/30 dark:border-white/30 flex items-center justify-center text-foreground dark:text-white hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                 aria-label="Next slide"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -245,8 +245,8 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
           </div>
 
           {/* Slide Counter */}
-          <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 text-foreground/60 dark:text-white/60 font-mono text-sm">
-            <span className="text-foreground dark:text-white font-medium">{String(currentIndex + 1).padStart(2, '0')}</span>
+          <div className="absolute top-6 md:top-10 right-6 md:right-10 z-20 text-white/60 font-mono text-sm">
+            <span className="text-white font-medium">{String(currentIndex + 1).padStart(2, '0')}</span>
             <span className="mx-1">/</span>
             <span>{String(slides.length).padStart(2, '0')}</span>
           </div>
