@@ -334,13 +334,13 @@ export default function Index() {
 
       {/* Leadership Section */}
       <section id="leadership" className="py-20 bg-background">
-        <div className="container mx-auto px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-20 shadow-2xl"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-24 shadow-2xl"
           >
             {/* Animated geometric abstract background */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
