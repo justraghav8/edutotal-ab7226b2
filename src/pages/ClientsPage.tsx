@@ -110,7 +110,7 @@ function ClientCard({ client }: { client: Client }) {
           <img
             src={client.logo_url}
             alt={client.name}
-            className="max-h-24 w-auto object-contain opacity-80 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
+            className="h-full w-auto max-w-full object-contain opacity-80 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
               const fallback = (e.currentTarget.nextElementSibling as HTMLElement | null);
