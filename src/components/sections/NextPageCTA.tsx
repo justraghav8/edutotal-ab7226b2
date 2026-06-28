@@ -45,7 +45,7 @@ export function NextPageCTA({
         <rect x="20" y="20" width="60" height="60" stroke="currentColor" strokeWidth="0.4" />
         <rect x="30" y="30" width="40" height="40" stroke="currentColor" strokeWidth="0.4" />
       </svg>
-      <div className="container mx-auto px-4 relative">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

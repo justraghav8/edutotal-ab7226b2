@@ -233,7 +233,7 @@ export default function About() {
 
       {/* Tabbed Section: Mission / Motto / Core Values */}
       <section className="pt-16 pb-24 lg:pt-20 lg:pb-32 bg-background overflow-hidden">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-16">
             <div className="inline-flex border border-border rounded-sm overflow-hidden">
@@ -270,7 +270,7 @@ export default function About() {
           <div className="absolute bottom-20 right-[10%] w-96 h-96 rounded-full bg-accent/5 blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -425,7 +425,7 @@ export default function About() {
       <ImageGallery />
 
       <section className="py-20 bg-gradient-accent text-white">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Philosophy</h2>
             <p className="text-xl leading-relaxed">

@@ -46,7 +46,7 @@ function ParallaxCTA() {
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   return (
-    <section ref={ref} className="relative py-36 overflow-hidden">
+    <section ref={ref} className="relative py-20 overflow-hidden">
       {/* Parallax Background Image */}
       <motion.div className="absolute inset-[-20%] z-0" style={{ y }}>
         <img
@@ -62,7 +62,7 @@ function ParallaxCTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 text-center max-w-3xl relative z-10"
+        className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl relative z-10"
       >
         <h2 className="text-3xl md:text-4xl font-serif mb-6 text-white">
           Ready to Transform Your Institution?
@@ -142,7 +142,7 @@ export default function Index() {
 
       {/* BCG-style Tab Navigation */}
       <section className="py-8 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-16 z-30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
@@ -165,8 +165,8 @@ export default function Index() {
       </section>
 
       {/* EduTotal Spotlight - Enhanced About Section */}
-      <section id="spotlight" className="py-28 bg-background overflow-hidden">
-        <div className="container mx-auto px-4">
+      <section id="spotlight" className="py-20 bg-background overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: About EduTotal */}
             <motion.div 
@@ -266,8 +266,8 @@ export default function Index() {
       </section>
 
       {/* Services - Category Grid */}
-      <section id="services" className="py-28 bg-background">
-        <div className="container mx-auto px-4">
+      <section id="services" className="py-20 bg-background">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -334,13 +334,13 @@ export default function Index() {
 
       {/* Leadership Section */}
       <section id="leadership" className="py-20 bg-background">
-        <div className="container mx-auto px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-28 shadow-2xl"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-24 shadow-2xl"
           >
             {/* Animated geometric abstract background */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

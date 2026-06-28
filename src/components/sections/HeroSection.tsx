@@ -53,7 +53,7 @@ export function HeroSection({
 
   if (minimal) {
     return (
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative py-24 md:py-32 overflow-hidden">
         {/* Background Image */}
         {displayBg && (
           <div className="absolute inset-0">
@@ -69,7 +69,7 @@ export function HeroSection({
           </div>
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -126,7 +126,7 @@ export function HeroSection({
 
       <motion.div 
         style={{ opacity, scale }} 
-        className="container mx-auto px-4 py-20 md:py-32 relative z-10"
+        className="container mx-auto px-4 md:px-6 lg:px-8 py-20 md:py-32 relative z-10"
       >
 
         <div className="max-w-5xl mx-auto">

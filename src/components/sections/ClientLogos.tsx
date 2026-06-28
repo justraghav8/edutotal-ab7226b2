@@ -22,8 +22,8 @@ export function ClientLogos({ clients }: ClientLogosProps) {
   const duplicated = [...clients, ...clients];
 
   return (
-    <section className="py-28 bg-background overflow-hidden">
-      <div className="container mx-auto px-4 mb-12">
+    <section className="py-20 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ export function ClientLogos({ clients }: ClientLogosProps) {
       </div>
 
       {/* View All button */}
-      <div className="container mx-auto px-4 mt-12 text-center">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 mt-12 text-center">
         <Button asChild variant="outline" size="lg" className="group">
           <Link to="/clients">
             View All Clients

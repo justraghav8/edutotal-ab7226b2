@@ -108,7 +108,7 @@ export default function WhoWeAre() {
 
       {/* Floating Tab Navigation */}
       <section className="py-6 border-b border-border bg-background sticky top-16 z-30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
@@ -135,7 +135,7 @@ export default function WhoWeAre() {
         <>
           {/* Leadership Section - Large cards with detailed info */}
           <section id="leadership" className="py-20 bg-background">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -235,7 +235,7 @@ export default function WhoWeAre() {
 
           {/* Team Section - Grid with compact cards */}
           <section id="team" className="py-20 bg-secondary">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -320,7 +320,7 @@ export default function WhoWeAre() {
 
           {/* Advisory Panel Section - Image with extended bio */}
           <section id="advisory" className="py-20 bg-background">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}

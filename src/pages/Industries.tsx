@@ -68,7 +68,7 @@ export default function Industries() {
       />
 
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -153,13 +153,13 @@ export default function Industries() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-foreground text-background">
+      <section className="py-20 bg-foreground text-background">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="container mx-auto px-4 text-center max-w-3xl"
+          className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl"
         >
           <h2 className="text-3xl md:text-4xl font-serif mb-6">
             Looking for Industry-Specific Solutions?

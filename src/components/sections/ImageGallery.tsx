@@ -66,7 +66,7 @@ export function ImageGallery() {
   if (loading) {
     return (
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-6 overflow-hidden">
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex-shrink-0 w-[500px] h-[360px] bg-muted animate-pulse rounded-sm" />
@@ -81,8 +81,8 @@ export function ImageGallery() {
 
   return (
     <>
-      <section id="gallery" className="py-24 bg-muted/30 overflow-hidden">
-        <div className="container mx-auto px-4">
+      <section id="gallery" className="py-20 bg-muted/30 overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ export function ImageGallery() {
         </div>
 
         {/* Scrollable Gallery - Bigger images */}
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div
             ref={scrollContainerRef}
             className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
