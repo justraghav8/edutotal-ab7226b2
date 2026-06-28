@@ -153,7 +153,7 @@ export default function Industries() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-foreground text-background">
+      <section className="py-20 bg-foreground text-background">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

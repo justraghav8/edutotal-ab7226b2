@@ -81,7 +81,7 @@ export function ImageGallery() {
 
   return (
     <>
-      <section id="gallery" className="py-24 bg-muted/30 overflow-hidden">
+      <section id="gallery" className="py-20 bg-muted/30 overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

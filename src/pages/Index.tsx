@@ -46,7 +46,7 @@ function ParallaxCTA() {
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   return (
-    <section ref={ref} className="relative py-36 overflow-hidden">
+    <section ref={ref} className="relative py-20 overflow-hidden">
       {/* Parallax Background Image */}
       <motion.div className="absolute inset-[-20%] z-0" style={{ y }}>
         <img
@@ -165,7 +165,7 @@ export default function Index() {
       </section>
 
       {/* EduTotal Spotlight - Enhanced About Section */}
-      <section id="spotlight" className="py-28 bg-background overflow-hidden">
+      <section id="spotlight" className="py-20 bg-background overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: About EduTotal */}
@@ -266,7 +266,7 @@ export default function Index() {
       </section>
 
       {/* Services - Category Grid */}
-      <section id="services" className="py-28 bg-background">
+      <section id="services" className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -340,7 +340,7 @@ export default function Index() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-28 shadow-2xl"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#62AD4E] via-[#56994a] to-[#3f7a36] px-6 py-20 md:px-16 md:py-20 shadow-2xl"
           >
             {/* Animated geometric abstract background */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

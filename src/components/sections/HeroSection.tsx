@@ -53,7 +53,7 @@ export function HeroSection({
 
   if (minimal) {
     return (
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative py-20 overflow-hidden">
         {/* Background Image */}
         {displayBg && (
           <div className="absolute inset-0">

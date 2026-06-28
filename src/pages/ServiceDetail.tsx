@@ -70,7 +70,7 @@ export default function ServiceDetail() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-primary text-primary-foreground py-20 md:py-28 overflow-hidden">
+      <section className="relative bg-primary text-primary-foreground py-20 overflow-hidden">
         {category?.image_url && (
           <>
             <img
