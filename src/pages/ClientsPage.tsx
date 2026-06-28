@@ -105,12 +105,12 @@ function ClientCard({ client }: { client: Client }) {
       className="group relative block aspect-[3/2] rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent/60 hover:shadow-xl hover:shadow-accent/10"
     >
       {/* Logo layer */}
-      <div className="absolute inset-0 flex items-center justify-center p-3 transition-all duration-500">
+      <div className="absolute inset-0 flex items-center justify-center p-2 transition-all duration-500">
         {client.logo_url ? (
           <img
             src={client.logo_url}
             alt={client.name}
-            className="h-full w-auto max-w-full object-contain opacity-80 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
+            className="h-full w-auto max-w-full object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
               const fallback = (e.currentTarget.nextElementSibling as HTMLElement | null);
