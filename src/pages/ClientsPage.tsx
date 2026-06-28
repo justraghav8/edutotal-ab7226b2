@@ -105,12 +105,12 @@ function ClientCard({ client }: { client: Client }) {
       className="group relative block aspect-[3/2] rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent/60 hover:shadow-xl hover:shadow-accent/10"
     >
       {/* Logo layer */}
-      <div className="absolute inset-0 flex items-center justify-center p-6 transition-all duration-500 group-hover:opacity-0 group-hover:scale-95">
+      <div className="absolute inset-0 flex items-center justify-center p-3 transition-all duration-500">
         {client.logo_url ? (
           <img
             src={client.logo_url}
             alt={client.name}
-            className="max-h-16 w-auto object-contain opacity-70 grayscale transition-all duration-500"
+            className="max-h-24 w-auto object-contain opacity-80 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
               const fallback = (e.currentTarget.nextElementSibling as HTMLElement | null);
@@ -127,15 +127,15 @@ function ClientCard({ client }: { client: Client }) {
       </div>
 
       {/* Reveal layer */}
-      <div className="absolute inset-0 flex flex-col justify-center p-5 bg-gradient-to-br from-foreground to-foreground/95 text-background opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-        <p className="text-sm font-serif font-semibold mb-2 leading-snug">{client.name}</p>
+      <div className="absolute inset-0 flex flex-col justify-center p-5 bg-background/60 backdrop-blur-sm text-foreground opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+        <p className="text-base font-serif font-semibold mb-1 leading-snug text-center">{client.name}</p>
         {client.description && (
-          <p className="text-xs leading-relaxed text-background/80 line-clamp-5">
+          <p className="text-xs leading-relaxed text-foreground/70 line-clamp-5 text-center">
             {client.description}
           </p>
         )}
         {client.website && (
-          <span className="mt-3 text-[10px] uppercase tracking-[0.2em] text-accent">
+          <span className="mt-3 text-[10px] uppercase tracking-[0.2em] text-accent text-center">
             Visit Website →
           </span>
         )}
