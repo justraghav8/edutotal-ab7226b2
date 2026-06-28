@@ -142,7 +142,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
           {loading && (
             <Loader2 className="h-5 w-5 shrink-0 animate-spin text-muted-foreground" />
           )}
-          <kbd className="hidden sm:inline-flex h-6 items-center rounded border border-border bg-muted px-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          <kbd className="mr-6 hidden sm:inline-flex h-6 items-center rounded border border-border bg-muted px-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             Esc
           </kbd>
         </div>
