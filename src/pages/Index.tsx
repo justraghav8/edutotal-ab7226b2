@@ -62,7 +62,7 @@ function ParallaxCTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 text-center max-w-3xl relative z-10"
+        className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl relative z-10"
       >
         <h2 className="text-3xl md:text-4xl font-serif mb-6 text-white">
           Ready to Transform Your Institution?
@@ -142,7 +142,7 @@ export default function Index() {
 
       {/* BCG-style Tab Navigation */}
       <section className="py-8 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-16 z-30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
@@ -166,7 +166,7 @@ export default function Index() {
 
       {/* EduTotal Spotlight - Enhanced About Section */}
       <section id="spotlight" className="py-28 bg-background overflow-hidden">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: About EduTotal */}
             <motion.div 
@@ -267,7 +267,7 @@ export default function Index() {
 
       {/* Services - Category Grid */}
       <section id="services" className="py-28 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

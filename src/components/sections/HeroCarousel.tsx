@@ -83,7 +83,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
     return (
       <section className="relative min-h-[85vh] flex items-center bg-neutral-900">
         <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-900/95 to-neutral-900/90" />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl animate-pulse">
             <div className="h-4 w-32 bg-white/20 rounded mb-4" />
             <div className="h-12 md:h-16 lg:h-20 w-3/4 bg-white/20 rounded mb-4" />
@@ -100,7 +100,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
     return (
       <section className="relative min-h-[85vh] flex items-center bg-neutral-900">
         <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-900/95 to-neutral-900/90" />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}

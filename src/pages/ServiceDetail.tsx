@@ -58,7 +58,7 @@ export default function ServiceDetail() {
 
   if (!service) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-20 text-center">
         <h1 className="text-4xl font-serif mb-4">Service Not Found</h1>
         <Button asChild>
           <Link to="/services">View All Services</Link>
@@ -81,7 +81,7 @@ export default function ServiceDetail() {
             <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/60" />
           </>
         )}
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <Link
             to="/services"
             className="inline-flex items-center text-primary-foreground/60 hover:text-primary-foreground transition-colors mb-8 text-sm"
@@ -121,7 +121,7 @@ export default function ServiceDetail() {
 
       {/* Main Content */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto space-y-16">
             {/* Approach / What We Do */}
             {service.approach && service.approach.length > 0 && (
@@ -238,7 +238,7 @@ export default function ServiceDetail() {
       {/* Related Services */}
       {relatedServices.length > 0 && (
         <section className="py-20 bg-secondary">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-serif mb-8">
               More in {service.category}
             </h2>

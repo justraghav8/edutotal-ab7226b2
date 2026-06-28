@@ -76,7 +76,7 @@ export default function IndustryDetail() {
 
   if (!industry) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-20 text-center">
         <h1 className="text-4xl font-serif mb-4">Industry Not Found</h1>
         <Button asChild>
           <Link to="/industries">View All Industries</Link>
@@ -104,7 +104,7 @@ export default function IndustryDetail() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/20" />
 
 
-        <div className="relative max-w-6xl mx-auto px-4 lg:px-8 py-20 md:py-28">
+        <div className="relative container mx-auto px-4 md:px-6 lg:px-8 py-20 md:py-28">
           <Button
             asChild
             variant="ghost"
@@ -139,7 +139,7 @@ export default function IndustryDetail() {
 
       {/* INTRO */}
       <section className="py-20 md:py-24 bg-background">
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -166,7 +166,7 @@ export default function IndustryDetail() {
       {/* WHAT'S HAPPENING */}
       {whatsHappening.length > 0 && (
         <section className="py-20 md:py-24 bg-secondary/40 border-y border-border">
-          <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -208,7 +208,7 @@ export default function IndustryDetail() {
       {/* HOW EDUTOTAL SUPPORTS */}
       {industry.how_we_support && (
         <section className="py-20 md:py-24 bg-background">
-          <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -247,7 +247,7 @@ export default function IndustryDetail() {
       {/* FOCUS AREAS (legacy support) */}
       {industry.focus_areas && industry.focus_areas.length > 0 && (
         <section className="py-16 bg-secondary/40">
-          <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-serif mb-8">Focus Areas</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {industry.focus_areas.map((area: string, index: number) => (
@@ -264,7 +264,7 @@ export default function IndustryDetail() {
       {/* RELATED SERVICES */}
       {services.length > 0 && (
         <section className="py-20 bg-background">
-          <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <h2 className="text-3xl font-serif mb-8">Relevant Services</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {services.map((service) => (
@@ -299,7 +299,7 @@ export default function IndustryDetail() {
         const next = ordered[0];
         return (
           <section className="py-20 md:py-24 bg-secondary/40 border-t border-border">
-            <div className="max-w-6xl mx-auto px-4 lg:px-8">
+            <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <div className="flex items-end justify-between mb-10 gap-6 flex-wrap">
                 <div>
                   <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
@@ -367,7 +367,7 @@ export default function IndustryDetail() {
 
       {/* CTA */}
       <section className="py-20 md:py-24 bg-foreground text-background">
-        <div className="max-w-6xl mx-auto px-4 lg:px-8 text-center">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
           <h3 className="text-3xl md:text-4xl font-serif mb-5">
             Work with us in {industry.title.split(/[&,]/)[0].trim()}
           </h3>

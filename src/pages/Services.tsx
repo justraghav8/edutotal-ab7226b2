@@ -93,7 +93,7 @@ export default function Services() {
 
       {/* Category Navigation */}
       <section className="py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-16 z-30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             {grouped.map((g) => {
               const Icon = g.Icon;
@@ -131,7 +131,7 @@ export default function Services() {
                   id={`cat-${g.category.replace(/[^a-zA-Z]/g, "")}`}
                   className="py-16 lg:py-20"
                 >
-                  <div className="container mx-auto px-4">
+                  <div className="container mx-auto px-4 md:px-6 lg:px-8">
                     {/* Category Header — clean, no image */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -232,7 +232,7 @@ export default function Services() {
 
       {/* CTA Section */}
       <section className="py-20 bg-foreground text-background">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-serif mb-4">
             Need a Custom Solution?
           </h2>

@@ -53,7 +53,7 @@ export default function Insights() {
 
       {/* Type Filter */}
       <section className="py-12 bg-muted/30 border-b">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex flex-wrap gap-3 justify-center">
             {insightTypes.map((type) => (
               <Button
@@ -69,7 +69,7 @@ export default function Insights() {
       </section>
 
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />

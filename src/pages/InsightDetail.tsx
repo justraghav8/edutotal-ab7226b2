@@ -44,7 +44,7 @@ export default function InsightDetail() {
   if (!insight) {
     return (
       <>
-        <div className="container mx-auto px-4 py-20 text-center">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 py-20 text-center">
           <h1 className="text-4xl font-bold mb-4">Insight Not Found</h1>
           <Button asChild>
             <Link to="/insights">View All Insights</Link>
@@ -57,7 +57,7 @@ export default function InsightDetail() {
   return (
     <>
       <article className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <Button asChild variant="ghost" className="mb-6">
               <Link to="/insights">
