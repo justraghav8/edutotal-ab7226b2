@@ -1,6 +1,10 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableCell } from '@tiptap/extension-table-cell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -15,6 +19,10 @@ import {
   Redo,
   ImageIcon,
   LinkIcon,
+  Table as TableIcon,
+  Rows3,
+  Columns3,
+  Trash,
 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
@@ -37,6 +45,10 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           class: 'rounded-lg max-w-full h-auto my-4',
         },
       }),
+      Table.configure({ resizable: true, HTMLAttributes: { class: 'tiptap-table' } }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content,
     editable: true,
@@ -157,6 +169,48 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           onClick={() => setShowImageInput(!showImageInput)}
         >
           <ImageIcon className="h-4 w-4" />
+        </Button>
+        <div className="w-px h-6 bg-border mx-1 self-center" />
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Insert table"
+          onClick={() =>
+            editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+          }
+        >
+          <TableIcon className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Add row"
+          disabled={!editor.can().addRowAfter()}
+          onClick={() => editor.chain().focus().addRowAfter().run()}
+        >
+          <Rows3 className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Add column"
+          disabled={!editor.can().addColumnAfter()}
+          onClick={() => editor.chain().focus().addColumnAfter().run()}
+        >
+          <Columns3 className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Delete table"
+          disabled={!editor.can().deleteTable()}
+          onClick={() => editor.chain().focus().deleteTable().run()}
+        >
+          <Trash className="h-4 w-4" />
         </Button>
         <div className="flex-1" />
         <Button
