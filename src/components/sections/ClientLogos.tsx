@@ -59,7 +59,7 @@ export function ClientLogos({ clients }: ClientLogosProps) {
                   <img
                     src={client.logo_url}
                     alt={client.name}
-                    className="h-full w-auto max-w-full object-contain opacity-80 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
+                    className="h-full w-auto max-w-full object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
                   />
                 ) : (
                   <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight">
