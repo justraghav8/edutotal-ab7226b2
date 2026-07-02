@@ -23,6 +23,15 @@ import {
   Rows3,
   Columns3,
   Trash,
+  Merge,
+  Split,
+  PanelTop,
+  ArrowUpToLine,
+  ArrowDownToLine,
+  ArrowLeftToLine,
+  ArrowRightToLine,
+  Rows,
+  Columns,
 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
