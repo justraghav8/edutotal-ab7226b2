@@ -101,8 +101,8 @@ export default function InsightDetail() {
               <div 
                 className="rich-content"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(insight.body, {
-                  ALLOWED_TAGS: ['p','br','strong','em','u','h1','h2','h3','h4','ul','ol','li','blockquote','a','img','code','pre','hr','span','div'],
-                  ALLOWED_ATTR: ['href','src','alt','title','class','target','rel'],
+                  ALLOWED_TAGS: ['p','br','strong','em','u','h1','h2','h3','h4','ul','ol','li','blockquote','a','img','code','pre','hr','span','div','table','thead','tbody','tfoot','tr','th','td','colgroup','col'],
+                  ALLOWED_ATTR: ['href','src','alt','title','class','target','rel','colspan','rowspan','style','width','align'],
                   ALLOW_DATA_ATTR: false,
                 }) }}
               />
