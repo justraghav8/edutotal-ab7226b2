@@ -1,6 +1,10 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableCell } from '@tiptap/extension-table-cell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -15,6 +19,10 @@ import {
   Redo,
   ImageIcon,
   LinkIcon,
+  Table as TableIcon,
+  Rows3,
+  Columns3,
+  Trash,
 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
