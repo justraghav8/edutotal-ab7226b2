@@ -23,6 +23,15 @@ import {
   Rows3,
   Columns3,
   Trash,
+  Merge,
+  Split,
+  PanelTop,
+  ArrowUpToLine,
+  ArrowDownToLine,
+  ArrowLeftToLine,
+  ArrowRightToLine,
+  Rows,
+  Columns,
 } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
@@ -186,21 +195,91 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           type="button"
           variant="ghost"
           size="sm"
-          title="Add row"
-          disabled={!editor.can().addRowAfter()}
-          onClick={() => editor.chain().focus().addRowAfter().run()}
+          title="Add row above"
+          disabled={!editor.can().addRowBefore()}
+          onClick={() => editor.chain().focus().addRowBefore().run()}
         >
-          <Rows3 className="h-4 w-4" />
+          <ArrowUpToLine className="h-4 w-4" />
         </Button>
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          title="Add column"
+          title="Add row below"
+          disabled={!editor.can().addRowAfter()}
+          onClick={() => editor.chain().focus().addRowAfter().run()}
+        >
+          <ArrowDownToLine className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Delete row"
+          disabled={!editor.can().deleteRow()}
+          onClick={() => editor.chain().focus().deleteRow().run()}
+        >
+          <Rows className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Add column left"
+          disabled={!editor.can().addColumnBefore()}
+          onClick={() => editor.chain().focus().addColumnBefore().run()}
+        >
+          <ArrowLeftToLine className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Add column right"
           disabled={!editor.can().addColumnAfter()}
           onClick={() => editor.chain().focus().addColumnAfter().run()}
         >
-          <Columns3 className="h-4 w-4" />
+          <ArrowRightToLine className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Delete column"
+          disabled={!editor.can().deleteColumn()}
+          onClick={() => editor.chain().focus().deleteColumn().run()}
+        >
+          <Columns className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Merge cells"
+          disabled={!editor.can().mergeCells()}
+          onClick={() => editor.chain().focus().mergeCells().run()}
+        >
+          <Merge className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Split cell"
+          disabled={!editor.can().splitCell()}
+          onClick={() => editor.chain().focus().splitCell().run()}
+        >
+          <Split className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          title="Toggle header row"
+          disabled={!editor.can().toggleHeaderRow()}
+          onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+        >
+          <PanelTop className="h-4 w-4" />
         </Button>
         <Button
           type="button"
