@@ -52,14 +52,14 @@ export function ClientLogos({ clients }: ClientLogosProps) {
           {duplicated.map((client, index) => (
             <div
               key={`${client.id}-${index}`}
-              className="flex-shrink-0 mx-6 md:mx-10"
+              className="flex-shrink-0 mx-3 md:mx-4"
             >
-              <div className="group relative w-40 h-24 md:w-52 md:h-32 flex items-center justify-center rounded-xl border border-border bg-card p-2 overflow-hidden transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5">
+              <div className="group relative flex items-center justify-center h-28 md:h-40 w-auto">
                 {client.logo_url ? (
                   <img
                     src={client.logo_url}
                     alt={client.name}
-                    className="h-full w-auto max-w-full object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
+                    className="h-full w-auto max-w-none object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
                   />
                 ) : (
                   <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight">
@@ -68,15 +68,17 @@ export function ClientLogos({ clients }: ClientLogosProps) {
                 )}
 
                 {client.logo_url && (
-                  <div className="pointer-events-none absolute inset-0 flex flex-col justify-center p-4 bg-background/60 backdrop-blur-sm text-foreground opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                    <p className="text-base font-serif font-semibold mb-1 leading-snug text-center">
-                      {client.name}
-                    </p>
-                    {client.description && (
-                      <p className="text-xs leading-relaxed text-foreground/70 line-clamp-3 text-center">
-                        {client.description}
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-2 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                    <div className="max-w-full rounded-lg bg-background/60 backdrop-blur-sm px-4 py-2 text-center">
+                      <p className="text-base font-serif font-semibold leading-snug">
+                        {client.name}
                       </p>
-                    )}
+                      {client.description && (
+                        <p className="text-xs leading-relaxed text-foreground/70 line-clamp-3 mt-1">
+                          {client.description}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
