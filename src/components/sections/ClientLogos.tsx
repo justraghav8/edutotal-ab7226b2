@@ -54,24 +54,29 @@ export function ClientLogos({ clients }: ClientLogosProps) {
               key={`${client.id}-${index}`}
               className="flex-shrink-0 mx-6 md:mx-10"
             >
-              <div className="group relative w-36 h-20 md:w-44 md:h-24 flex items-center justify-center rounded-xl border border-border bg-card px-6 py-4 transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5">
+              <div className="group relative w-40 h-24 md:w-52 md:h-32 flex items-center justify-center rounded-xl border border-border bg-card p-2 overflow-hidden transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5">
                 {client.logo_url ? (
                   <img
                     src={client.logo_url}
                     alt={client.name}
-                    className="max-h-12 md:max-h-14 w-auto object-contain opacity-60 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0"
+                    className="h-full w-auto max-w-full object-contain opacity-80 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
                   />
                 ) : (
-                  <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight group-hover:text-foreground transition-colors duration-300">
+                  <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight">
                     {client.name}
                   </span>
                 )}
-                {client.description && (
-                  <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 z-20 w-56 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <div className="rounded-md bg-foreground text-background text-xs leading-relaxed px-3 py-2 shadow-lg">
-                      <p className="font-semibold mb-0.5">{client.name}</p>
-                      <p className="text-background/80">{client.description}</p>
-                    </div>
+
+                {client.logo_url && (
+                  <div className="pointer-events-none absolute inset-0 flex flex-col justify-center p-4 bg-background/60 backdrop-blur-sm text-foreground opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                    <p className="text-base font-serif font-semibold mb-1 leading-snug text-center">
+                      {client.name}
+                    </p>
+                    {client.description && (
+                      <p className="text-xs leading-relaxed text-foreground/70 line-clamp-3 text-center">
+                        {client.description}
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
