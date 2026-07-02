@@ -101,7 +101,7 @@ export default function Index() {
       supabase.from("testimonials").select("*").eq("published", true).limit(10),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(20),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
-      supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("publish_date", { ascending: false }).limit(4),
+      supabase.from("insights").select("id, title, slug, cover_image_url, type, excerpt").eq("published", true).order("order_index", { ascending: true }).order("publish_date", { ascending: false }).limit(4),
       supabase.from("service_categories").select("*").eq("published", true).order("order_index"),
     ]);
 

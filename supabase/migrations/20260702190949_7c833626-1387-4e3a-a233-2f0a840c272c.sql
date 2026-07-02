@@ -1,0 +1,3 @@
+ALTER TABLE public.insights ADD COLUMN IF NOT EXISTS order_index integer NOT NULL DEFAULT 0;
+UPDATE public.insights SET order_index = sub.rn FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY publish_date DESC NULLS LAST, created_at DESC) AS rn FROM public.insights) sub WHERE public.insights.id = sub.id AND public.insights.order_index = 0;
+CREATE INDEX IF NOT EXISTS insights_order_index_idx ON public.insights(order_index);
