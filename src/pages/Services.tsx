@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Loader2, Building2, Users, Briefcase, Landmark, Monitor, ClipboardCheck, MapPin, CalendarDays, Megaphone, Globe } from "lucide-react";
 import { motion } from "framer-motion";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 const iconMap: Record<string, any> = {
   Building2, Users, Briefcase, Landmark, Monitor,
@@ -143,10 +144,13 @@ export default function Services() {
                       {g.image_url && (
                         <div className="relative h-48 md:h-64 w-full rounded-xl overflow-hidden mb-8">
                           <img
-                            src={g.image_url}
-                            alt={g.displayName}
+                            src={optimizedImageUrl(g.image_url, { width: 1280 })}
+                            srcSet={buildSrcSet(g.image_url) || undefined}
+                            sizes="(max-width: 768px) 100vw, 900px"
+                            alt={`${g.displayName} consulting services`}
                             className="absolute inset-0 w-full h-full object-cover"
                             loading="lazy"
+                            decoding="async"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                           <div className="absolute bottom-0 left-0 p-6">
@@ -193,10 +197,13 @@ export default function Services() {
                               {/* Image */}
                               <div className="relative h-44 overflow-hidden">
                                 <img
-                                  src={imgSrc}
-                                  alt={service.title}
+                                  src={optimizedImageUrl(imgSrc, { width: 640 })}
+                                  srcSet={buildSrcSet(imgSrc, [320, 480, 640, 900]) || undefined}
+                                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                  alt={`${service.title} — EduTotal service`}
                                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                   loading="lazy"
+                                  decoding="async"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                                 <span className="absolute top-3 left-3 text-[10px] font-mono bg-background/90 text-foreground px-2 py-0.5 rounded">

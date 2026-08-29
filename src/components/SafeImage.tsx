@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src?: string | null;
   alt: string;
   fallbackSeed?: string;
   fallbackClassName?: string;
+  /** Intended rendered width in CSS px, used to request a right-sized image. */
+  targetWidth?: number;
+  /** Marks this image as the LCP candidate: eager + high priority. */
+  priority?: boolean;
 }
 
 /**
@@ -19,6 +24,9 @@ export function SafeImage({
   fallbackSeed: _fallbackSeed,
   className,
   fallbackClassName,
+  targetWidth,
+  priority = false,
+  sizes,
   ...rest
 }: SafeImageProps) {
   const initial = src && src.trim() ? src : "";
@@ -46,12 +54,18 @@ export function SafeImage({
     );
   }
 
+  const srcSet = buildSrcSet(current);
+
   return (
     <img
       {...rest}
-      src={current}
+      src={optimizedImageUrl(current, { width: targetWidth })}
+      srcSet={srcSet || undefined}
+      sizes={sizes ?? (srcSet ? "(max-width: 768px) 100vw, 50vw" : undefined)}
       alt={alt}
-      loading={rest.loading ?? "lazy"}
+      loading={rest.loading ?? (priority ? "eager" : "lazy")}
+      decoding={rest.decoding ?? (priority ? "sync" : "async")}
+      {...{ fetchpriority: priority ? "high" : "auto" }}
       referrerPolicy={rest.referrerPolicy ?? "no-referrer"}
       className={className}
       onError={() => setErrored(true)}

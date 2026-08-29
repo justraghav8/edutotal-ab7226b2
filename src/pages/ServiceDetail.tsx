@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
@@ -74,8 +75,13 @@ export default function ServiceDetail() {
         {category?.image_url && (
           <>
             <img
-              src={category.image_url}
-              alt=""
+              src={optimizedImageUrl(category.image_url, { width: 1920 })}
+              srcSet={buildSrcSet(category.image_url) || undefined}
+              sizes="100vw"
+              alt={`${category.display_name ?? "Service"} services at EduTotal`}
+              loading="eager"
+              {...{ fetchpriority: "high" }}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/60" />

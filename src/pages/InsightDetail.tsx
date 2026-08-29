@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Calendar, User, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import DOMPurify from "dompurify";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 export default function InsightDetail() {
   const { slug } = useParams();
@@ -87,8 +88,13 @@ export default function InsightDetail() {
 
             {insight.cover_image_url && (
               <img
-                src={insight.cover_image_url}
+                src={optimizedImageUrl(insight.cover_image_url, { width: 1280 })}
+                srcSet={buildSrcSet(insight.cover_image_url) || undefined}
+                sizes="(max-width: 768px) 100vw, 900px"
                 alt={insight.title}
+                loading="eager"
+                {...{ fetchpriority: "high" }}
+                decoding="async"
                 className="w-full h-96 object-cover rounded-lg mb-8"
               />
             )}

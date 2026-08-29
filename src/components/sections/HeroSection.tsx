@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 interface HeroSectionProps {
   title: string;
@@ -58,8 +59,13 @@ export function HeroSection({
         {displayBg && (
           <div className="absolute inset-0">
             <img
-              src={displayBg}
-              alt=""
+              src={optimizedImageUrl(displayBg, { width: 1920 })}
+              srcSet={buildSrcSet(displayBg) || undefined}
+              sizes="100vw"
+              alt={`${displayTitle} — EduTotal`}
+              loading="eager"
+              {...{ fetchpriority: "high" }}
+              decoding="async"
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';

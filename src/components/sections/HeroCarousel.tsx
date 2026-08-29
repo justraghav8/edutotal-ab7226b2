@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 interface Slide {
   id: string;
@@ -162,8 +163,13 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
         >
           {currentSlide.cover_image_url ? (
             <img
-              src={currentSlide.cover_image_url}
+              src={optimizedImageUrl(currentSlide.cover_image_url, { width: 1920 })}
+              srcSet={buildSrcSet(currentSlide.cover_image_url) || undefined}
+              sizes="100vw"
               alt={currentSlide.title}
+              loading="eager"
+              {...{ fetchpriority: "high" }}
+              decoding="async"
               className="w-full h-full object-cover"
             />
           ) : (

@@ -96,8 +96,11 @@ export default function IndustryDetail() {
         <div className="absolute inset-0">
           <SafeImage
             src={industry.image_url}
-            alt={industry.title}
+            alt={`${industry.title} — education sector consulting`}
             fallbackSeed={`industry-${industry.slug}`}
+            targetWidth={1920}
+            sizes="100vw"
+            priority
             className="w-full h-full object-cover"
           />
         </div>
