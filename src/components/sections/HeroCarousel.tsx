@@ -143,7 +143,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
 
   return (
     <section
-      className="relative min-h-[85vh] flex items-center overflow-hidden bg-neutral-900"
+      className="relative min-h-[95vh] flex items-center overflow-hidden bg-neutral-900"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -176,7 +176,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
             <div className="w-full h-full bg-neutral-900" />
           )}
           {/* Dark overlay - fixed across themes */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25" />
         </motion.div>
       </AnimatePresence>
 
@@ -214,23 +214,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
       {slides.length > 1 && (
         <>
           {/* Bottom Control Bar */}
-          <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 z-20 flex items-center justify-between">
-            {/* Slide Indicators */}
-            <div className="flex items-center gap-3">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? "w-8 bg-accent"
-                      : "w-4 bg-white/40 hover:bg-white/60"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-
+          <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 z-20 flex items-center justify-end">
             {/* Arrow Controls */}
             <div className="flex items-center gap-3">
               <button
