@@ -52,7 +52,7 @@ export function ClientLogos({ clients }: ClientLogosProps) {
           {duplicated.map((client, index) => (
             <div
               key={`${client.id}-${index}`}
-              className="flex-shrink-0 mx-3 md:mx-4"
+              className="flex-shrink-0 mx-2 md:mx-3"
             >
               <div className="group relative flex items-center justify-center">
                 {client.logo_url ? (
