@@ -19,6 +19,8 @@ import WhoWeAre from "./pages/WhoWeAre";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import ClientsPage from "./pages/ClientsPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
@@ -61,6 +63,8 @@ const App = () => (
               <Route path="careers" element={<Careers />} />
               <Route path="gallery" element={<Gallery />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="terms-conditions" element={<TermsConditions />} />
             </Route>
 
             <Route path="/admin/login" element={<Login />} />
