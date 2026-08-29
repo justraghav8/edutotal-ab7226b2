@@ -52,14 +52,14 @@ export function ClientLogos({ clients }: ClientLogosProps) {
           {duplicated.map((client, index) => (
             <div
               key={`${client.id}-${index}`}
-              className="flex-shrink-0 mx-3 md:mx-4"
+              className="flex-shrink-0 mx-2 md:mx-3"
             >
-              <div className="group relative flex items-center justify-center h-28 md:h-40 w-auto">
+              <div className="group relative flex items-center justify-center">
                 {client.logo_url ? (
                   <img
                     src={client.logo_url}
                     alt={client.name}
-                    className="h-full w-auto max-w-none object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
+                    className="w-[1000px] h-auto object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
                   />
                 ) : (
                   <span className="text-sm font-semibold text-muted-foreground tracking-wide text-center leading-tight">
@@ -68,13 +68,13 @@ export function ClientLogos({ clients }: ClientLogosProps) {
                 )}
 
                 {client.logo_url && (
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-2 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                    <div className="max-w-full rounded-lg bg-background/60 backdrop-blur-sm px-4 py-2 text-center">
-                      <p className="text-base font-serif font-semibold leading-snug">
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4 opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                    <div className="max-w-full rounded-lg bg-background/60 backdrop-blur-sm px-6 py-3 text-center">
+                      <p className="text-lg font-serif font-semibold leading-snug">
                         {client.name}
                       </p>
                       {client.description && (
-                        <p className="text-xs leading-relaxed text-foreground/70 line-clamp-3 mt-1">
+                        <p className="text-sm leading-relaxed text-foreground/70 line-clamp-3 mt-1">
                           {client.description}
                         </p>
                       )}
