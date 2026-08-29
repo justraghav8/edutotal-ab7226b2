@@ -54,12 +54,12 @@ export function HeroSection({
 
   if (minimal) {
     return (
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-28 md:py-40 overflow-hidden">
         {/* Background Image */}
         {displayBg && (
           <div className="absolute inset-0">
             <img
-              src={optimizedImageUrl(displayBg, { width: 1920 })}
+              src={optimizedImageUrl(displayBg, { width: 1920, quality: 85 })}
               srcSet={buildSrcSet(displayBg) || undefined}
               sizes="100vw"
               alt={`${displayTitle} — EduTotal`}
@@ -71,7 +71,7 @@ export function HeroSection({
                 e.currentTarget.style.display = 'none';
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/10" />
           </div>
         )}
         {!displayBg && <div className="absolute inset-0 bg-secondary" />}
