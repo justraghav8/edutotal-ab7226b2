@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 interface Testimonial {
   id: string;
@@ -109,8 +110,10 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
                 <div className="flex items-center gap-4 pt-6 border-t border-border">
                   {current.photo_url ? (
                     <img
-                      src={current.photo_url}
-                      alt={current.author}
+                      src={optimizedImageUrl(current.photo_url, { width: 112 })}
+                      alt={`Portrait of ${current.author}`}
+                      loading="lazy"
+                      decoding="async"
                       className="w-14 h-14 rounded-full object-cover ring-2 ring-accent/30"
                     />
                   ) : (

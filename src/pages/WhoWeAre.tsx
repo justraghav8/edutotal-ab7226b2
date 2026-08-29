@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 interface TeamMember {
   id: string;
@@ -170,8 +171,12 @@ export default function WhoWeAre() {
                         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
                           {member.photo_url ? (
                             <img
-                              src={member.photo_url}
-                              alt={member.name}
+                              src={optimizedImageUrl(member.photo_url, { width: 800 })}
+                              srcSet={buildSrcSet(member.photo_url, [400, 600, 800]) || undefined}
+                              sizes="(max-width: 1024px) 90vw, 480px"
+                              alt={`Portrait of ${member.name}`}
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover"
                             />
                           ) : (
@@ -265,8 +270,12 @@ export default function WhoWeAre() {
                         <div className="relative aspect-square overflow-hidden">
                           {member.photo_url ? (
                             <img
-                              src={member.photo_url}
-                              alt={member.name}
+                              src={optimizedImageUrl(member.photo_url, { width: 800 })}
+                              srcSet={buildSrcSet(member.photo_url, [400, 600, 800]) || undefined}
+                              sizes="(max-width: 1024px) 90vw, 480px"
+                              alt={`Portrait of ${member.name}`}
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           ) : (
@@ -352,8 +361,10 @@ export default function WhoWeAre() {
                           <div className="sm:w-2/5 aspect-square sm:aspect-auto">
                             {member.photo_url ? (
                               <img
-                                src={member.photo_url}
-                                alt={member.name}
+                                src={optimizedImageUrl(member.photo_url, { width: 600 })}
+                                alt={`Portrait of ${member.name}`}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover"
                               />
                             ) : (

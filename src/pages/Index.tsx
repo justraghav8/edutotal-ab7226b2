@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { motion, useInView, useSpring, useTransform, useScroll } from "framer-motion";
 import { ArrowRight, GraduationCap, Users, Globe, Award } from "lucide-react";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 // Animated Counter Component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -52,6 +53,8 @@ function ParallaxCTA() {
         <img
           src="/images/cta-background.jpg"
           alt=""
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/50" />
@@ -304,8 +307,12 @@ export default function Index() {
                   className="group block relative overflow-hidden rounded-xl aspect-[3/4] hover:shadow-xl transition-shadow duration-300"
                 >
                   <img
-                    src={cat.image_url || fallbackCategoryImage}
-                    alt={cat.display_name}
+                    src={optimizedImageUrl(cat.image_url || fallbackCategoryImage, { width: 640 })}
+                    srcSet={buildSrcSet(cat.image_url || fallbackCategoryImage, [320, 480, 640, 900]) || undefined}
+                    sizes="(max-width: 640px) 50vw, 25vw"
+                    alt={`${cat.display_name} services`}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
                   />

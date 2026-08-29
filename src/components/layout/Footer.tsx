@@ -75,7 +75,11 @@ export function Footer() {
             <Link to="/" className="inline-flex items-center mb-4">
               <img
                 src={isDark ? logoDark.url : logoLight.url}
-                alt="EduTotal"
+                alt="EduTotal logo"
+                width={180}
+                height={48}
+                loading="lazy"
+                decoding="async"
                 className="h-12 w-auto object-contain"
               />
             </Link>

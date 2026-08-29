@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
+import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 interface GalleryImage {
   id: string;
@@ -134,8 +135,12 @@ export function ImageGallery() {
             >
               <div className="relative overflow-hidden rounded-sm aspect-[3/2] mb-4">
                 <img
-                  src={image.image_url}
+                  src={optimizedImageUrl(image.image_url, { width: 900 })}
+                  srcSet={buildSrcSet(image.image_url, [480, 640, 900, 1280]) || undefined}
+                  sizes="(max-width: 768px) 90vw, 640px"
                   alt={image.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 {/* Hover overlay with zoom icon */}
@@ -217,8 +222,9 @@ export function ImageGallery() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={images[lightboxIndex].image_url}
+                src={optimizedImageUrl(images[lightboxIndex].image_url, { width: 1600 })}
                 alt={images[lightboxIndex].title}
+                decoding="async"
                 className="max-w-full max-h-[75vh] object-contain rounded-sm"
               />
               <div className="mt-4 text-center">

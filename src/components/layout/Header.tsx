@@ -46,7 +46,10 @@ export function Header() {
           <Link to="/" className="flex items-center gap-2">
             <img
               src={logoUrl}
-              alt="EduTotal"
+              alt="EduTotal logo"
+              width={180}
+              height={48}
+              decoding="async"
               className="h-12 w-auto object-contain"
             />
           </Link>
