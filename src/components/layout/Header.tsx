@@ -162,7 +162,7 @@ export function Header() {
                       <Link
                         to={item.href}
                         aria-current={isActive(item.href) ? "page" : undefined}
-                        className={`group flex items-center justify-between py-5 text-3xl md:text-4xl lg:text-5xl font-serif transition-colors border-b border-border/30 ${
+                        className={`group flex items-center justify-between py-4 text-xl md:text-2xl lg:text-3xl font-serif transition-colors border-b border-border/30 ${
                           isActive(item.href) ? "text-accent" : "text-foreground hover:text-accent"
                         }`}
                         onClick={() => setMobileMenuOpen(false)}
