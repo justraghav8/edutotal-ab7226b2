@@ -65,12 +65,6 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
     resetTimer();
   }, [slides.length, resetTimer]);
 
-  const goToSlide = (index: number) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
-    resetTimer();
-  };
-
   // Auto-advance slides
   useEffect(() => {
     resetTimer();
