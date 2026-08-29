@@ -91,6 +91,8 @@ export function Footer() {
               <li><Link to="/industries" className="text-muted-foreground hover:text-primary transition-colors">Industries</Link></li>
               <li><Link to="/insights" className="text-muted-foreground hover:text-primary transition-colors">Insights</Link></li>
               <li><Link to="/gallery" className="text-muted-foreground hover:text-primary transition-colors">Gallery</Link></li>
+              <li><Link to="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms-conditions" className="text-muted-foreground hover:text-primary transition-colors">Terms & Conditions</Link></li>
             </ul>
           </div>
 
