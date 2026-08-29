@@ -15,14 +15,14 @@ const iconMap: Record<string, any> = {
 
 // Fallback images for services without a custom image_url - using reliable Unsplash IDs
 const defaultServiceImages = [
-  "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85",
+  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=85",
 ];
 
 // Simple hash to get consistent but varied fallback per service
@@ -142,17 +142,17 @@ export default function Services() {
                       className="mb-10"
                     >
                       {g.image_url && (
-                        <div className="relative h-48 md:h-64 w-full rounded-xl overflow-hidden mb-8">
+                        <div className="relative h-64 md:h-80 lg:h-96 w-full rounded-xl overflow-hidden mb-8">
                           <img
-                            src={optimizedImageUrl(g.image_url, { width: 1280 })}
+                            src={optimizedImageUrl(g.image_url, { width: 1600, quality: 85 })}
                             srcSet={buildSrcSet(g.image_url) || undefined}
-                            sizes="(max-width: 768px) 100vw, 900px"
+                            sizes="(max-width: 768px) 100vw, 1200px"
                             alt={`${g.displayName} consulting services`}
                             className="absolute inset-0 w-full h-full object-cover"
                             loading="lazy"
                             decoding="async"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
                           <div className="absolute bottom-0 left-0 p-6">
                             <span className="text-xs font-mono text-accent uppercase tracking-wider">{g.label} · Category</span>
                             <h2 className="text-2xl md:text-3xl font-serif text-white mt-1">{g.displayName}</h2>
@@ -195,17 +195,17 @@ export default function Services() {
                               className="group block h-full rounded-xl overflow-hidden bg-card border border-border hover:border-accent/30 transition-all duration-500 hover:shadow-lg"
                             >
                               {/* Image */}
-                              <div className="relative h-44 overflow-hidden">
+                              <div className="relative h-56 md:h-64 overflow-hidden">
                                 <img
-                                  src={optimizedImageUrl(imgSrc, { width: 640 })}
-                                  srcSet={buildSrcSet(imgSrc, [320, 480, 640, 900]) || undefined}
+                                  src={optimizedImageUrl(imgSrc, { width: 900, quality: 85 })}
+                                  srcSet={buildSrcSet(imgSrc, [480, 640, 900, 1200]) || undefined}
                                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                   alt={`${service.title} — EduTotal service`}
                                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                   loading="lazy"
                                   decoding="async"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                                 <span className="absolute top-3 left-3 text-[10px] font-mono bg-background/90 text-foreground px-2 py-0.5 rounded">
                                   {g.label}{idx + 1}
                                 </span>
