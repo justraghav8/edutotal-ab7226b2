@@ -80,7 +80,7 @@ export default function ServiceDetail() {
               sizes="100vw"
               alt={`${category.display_name ?? "Service"} services at EduTotal`}
               loading="eager"
-              fetchPriority="high"
+              {...{ fetchpriority: "high" }}
               decoding="async"
               className="absolute inset-0 w-full h-full object-cover opacity-30"
             />

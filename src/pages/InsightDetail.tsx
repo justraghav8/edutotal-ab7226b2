@@ -93,7 +93,7 @@ export default function InsightDetail() {
                 sizes="(max-width: 768px) 100vw, 900px"
                 alt={insight.title}
                 loading="eager"
-                fetchPriority="high"
+                {...{ fetchpriority: "high" }}
                 decoding="async"
                 className="w-full h-96 object-cover rounded-lg mb-8"
               />

@@ -168,7 +168,7 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
               sizes="100vw"
               alt={currentSlide.title}
               loading="eager"
-              fetchPriority="high"
+              {...{ fetchpriority: "high" }}
               decoding="async"
               className="w-full h-full object-cover"
             />

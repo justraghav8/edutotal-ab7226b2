@@ -65,7 +65,7 @@ export function SafeImage({
       alt={alt}
       loading={rest.loading ?? (priority ? "eager" : "lazy")}
       decoding={rest.decoding ?? (priority ? "sync" : "async")}
-      fetchPriority={rest.fetchPriority ?? (priority ? "high" : "auto")}
+      {...{ fetchpriority: priority ? "high" : "auto" }}
       referrerPolicy={rest.referrerPolicy ?? "no-referrer"}
       className={className}
       onError={() => setErrored(true)}

@@ -64,7 +64,7 @@ export function HeroSection({
               sizes="100vw"
               alt={`${displayTitle} — EduTotal`}
               loading="eager"
-              fetchPriority="high"
+              {...{ fetchpriority: "high" }}
               decoding="async"
               className="w-full h-full object-cover"
               onError={(e) => {
