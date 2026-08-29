@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -11,6 +11,10 @@ import logoDark from "@/assets/logo-dark.png.asset.json";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
   const [isDark, setIsDark] = useState(
     typeof document !== "undefined" && document.documentElement.classList.contains("dark"),
   );
@@ -64,16 +68,26 @@ export function Header() {
             >
               <Search className="h-4 w-4" />
             </button>
-            {navigation.slice(1).map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
+            {navigation.slice(1).map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`text-sm font-medium relative group transition-all duration-300 hover:-translate-y-0.5 ${
+                    active ? "text-accent" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                      active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
             <ThemeToggle />
           </div>
 
@@ -147,7 +161,10 @@ export function Header() {
                     >
                       <Link
                         to={item.href}
-                        className="group flex items-center justify-between py-5 text-3xl md:text-4xl lg:text-5xl font-serif text-foreground hover:text-accent transition-colors border-b border-border/30"
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                        className={`group flex items-center justify-between py-5 text-3xl md:text-4xl lg:text-5xl font-serif transition-colors border-b border-border/30 ${
+                          isActive(item.href) ? "text-accent" : "text-foreground hover:text-accent"
+                        }`}
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <span>{item.name}</span>
