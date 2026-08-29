@@ -71,20 +71,20 @@ export default function ServiceDetail() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-primary text-primary-foreground py-28 md:py-40 overflow-hidden">
-        {category?.image_url && (
+      <section className="relative bg-primary text-primary-foreground py-24 md:py-32 overflow-hidden">
+        {(service.image_url || category?.image_url) && (
           <>
             <img
-              src={optimizedImageUrl(category.image_url, { width: 1920, quality: 85 })}
-              srcSet={buildSrcSet(category.image_url) || undefined}
+              src={optimizedImageUrl(service.image_url || category.image_url, { width: 1920, quality: 85 })}
+              srcSet={buildSrcSet(service.image_url || category.image_url) || undefined}
               sizes="100vw"
-              alt={`${category.display_name ?? "Service"} services at EduTotal`}
+              alt={`${service.title} — EduTotal service`}
               loading="eager"
               {...{ fetchpriority: "high" }}
               decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/15" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
           </>
         )}
         <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
