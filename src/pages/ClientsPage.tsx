@@ -109,7 +109,9 @@ function ClientCard({ client }: { client: Client }) {
         {client.logo_url ? (
           <img
             src={client.logo_url}
-            alt={client.name}
+            alt={`${client.name} logo`}
+            loading="lazy"
+            decoding="async"
             className="h-full w-auto max-w-full object-contain opacity-100 grayscale transition-all duration-500 group-hover:blur-sm group-hover:opacity-40"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = "none";
