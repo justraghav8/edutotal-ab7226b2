@@ -120,7 +120,7 @@ export function Footer() {
               <li>
                 <a
                   href={mapsHref}
-                  target="_blank"
+                  target="_top"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 hover:text-primary transition-colors"
                 >
@@ -144,7 +144,7 @@ export function Footer() {
             <Button asChild variant="accent" size="sm" className="mt-5">
               <a
                 href={mapsHref}
-                target="_blank"
+                target="_top"
                 rel="noopener noreferrer"
                 aria-label={`Get directions to EduTotal at ${address}`}
               >

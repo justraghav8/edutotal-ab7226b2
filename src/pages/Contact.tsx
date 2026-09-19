@@ -163,7 +163,7 @@ export default function Contact() {
                 <CardContent className="space-y-6">
                   <a
                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
-                    target="_blank"
+                    target="_top"
                     rel="noopener noreferrer"
                     className="flex items-start gap-4 group hover:text-primary transition-colors"
                   >
@@ -252,7 +252,7 @@ export default function Contact() {
                   <Button asChild variant="accent" size="lg" className="w-full sm:w-fit">
                     <a
                       href={directionsHref}
-                      target="_blank"
+                      target="_top"
                       rel="noopener noreferrer"
                       aria-label={`Get directions to EduTotal at ${address}`}
                     >
@@ -262,7 +262,7 @@ export default function Contact() {
                   </Button>
                   <a
                     href={directionsHref}
-                    target="_blank"
+                    target="_top"
                     rel="noopener noreferrer"
                     className="mt-4 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
                   >
