@@ -53,7 +53,7 @@ export function Footer() {
   const mapsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
 
   const socialLinks: { url: string | null | undefined; Icon: any; label: string }[] = [
-    { url: settings?.social_linkedin ?? "https://www.linkedin.com/in/justraghav/", Icon: Linkedin, label: "LinkedIn" },
+    { url: settings?.social_linkedin ?? "https://www.linkedin.com/in/nishit-jain-3b9156a/", Icon: Linkedin, label: "LinkedIn" },
     { url: settings?.social_twitter ?? "https://x.com/EduTotalCom", Icon: Twitter, label: "Twitter" },
     { url: settings?.social_facebook ?? "https://www.facebook.com/EduTotal/", Icon: Facebook, label: "Facebook" },
     { url: settings?.social_instagram ?? "https://www.instagram.com/edu_total/", Icon: Instagram, label: "Instagram" },
