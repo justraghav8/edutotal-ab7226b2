@@ -69,11 +69,11 @@ const sections = [
   },
   {
     title: "17. Grievance Officer",
-    content: `For questions, concerns, or complaints regarding this Privacy Policy or the processing of your personal information, please contact our Grievance Officer at nishit@edu-total.com.`,
+    content: `For questions, concerns, or complaints regarding this Privacy Policy or the processing of your personal information, please contact our Grievance Officer at contact@edu-total.com.`,
   },
   {
     title: "18. Contact Us",
-    content: `If you have any questions regarding this Privacy Policy, please contact us:\n\nWebsite: https://edu-total.com\nEmail: nishit@edu-total.com\nPhone: +91-11-41526734\nAddress: 904, Indraprakash Building, 21 Barakhamba Road, New Delhi – 110001, India`,
+    content: `If you have any questions regarding this Privacy Policy, please contact us:\n\nWebsite: https://edu-total.com\nEmail: contact@edu-total.com\nPhone: +91-11-41526734\nAddress: 904, Indraprakash Building, 21 Barakhamba Road, New Delhi – 110001, India`,
   },
   {
     title: "19. Governing Law",
@@ -152,9 +152,9 @@ export default function PrivacyPolicy() {
               <div className="mt-12 rounded-xl bg-muted p-6 md:p-8">
                 <h3 className="mb-4 font-serif text-xl font-semibold text-foreground">Contact Information</h3>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <a href="mailto:nishit@edu-total.com" className="flex items-center gap-3 text-muted-foreground hover:text-[#62AD4E] transition-colors">
+                  <a href="mailto:contact@edu-total.com" className="flex items-center gap-3 text-muted-foreground hover:text-[#62AD4E] transition-colors">
                     <Mail className="h-5 w-5 text-[#62AD4E]" />
-                    <span>nishit@edu-total.com</span>
+                    <span>contact@edu-total.com</span>
                   </a>
                   <a href="tel:+911141526734" className="flex items-center gap-3 text-muted-foreground hover:text-[#62AD4E] transition-colors">
                     <Phone className="h-5 w-5 text-[#62AD4E]" />
