@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
+import { Button } from "@/components/ui/button";
 
 interface Testimonial {
   id: string;
@@ -91,8 +92,8 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
           <h2 className="text-3xl md:text-4xl font-serif text-foreground dark:text-white">Impact Stories</h2>
         </motion.div>
 
-        {/* Slider Content - structured block */}
-        <div className="max-w-4xl mx-auto">
+        {/* Slider Content - reviewer-forward editorial block */}
+        <div className="max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -100,38 +101,58 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl border border-border bg-card/60 backdrop-blur-sm shadow-xl shadow-foreground/5 overflow-hidden"
+              className="rounded-xl border border-border bg-card/80 backdrop-blur-sm shadow-xl shadow-foreground/5 overflow-hidden"
             >
-              <div className="p-8 md:p-12">
-                <blockquote className="text-lg md:text-xl font-serif text-foreground/90 dark:text-white/90 leading-relaxed mb-8">
-                  "{current.quote}"
-                </blockquote>
-
-                <div className="flex items-center gap-4 pt-6 border-t border-border">
+              <div className="p-7 md:p-10 lg:p-12">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 md:gap-8 pb-8 md:pb-10 border-b border-border">
+                  <div className="relative shrink-0">
+                    <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-xl bg-accent/20" />
                   {current.photo_url ? (
                     <img
-                      src={optimizedImageUrl(current.photo_url, { width: 112 })}
+                        src={optimizedImageUrl(current.photo_url, { width: 256, quality: 88 })}
+                        srcSet={buildSrcSet(current.photo_url, [128, 192, 256], 88)}
+                        sizes="(min-width: 768px) 8rem, 7rem"
                       alt={`Portrait of ${current.author}`}
                       loading="lazy"
                       decoding="async"
-                      className="w-14 h-14 rounded-full object-cover ring-2 ring-accent/30"
+                        className="relative w-28 h-28 md:w-32 md:h-32 rounded-xl object-cover ring-4 ring-card shadow-lg"
                     />
                   ) : (
-                    <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
-                      <span className="text-xl font-serif text-accent">
+                      <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-xl bg-accent/10 ring-4 ring-card shadow-lg flex items-center justify-center">
+                        <span className="text-4xl font-serif text-accent">
                         {current.author?.charAt(0)}
                       </span>
                     </div>
                   )}
-                  <div>
-                    <div className="font-semibold text-base text-foreground dark:text-white">{current.author}</div>
+                  </div>
+
+                  <div className="min-w-0 flex-1 text-center sm:text-left sm:pt-1">
+                    <h3 className="font-sans text-2xl md:text-3xl font-bold text-foreground leading-tight">
+                      {current.author}
+                    </h3>
                     {current.role && (
-                      <div className="text-sm text-accent font-medium">{current.role}</div>
+                      <p className="mt-2 text-base md:text-lg text-accent font-semibold leading-snug">
+                        {current.role}
+                      </p>
                     )}
                     {current.organization && (
-                      <div className="text-xs text-muted-foreground dark:text-white/50">{current.organization}</div>
+                      <div className="mt-3 inline-flex items-center border-l-2 border-accent bg-accent/10 px-3 py-2 text-sm md:text-base font-semibold text-foreground">
+                        {current.organization}
+                      </div>
                     )}
                   </div>
+                </div>
+
+                <div className="relative pt-8 md:pt-10 md:pl-12">
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-5 left-0 font-serif text-7xl leading-none text-accent/20 select-none"
+                  >
+                    “
+                  </span>
+                  <blockquote className="relative text-lg md:text-xl lg:text-2xl font-serif text-foreground/90 leading-relaxed">
+                    {current.quote}
+                  </blockquote>
                 </div>
               </div>
             </motion.div>
@@ -141,13 +162,16 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
         {/* Navigation */}
         {items.length > 1 && (
           <div className="flex items-center justify-center gap-6 mt-12">
-            <button
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
               onClick={prev}
-              className="w-12 h-12 rounded-full border border-foreground/20 dark:border-white/20 flex items-center justify-center text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white hover:border-foreground/40 dark:hover:border-white/40 transition-colors"
+              className="w-12 h-12 rounded-full text-muted-foreground hover:text-foreground"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
-            </button>
+            </Button>
 
             {/* Dots */}
             <div className="flex items-center gap-2">
@@ -165,13 +189,16 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               ))}
             </div>
 
-            <button
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
               onClick={next}
-              className="w-12 h-12 rounded-full border border-foreground/20 dark:border-white/20 flex items-center justify-center text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white hover:border-foreground/40 dark:hover:border-white/40 transition-colors"
+              className="w-12 h-12 rounded-full text-muted-foreground hover:text-foreground"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
-            </button>
+            </Button>
           </div>
         )}
       </div>
