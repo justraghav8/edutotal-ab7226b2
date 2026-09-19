@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube, Navigation } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 import logoLight from "@/assets/logo-light.png.asset.json";
 import logoDark from "@/assets/logo-dark.png.asset.json";
 
@@ -49,7 +50,7 @@ export function Footer() {
   const phone = settings?.contact_phone || "+91 11 4132 8320";
   const address = settings?.contact_address || "E-7, Defence Colony, New Delhi - 110024, India";
   const phoneHref = `tel:${phone.replace(/[^+\d]/g, "")}`;
-  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  const mapsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
 
   const socialLinks: { url: string | null | undefined; Icon: any; label: string }[] = [
     { url: settings?.social_linkedin ?? "https://www.linkedin.com/in/justraghav/", Icon: Linkedin, label: "LinkedIn" },
@@ -140,6 +141,17 @@ export function Footer() {
                 </a>
               </li>
             </ul>
+            <Button asChild variant="accent" size="sm" className="mt-5">
+              <a
+                href={mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Get directions to EduTotal at ${address}`}
+              >
+                <Navigation className="h-4 w-4" />
+                Click for Directions
+              </a>
+            </Button>
             <div className="mt-4 flex gap-3 flex-wrap">
               {socialLinks.map(({ url, Icon, label }) =>
                 url ? (

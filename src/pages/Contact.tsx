@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Navigation, Phone } from "lucide-react";
 
 interface SiteSettings {
   contact_address: string | null;
@@ -44,6 +44,8 @@ export default function Contact() {
     settings?.business_hours ||
     "Monday - Friday: 9:00 AM - 6:00 PM IST\nSaturday: 10:00 AM - 2:00 PM IST\nSunday: Closed";
   const telHref = `tel:${phone.replace(/[^+\d]/g, "")}`;
+  const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
+  const mapEmbedHref = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
 
   async function handleSubmit(e: React.FormEvent) {
@@ -219,6 +221,57 @@ export default function Contact() {
               </Card>
             </div>
           </div>
+
+          <section className="max-w-6xl mx-auto mt-12" aria-labelledby="find-us-heading">
+            <Card className="overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)]">
+                <div className="relative min-h-[22rem] bg-muted">
+                  <iframe
+                    title={`Map showing EduTotal at ${address}`}
+                    src={mapEmbedHref}
+                    width="100%"
+                    height="100%"
+                    className="absolute inset-0 h-full w-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </div>
+
+                <CardContent className="flex flex-col justify-center p-8 md:p-10">
+                  <span className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                    <MapPin className="h-4 w-4" />
+                    New Delhi Office
+                  </span>
+                  <h2 id="find-us-heading" className="mb-4 text-3xl font-serif text-foreground">
+                    Find Us
+                  </h2>
+                  <p className="mb-8 text-muted-foreground whitespace-pre-line">
+                    {address}
+                  </p>
+                  <Button asChild variant="accent" size="lg" className="w-full sm:w-fit">
+                    <a
+                      href={directionsHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Get directions to EduTotal at ${address}`}
+                    >
+                      <Navigation className="h-4 w-4" />
+                      Click for Directions
+                    </a>
+                  </Button>
+                  <a
+                    href={directionsHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                  >
+                    Open location in Google Maps
+                  </a>
+                </CardContent>
+              </div>
+            </Card>
+          </section>
         </div>
       </section>
 
