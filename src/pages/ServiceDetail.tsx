@@ -71,7 +71,7 @@ export default function ServiceDetail() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-primary text-primary-foreground py-24 md:py-32 overflow-hidden">
+      <section className="relative bg-primary text-accent-foreground py-24 md:py-32 overflow-hidden">
         {(service.image_url || category?.image_url) && (
           <>
             <img
@@ -90,7 +90,7 @@ export default function ServiceDetail() {
         <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <Link
             to="/services"
-            className="inline-flex items-center text-primary-foreground/60 hover:text-primary-foreground transition-colors mb-8 text-sm"
+            className="inline-flex items-center text-accent-foreground/70 hover:text-accent-foreground transition-colors mb-8 text-sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             All Services
@@ -117,7 +117,7 @@ export default function ServiceDetail() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl text-primary-foreground/80 leading-relaxed max-w-3xl"
+              className="text-xl text-accent-foreground/85 leading-relaxed max-w-3xl"
             >
               {service.overview}
             </motion.p>
