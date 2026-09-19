@@ -110,7 +110,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
                   {current.photo_url ? (
                     <img
                         src={optimizedImageUrl(current.photo_url, { width: 256, quality: 88 })}
-                        srcSet={buildSrcSet(current.photo_url, [128, 192, 256], { quality: 88 })}
+                        srcSet={buildSrcSet(current.photo_url, [128, 192, 256], 88)}
                         sizes="(min-width: 768px) 8rem, 7rem"
                       alt={`Portrait of ${current.author}`}
                       loading="lazy"
