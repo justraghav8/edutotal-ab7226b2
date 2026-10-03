@@ -220,9 +220,9 @@ export default function Index() {
             >
               <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {[
-                  { value: 200, suffix: "+", label: "Institutions Served", icon: GraduationCap, color: "bg-accent/10 text-accent" },
+                  { value: 200, suffix: "+", label: "Institutions Served with Partner", icon: GraduationCap, color: "bg-accent/10 text-accent" },
                   { value: 25, suffix: "+", label: "Years of Excellence", icon: Award, color: "bg-primary/10 text-primary" },
-                  { value: 50, suffix: "+", label: "Expert Consultants", icon: Users, color: "bg-accent/10 text-accent" },
+                  { value: 50, suffix: "+", label: "Expert Consultants & Partners", icon: Users, color: "bg-accent/10 text-accent" },
                   { value: 15, suffix: "+", label: "Countries Reached", icon: Globe, color: "bg-primary/10 text-primary" },
                 ].map((stat, index) => (
                   <motion.div
