@@ -92,7 +92,7 @@ export default function IndustryDetail() {
   return (
     <>
       {/* HERO */}
-      <section className="relative bg-foreground text-background overflow-hidden">
+      <section className="relative bg-foreground text-accent-foreground overflow-hidden">
         <div className="absolute inset-0">
           <SafeImage
             src={industry.image_url}
@@ -111,7 +111,7 @@ export default function IndustryDetail() {
           <Button
             asChild
             variant="ghost"
-            className="text-background/80 hover:text-background hover:bg-background/10 mb-8 -ml-3"
+            className="text-accent-foreground/80 hover:text-accent-foreground hover:bg-accent-foreground/10 mb-8 -ml-3"
           >
             <Link to="/industries">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -132,7 +132,7 @@ export default function IndustryDetail() {
               {industry.title}
             </h1>
             {industry.tagline && (
-              <p className="text-lg md:text-xl italic text-background/70 max-w-2xl">
+              <p className="text-lg md:text-xl italic text-accent-foreground/70 max-w-2xl">
                 {industry.tagline}
               </p>
             )}
