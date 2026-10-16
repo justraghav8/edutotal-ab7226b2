@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
+export { cleanList, toList } from "@/lib/contentRules";
 
 interface ListEditorProps {
   value: string[];
@@ -46,18 +47,4 @@ export function ListEditor({ value, onChange, placeholder, addLabel = "Add item"
       </Button>
     </div>
   );
-}
-
-export const cleanList = (v?: string[]) => (v || []).map((s) => s.trim()).filter(Boolean);
-
-export function toList(v: any): string[] {
-  if (!v) return [];
-  if (Array.isArray(v)) return v.map(String);
-  try {
-    const p = JSON.parse(v);
-    if (Array.isArray(p)) return p.map(String);
-  } catch {
-    /* not json */
-  }
-  return String(v).split("\n").filter(Boolean);
 }

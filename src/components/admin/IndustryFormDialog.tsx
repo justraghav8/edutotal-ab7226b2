@@ -50,24 +50,6 @@ interface IndustryFormDialogProps {
   industry?: any;
 }
 
-function arrayToLines(v: any): string {
-  if (!v) return "";
-  if (Array.isArray(v)) return v.join("\n");
-  try {
-    const parsed = JSON.parse(v);
-    if (Array.isArray(parsed)) return parsed.join("\n");
-  } catch {}
-  return String(v);
-}
-
-function linesToArray(v?: string): string[] {
-  if (!v) return [];
-  return v
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
-}
-
 export function IndustryFormDialog({
   open,
   onClose,
