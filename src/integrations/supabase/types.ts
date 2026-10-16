@@ -17,11 +17,14 @@ export type Database = {
       careers: {
         Row: {
           apply_email: string
+          apply_url: string | null
           created_at: string | null
           description: string
+          employment_type: string | null
           id: string
           job_title: string
           location: string | null
+          order_index: number
           published: boolean | null
           qualifications: Json | null
           responsibilities: Json | null
@@ -29,11 +32,14 @@ export type Database = {
         }
         Insert: {
           apply_email: string
+          apply_url?: string | null
           created_at?: string | null
           description: string
+          employment_type?: string | null
           id?: string
           job_title: string
           location?: string | null
+          order_index?: number
           published?: boolean | null
           qualifications?: Json | null
           responsibilities?: Json | null
@@ -41,11 +47,14 @@ export type Database = {
         }
         Update: {
           apply_email?: string
+          apply_url?: string | null
           created_at?: string | null
           description?: string
+          employment_type?: string | null
           id?: string
           job_title?: string
           location?: string | null
+          order_index?: number
           published?: boolean | null
           qualifications?: Json | null
           responsibilities?: Json | null
@@ -389,6 +398,30 @@ export type Database = {
           title?: string
           type?: Database["public"]["Enums"]["insight_type"]
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      page_content: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          page_key: string
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          page_key: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          page_key?: string
+          updated_at?: string
         }
         Relationships: []
       }
