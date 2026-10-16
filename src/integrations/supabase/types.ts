@@ -128,8 +128,48 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_albums: {
+        Row: {
+          cover_image_url: string | null
+          created_at: string
+          description: string | null
+          event_date: string | null
+          id: string
+          location: string | null
+          name: string
+          order_index: number
+          published: boolean
+          updated_at: string
+        }
+        Insert: {
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          event_date?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          order_index?: number
+          published?: boolean
+          updated_at?: string
+        }
+        Update: {
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          event_date?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          order_index?: number
+          published?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       gallery_images: {
         Row: {
+          album_id: string
           caption: string | null
           created_at: string | null
           id: string
@@ -140,6 +180,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          album_id?: string
           caption?: string | null
           created_at?: string | null
           id?: string
@@ -150,6 +191,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          album_id?: string
           caption?: string | null
           created_at?: string | null
           id?: string
@@ -159,7 +201,15 @@ export type Database = {
           title?: string
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "gallery_images_album_id_fkey"
+            columns: ["album_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_albums"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       hero_banners: {
         Row: {
@@ -719,6 +769,10 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      remove_gallery_album: {
+        Args: { album_to_remove: string; destination_album?: string }
+        Returns: undefined
+      }
       remove_service_category: {
         Args: { category_to_remove: string; destination_category?: string }
         Returns: undefined
