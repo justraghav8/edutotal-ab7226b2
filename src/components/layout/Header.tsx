@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
@@ -11,6 +12,15 @@ import logoDark from "@/assets/logo-dark.png.asset.json";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [tagline, setTagline] = useState<string | null>(null);
+  useEffect(() => {
+    supabase.from("site_settings").select("tagline").limit(1).maybeSingle().then(({ data }) => {
+      if (data?.tagline) {
+        setTagline(data.tagline);
+        document.title = `EduTotal - ${data.tagline}`;
+      }
+    });
+  }, []);
   const { pathname } = useLocation();
 
   const isActive = (href: string) =>
@@ -187,7 +197,7 @@ export function Header() {
                       About
                     </p>
                     <h3 className="text-2xl lg:text-3xl font-serif mb-6 leading-tight">
-                      Transforming education through strategic excellence and innovative solutions.
+                      {tagline || "Transforming education through strategic excellence and innovative solutions."}
                     </h3>
                     <Button
                       asChild
