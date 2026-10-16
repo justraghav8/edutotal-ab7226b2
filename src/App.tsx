@@ -38,6 +38,7 @@ import Contacts from "./pages/admin/Contacts";
 import Gallery from "./pages/Gallery";
 import Images from "./pages/admin/Images";
 import GalleryAdmin from "./pages/admin/Gallery";
+import HomeSlides from "./pages/admin/HomeSlides";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +81,7 @@ const App = () => (
               <Route index element={<Dashboard />} />
               <Route path="settings" element={<Settings />} />
               <Route path="images" element={<Images />} />
+              <Route path="home-slider" element={<HomeSlides />} />
               <Route path="hero-banners" element={<HeroBanners />} />
               <Route path="services" element={<ServicesAdmin />} />
               <Route path="service-categories" element={<ServiceCategoriesAdmin />} />
