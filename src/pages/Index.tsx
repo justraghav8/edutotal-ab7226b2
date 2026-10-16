@@ -100,19 +100,20 @@ export default function Index() {
   }, []);
 
   async function loadData() {
-    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes, categoriesRes] = await Promise.all([
+    const [testimonialsRes, clientsRes, insightsRes, heroSlidesRes, categoriesRes, servicesRes] = await Promise.all([
       supabase.from("testimonials").select("*").eq("published", true).limit(10),
       supabase.from("clients").select("*").eq("published", true).order("order_index").limit(20),
       supabase.from("insights").select("*").eq("published", true).eq("featured", true).limit(3),
       supabase.from("home_slides").select("*").eq("published", true).order("order_index", { ascending: true }),
       supabase.from("service_categories").select("*").eq("published", true).order("order_index"),
+      supabase.from("services").select("category_id").eq("published", true),
     ]);
 
     if (testimonialsRes.data) setTestimonials(testimonialsRes.data);
     if (clientsRes.data) setClients(clientsRes.data);
     if (insightsRes.data) setInsights(insightsRes.data);
     if (heroSlidesRes.data) setHeroSlides(heroSlidesRes.data);
-    if (categoriesRes.data) setServiceCategories(categoriesRes.data);
+    if (categoriesRes.data) setServiceCategories(categoriesRes.data.filter(c => servicesRes.data?.some(s => s.category_id === c.id)));
     setHeroLoading(false);
   }
 
@@ -269,7 +270,7 @@ export default function Index() {
       </section>
 
       {/* Services - Category Grid */}
-      <section id="services" className="py-20 bg-background">
+      {serviceCategories.length > 0 && <section id="services" className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -282,7 +283,7 @@ export default function Index() {
               <div>
                 <h2 className="text-3xl md:text-4xl font-serif mb-2">Our Expertise</h2>
                 <p className="text-muted-foreground text-lg max-w-2xl">
-                  An integrated portfolio across 10 domains of educational excellence
+                  An integrated portfolio across {serviceCategories.length} domains of educational excellence
                 </p>
               </div>
               <Button asChild variant="outline" size="lg" className="hidden md:inline-flex shrink-0">
@@ -337,7 +338,7 @@ export default function Index() {
             </Button>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Leadership Section */}
       <section id="leadership" className="py-20 bg-background">
