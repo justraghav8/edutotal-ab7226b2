@@ -8,6 +8,7 @@ import logoDark from "@/assets/logo-dark.png.asset.json";
 
 interface Settings {
   logo_url: string | null;
+  tagline: string | null;
   contact_email: string | null;
   contact_phone: string | null;
   contact_address: string | null;
@@ -38,7 +39,7 @@ export function Footer() {
     supabase
       .from("site_settings")
       .select(
-        "logo_url,contact_email,contact_phone,contact_address,social_linkedin,social_twitter,social_facebook,social_instagram,social_youtube,social_links",
+        "logo_url,tagline,contact_email,contact_phone,contact_address,social_linkedin,social_twitter,social_facebook,social_instagram,social_youtube,social_links",
       )
       .maybeSingle()
       .then(({ data }) => {
@@ -84,7 +85,7 @@ export function Footer() {
                 className="h-12 w-auto object-contain"
               />
             </Link>
-            <p className="text-sm text-muted-foreground">Transforming education through strategic excellence. Your trusted partner in education consulting.</p>
+            <p className="text-sm text-muted-foreground">{settings?.tagline || "Transforming education through strategic excellence. Your trusted partner in education consulting."}</p>
           </div>
 
           {/* Quick Links */}
