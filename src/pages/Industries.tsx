@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { NextPageCTA } from "@/components/sections/NextPageCTA";
+import { ContentCTA } from "@/components/sections/ContentCTA";
+import { usePageContent } from "@/lib/pageContent";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
@@ -39,6 +40,7 @@ const industryIcons: Record<string, React.ElementType> = {
 const defaultIcons = [GraduationCap, Building2, Landmark, Briefcase, School, BookOpen, Microscope, Globe, Users, Award];
 
 export default function Industries() {
+  const content = usePageContent("industries");
   const [industries, setIndustries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,9 +78,9 @@ export default function Industries() {
             transition={{ duration: 0.6 }}
             className="mb-16 max-w-3xl"
           >
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Sector Expertise</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">{content.intro_title}</h2>
             <p className="text-muted-foreground text-lg">
-              Deep industry knowledge combined with strategic consulting excellence
+              {content.intro_text}
             </p>
           </motion.div>
 
@@ -88,7 +90,7 @@ export default function Industries() {
             </div>
           ) : industries.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-lg text-muted-foreground">No industries found.</p>
+              <p className="text-lg text-muted-foreground">{content.empty_text}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
@@ -136,7 +138,7 @@ export default function Industries() {
             </div>
           )}
 
-          <motion.div 
+          {content.services_button_text && <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -145,45 +147,15 @@ export default function Industries() {
           >
             <Button asChild variant="outline" size="lg">
               <Link to="/services">
-                View Our Services <ArrowRight className="ml-2 h-4 w-4" />
+                {content.services_button_text} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </motion.div>
+          </motion.div>}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-foreground text-background">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl"
-        >
-          <h2 className="text-3xl md:text-4xl font-serif mb-6">
-            Looking for Industry-Specific Solutions?
-          </h2>
-          <p className="text-lg text-background/70 mb-10">
-            Our consultants bring deep sector expertise to every engagement
-          </p>
-          <Button 
-            asChild 
-            variant="outline" 
-            size="lg" 
-            className="border-background text-background hover:bg-background hover:text-foreground"
-          >
-            <Link to="/contact">Contact Us</Link>
-          </Button>
-        </motion.div>
-      </section>
-
-      <NextPageCTA
-        headline="Learn From Our Expertise"
-        description="Access thought leadership, case studies, and industry insights."
-        linkText="Read Insights"
-        linkHref="/insights"
-      />
+      <ContentCTA content={content} />
+      <ContentCTA content={content} prefix="next" />
     </>
   );
 }
