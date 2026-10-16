@@ -21,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { ListEditor, cleanList, toList } from "@/components/admin/ListEditor";
 import { Switch } from "@/components/ui/switch";
 
 const formSchema = z.object({
@@ -28,6 +29,11 @@ const formSchema = z.object({
   description: z.string().min(1, "Description is required"),
   apply_email: z.string().email("Valid email is required"),
   location: z.string().optional(),
+  employment_type: z.string().optional(),
+  apply_url: z.string().url("Enter a full https URL").optional().or(z.literal("")),
+  order_index: z.number().default(0),
+  responsibilities: z.array(z.string()).default([]),
+  qualifications: z.array(z.string()).default([]),
   published: z.boolean().default(true),
 });
 
@@ -52,6 +58,11 @@ export function CareerFormDialog({
       description: "",
       apply_email: "",
       location: "",
+      employment_type: "Full Time",
+      apply_url: "",
+      order_index: 0,
+      responsibilities: [],
+      qualifications: [],
       published: true,
     },
   });
@@ -63,6 +74,11 @@ export function CareerFormDialog({
         description: career.description || "",
         apply_email: career.apply_email || "",
         location: career.location || "",
+        employment_type: career.employment_type || "",
+        apply_url: career.apply_url || "",
+        order_index: career.order_index || 0,
+        responsibilities: toList(career.responsibilities),
+        qualifications: toList(career.qualifications),
         published: career.published ?? true,
       });
     } else {
@@ -71,6 +87,11 @@ export function CareerFormDialog({
         description: "",
         apply_email: "",
         location: "",
+      employment_type: "Full Time",
+      apply_url: "",
+      order_index: 0,
+      responsibilities: [],
+      qualifications: [],
         published: true,
       });
     }
@@ -83,6 +104,11 @@ export function CareerFormDialog({
         description: data.description,
         apply_email: data.apply_email,
         location: data.location || null,
+        employment_type: data.employment_type || null,
+        apply_url: data.apply_url || null,
+        order_index: data.order_index,
+        responsibilities: cleanList(data.responsibilities),
+        qualifications: cleanList(data.qualifications),
         published: data.published,
       };
 
@@ -172,6 +198,21 @@ export function CareerFormDialog({
               )}
             />
 
+            {(["responsibilities", "qualifications"] as const).map((name) => (
+              <FormField key={name} control={form.control} name={name} render={({ field }) => (
+                <FormItem><FormLabel>{name === "responsibilities" ? "Responsibilities" : "Qualifications"}</FormLabel><ListEditor value={field.value} onChange={field.onChange} /></FormItem>
+              )} />
+            ))}
+            <FormField control={form.control} name="employment_type" render={({ field }) => (
+              <FormItem><FormLabel>Employment Type (leave empty to hide)</FormLabel><FormControl><Input {...field} placeholder="Full Time, Part Time, Contract…" /></FormControl><FormMessage /></FormItem>
+            )} />
+            <FormField control={form.control} name="apply_url" render={({ field }) => (
+              <FormItem><FormLabel>Application URL (optional, overrides email button)</FormLabel><FormControl><Input {...field} placeholder="https://…" /></FormControl><FormMessage /></FormItem>
+            )} />
+            <FormField control={form.control} name="order_index" render={({ field }) => (
+              <FormItem><FormLabel>Display Order</FormLabel><FormControl><Input type="number" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} /></FormControl><FormMessage /></FormItem>
+            )} />
+
             <FormField
               control={form.control}
               name="apply_email"
@@ -208,7 +249,7 @@ export function CareerFormDialog({
               <Button type="button" variant="outline" onClick={() => onClose()}>
                 Cancel
               </Button>
-              <Button type="submit">
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {career ? "Update" : "Create"}
               </Button>
             </div>

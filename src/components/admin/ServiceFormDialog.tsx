@@ -371,7 +371,7 @@ export function ServiceFormDialog({
               <Button type="button" variant="outline" onClick={() => onClose()}>
                 Cancel
               </Button>
-              <Button type="submit">
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {service ? "Update" : "Create"}
               </Button>
             </div>
