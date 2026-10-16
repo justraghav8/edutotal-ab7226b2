@@ -194,6 +194,63 @@ export type Database = {
         }
         Relationships: []
       }
+      home_slides: {
+        Row: {
+          created_at: string
+          cta_link: string | null
+          cta_new_tab: boolean
+          cta_text: string | null
+          cta2_link: string | null
+          cta2_new_tab: boolean
+          cta2_text: string | null
+          eyebrow: string | null
+          id: string
+          image_url: string | null
+          order_index: number
+          overlay_opacity: number
+          published: boolean
+          subtitle: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cta_link?: string | null
+          cta_new_tab?: boolean
+          cta_text?: string | null
+          cta2_link?: string | null
+          cta2_new_tab?: boolean
+          cta2_text?: string | null
+          eyebrow?: string | null
+          id?: string
+          image_url?: string | null
+          order_index?: number
+          overlay_opacity?: number
+          published?: boolean
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cta_link?: string | null
+          cta_new_tab?: boolean
+          cta_text?: string | null
+          cta2_link?: string | null
+          cta2_new_tab?: boolean
+          cta2_text?: string | null
+          eyebrow?: string | null
+          id?: string
+          image_url?: string | null
+          order_index?: number
+          overlay_opacity?: number
+          published?: boolean
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       industries: {
         Row: {
           content_box: string | null
