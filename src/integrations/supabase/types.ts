@@ -472,6 +472,7 @@ export type Database = {
           approach: Json | null
           benefits: Json | null
           category: Database["public"]["Enums"]["service_category"]
+          category_id: string | null
           created_at: string | null
           domestic_expertise: string | null
           icon_key: string | null
@@ -488,7 +489,8 @@ export type Database = {
         Insert: {
           approach?: Json | null
           benefits?: Json | null
-          category: Database["public"]["Enums"]["service_category"]
+          category?: Database["public"]["Enums"]["service_category"]
+          category_id?: string | null
           created_at?: string | null
           domestic_expertise?: string | null
           icon_key?: string | null
@@ -506,6 +508,7 @@ export type Database = {
           approach?: Json | null
           benefits?: Json | null
           category?: Database["public"]["Enums"]["service_category"]
+          category_id?: string | null
           created_at?: string | null
           domestic_expertise?: string | null
           icon_key?: string | null
@@ -519,7 +522,15 @@ export type Database = {
           title?: string
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "services_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "service_categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       site_settings: {
         Row: {
@@ -708,6 +719,10 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      remove_service_category: {
+        Args: { category_to_remove: string; destination_category?: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "editor" | "viewer"
