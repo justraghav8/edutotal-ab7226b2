@@ -1,6 +1,20 @@
 import { describe, test, expect } from "bun:test";
 import { cleanList, hasContentList } from "./contentRules";
 import { servicesInCategory, categoryAnchor } from "./serviceCategories";
+import { albumPhotos, visibleAlbums } from "./galleryAlbums";
+
+describe("Gallery albums", () => {
+  test("each photo is shown only inside its assigned album", () => {
+    const photos = [{id: "one", album_id: "a", published: true}, {id: "two", album_id: "b", published: true}];
+    expect(albumPhotos(photos, "a").map(p => p.id)).toEqual(["one"]);
+    photos[0].album_id = "b";
+    expect(albumPhotos(photos, "a")).toEqual([]);
+    expect(albumPhotos(photos, "b").length).toBe(2);
+  });
+  test("hidden and empty albums are excluded from public galleries", () => {
+    expect(visibleAlbums([{id: "a", published: false}, {id: "b", published: true}, {id: "c", published: true}], [{album_id: "a", published: true}, {album_id: "b", published: false}, {album_id: "c", published: true}]).map(a => a.id)).toEqual(["c"]);
+  });
+});
 
 describe("Dynamic service categories", () => {
   test("services can be assigned to an arbitrary category rather than a fixed enum", () => {
