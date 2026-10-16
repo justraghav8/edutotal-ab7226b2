@@ -5,13 +5,36 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
-interface Slide {
+export interface Slide {
   id: string;
+  eyebrow?: string | null;
   title: string;
-  slug: string;
-  cover_image_url: string | null;
-  type: string;
-  excerpt: string;
+  subtitle?: string | null;
+  image_url?: string | null;
+  cta_text?: string | null;
+  cta_link?: string | null;
+  cta_new_tab?: boolean;
+  cta2_text?: string | null;
+  cta2_link?: string | null;
+  cta2_new_tab?: boolean;
+  overlay_opacity?: number;
+}
+
+function SlideCta({ text, link, newTab, primary }: { text?: string | null; link?: string | null; newTab?: boolean; primary?: boolean }) {
+  if (!text || !link) return null;
+  const external = /^(https?:|mailto:|tel:)/i.test(link);
+  const cls = primary
+    ? "bg-accent text-accent-foreground hover:bg-accent/90 border-0"
+    : "border-white text-white bg-transparent hover:bg-white hover:text-black";
+  return (
+    <Button asChild size="lg" variant={primary ? "default" : "outline"} className={cls}>
+      {external || newTab ? (
+        <a href={link} target={newTab ? "_blank" : undefined} rel={newTab ? "noopener noreferrer" : undefined}>{text}</a>
+      ) : (
+        <Link to={link}>{text}</Link>
+      )}
+    </Button>
+  );
 }
 
 interface HeroCarouselProps {
@@ -155,10 +178,10 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
           transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
           className="absolute inset-0"
         >
-          {currentSlide.cover_image_url ? (
+          {currentSlide.image_url ? (
             <img
-              src={optimizedImageUrl(currentSlide.cover_image_url, { width: 1920 })}
-              srcSet={buildSrcSet(currentSlide.cover_image_url) || undefined}
+              src={optimizedImageUrl(currentSlide.image_url, { width: 1920 })}
+              srcSet={buildSrcSet(currentSlide.image_url) || undefined}
               sizes="100vw"
               alt={currentSlide.title}
               loading="eager"
@@ -170,7 +193,10 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
             <div className="w-full h-full bg-neutral-900" />
           )}
           {/* Dark overlay - fixed across themes */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25" />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/30"
+            style={{ opacity: Math.min(100, Math.max(0, currentSlide.overlay_opacity ?? 55)) / 70 }}
+          />
         </motion.div>
       </AnimatePresence>
 
@@ -185,20 +211,23 @@ export function HeroCarousel({ slides, isLoading = false }: HeroCarouselProps) {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="inline-block text-xs uppercase tracking-[0.3em] text-accent mb-4">
-                {currentSlide.type}
-              </span>
+              {currentSlide.eyebrow && (
+                <span className="inline-block text-xs uppercase tracking-[0.3em] text-accent mb-4">
+                  {currentSlide.eyebrow}
+                </span>
+              )}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.1] mb-6">
                 {currentSlide.title}
               </h1>
-              <p className="text-lg md:text-xl text-white/80 max-w-2xl mb-8 line-clamp-3">
-                {currentSlide.excerpt}
-              </p>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
-                <Link to={`/insights/${currentSlide.slug}`}>
-                  Read More
-                </Link>
-              </Button>
+              {currentSlide.subtitle && (
+                <p className="text-lg md:text-xl text-white/80 max-w-2xl mb-8 line-clamp-3">
+                  {currentSlide.subtitle}
+                </p>
+              )}
+              <div className="flex flex-wrap gap-4">
+                <SlideCta text={currentSlide.cta_text} link={currentSlide.cta_link} newTab={currentSlide.cta_new_tab} primary={!!currentSlide.cta2_text} />
+                <SlideCta text={currentSlide.cta2_text} link={currentSlide.cta2_link} newTab={currentSlide.cta2_new_tab} />
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

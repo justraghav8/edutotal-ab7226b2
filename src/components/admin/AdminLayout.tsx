@@ -14,7 +14,8 @@ import {
   Settings,
   Mail,
   ImageIcon,
-  Images
+  Images,
+  GalleryHorizontal
 } from "lucide-react";
 
 export function AdminLayout() {
@@ -30,6 +31,7 @@ export function AdminLayout() {
     { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
     { icon: Settings, label: "Site Settings", path: "/admin/settings" },
     { icon: ImageIcon, label: "Image Library", path: "/admin/images" },
+    { icon: GalleryHorizontal, label: "Homepage Slider", path: "/admin/home-slider" },
     { icon: FileText, label: "Hero Banners", path: "/admin/hero-banners" },
     { icon: Briefcase, label: "Service Categories", path: "/admin/service-categories" },
     { icon: Briefcase, label: "Services", path: "/admin/services" },
