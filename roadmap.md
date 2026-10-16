@@ -7,6 +7,6 @@
 
 # Dynamic service categories
 
-- [ ] Enable creating, editing, ordering, hiding and safely removing categories.
-- [ ] Assign new or existing services to any category and update public views.
-- [ ] Test category lifecycle and service moves in the CMS and public website; remove test content.
+- [x] Enable creating, editing, ordering, hiding and safely removing categories.
+- [x] Assign new or existing services to any category and update public views.
+- [x] Test category lifecycle and service moves in the CMS and public website; remove test content.
