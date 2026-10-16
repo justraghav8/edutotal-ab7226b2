@@ -1,3 +1,4 @@
+import { cleanList, toList } from "@/lib/contentRules";
 import { ContentCTA } from "@/components/sections/ContentCTA";
 import { usePageContent } from "@/lib/pageContent";
 import { useEffect, useState } from "react";
@@ -73,6 +74,9 @@ export default function ServiceDetail() {
       </div>
     );
   }
+
+  service.approach = cleanList(toList(service.approach));
+  service.benefits = cleanList(toList(service.benefits));
 
   return (
     <>

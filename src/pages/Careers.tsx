@@ -1,3 +1,4 @@
+import { cleanList, toList } from "@/lib/contentRules";
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ContentCTA } from "@/components/sections/ContentCTA";
@@ -38,7 +39,7 @@ export default function Careers() {
       .eq("published", true)
       .order("order_index").order("created_at", { ascending: false });
 
-    if (data) setCareers(data);
+    if (data) setCareers(data.map((job) => ({...job, responsibilities: cleanList(toList(job.responsibilities)), qualifications: cleanList(toList(job.qualifications))})));
     setLoading(false);
   }
 
