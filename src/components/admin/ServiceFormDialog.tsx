@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,14 +29,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Constants } from "@/integrations/supabase/types";
 import { ListEditor, cleanList, toList } from "@/components/admin/ListEditor";
 import { ImageField } from "@/components/admin/ImageField";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   slug: z.string().min(1, "Slug is required").max(200),
-  category: z.string().min(1, "Category is required"),
+  category_id: z.string().min(1, "Category is required"),
   overview: z.string(),
   image_url: z.string().optional(),
   domestic_expertise: z.string().optional(),
@@ -54,20 +53,29 @@ interface ServiceFormDialogProps {
   open: boolean;
   onClose: (success?: boolean) => void;
   service?: any;
+  defaultCategoryId?: string;
 }
 
 export function ServiceFormDialog({
   open,
   onClose,
   service,
+  defaultCategoryId,
 }: ServiceFormDialogProps) {
   const { toast } = useToast();
+  const [categories, setCategories] = useState<{id: string; display_name: string; published: boolean}[]>([]);
+  useEffect(() => {
+    if (open) supabase.from("service_categories").select("id, display_name, published").order("order_index").then(({data, error}) => {
+      if (error) toast({title: "Could not load categories", description: error.message, variant: "destructive"});
+      setCategories(data || []);
+    });
+  }, [open, toast]);
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
       slug: "",
-      category: "",
+      category_id: defaultCategoryId || "",
       overview: "",
       image_url: "",
       domestic_expertise: "",
@@ -85,7 +93,7 @@ export function ServiceFormDialog({
       form.reset({
         title: service.title || "",
         slug: service.slug || "",
-        category: service.category || "",
+        category_id: service.category_id || "",
         overview: service.overview || "",
         image_url: service.image_url || "",
         domestic_expertise: service.domestic_expertise || "",
@@ -100,7 +108,7 @@ export function ServiceFormDialog({
       form.reset({
         title: "",
         slug: "",
-        category: "",
+        category_id: defaultCategoryId || "",
         overview: "",
         image_url: "",
         domestic_expertise: "",
@@ -112,14 +120,14 @@ export function ServiceFormDialog({
         order_index: 0,
       });
     }
-  }, [service, form]);
+  }, [service, form, defaultCategoryId, open]);
 
   const onSubmit = async (data: FormData) => {
     try {
       const submitData: any = {
         title: data.title,
         slug: data.slug,
-        category: data.category,
+        category_id: data.category_id,
         overview: data.overview,
         image_url: data.image_url || null,
         domestic_expertise: data.domestic_expertise || null,
@@ -213,7 +221,7 @@ export function ServiceFormDialog({
 
             <FormField
               control={form.control}
-              name="category"
+              name="category_id"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
@@ -227,13 +235,14 @@ export function ServiceFormDialog({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {Constants.public.Enums.service_category.map((cat) => (
-                        <SelectItem key={cat} value={cat}>
-                          {cat}
+                      {categories.map((cat) => (
+                        <SelectItem key={cat.id} value={cat.id}>
+                          {cat.display_name}{cat.published ? "" : " (Hidden)"}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
+                  {categories.length === 0 && <p className="text-sm text-muted-foreground">Add a service category first in Service Categories.</p>}
                   <FormMessage />
                 </FormItem>
               )}

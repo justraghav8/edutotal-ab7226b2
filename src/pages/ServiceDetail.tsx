@@ -40,14 +40,14 @@ export default function ServiceDetail() {
           .from("services")
           .select("*")
           .eq("published", true)
-          .eq("category", data.category)
+          .eq("category_id", data.category_id)
           .neq("id", data.id)
           .order("order_index")
           .limit(4),
         supabase
           .from("service_categories")
           .select("*")
-          .eq("category_key", data.category)
+          .eq("id", data.category_id)
           .maybeSingle(),
       ]);
       if (related) setRelatedServices(related);
@@ -113,7 +113,7 @@ export default function ServiceDetail() {
               className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-accent mb-4"
             >
               <span className="w-8 h-px bg-accent" />
-              {category?.display_name || service.category}
+              {category?.display_name}
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -236,7 +236,7 @@ export default function ServiceDetail() {
         <section className="py-20 bg-secondary">
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-serif mb-8">
-              {String(content.related_title || "").replace("{category}", category?.display_name || service.category)}
+              {String(content.related_title || "").replace("{category}", category?.display_name || "")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {relatedServices.map((related) => (

@@ -8,6 +8,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Loader2, Building2, Users, Briefcase, Landmark, Monitor, ClipboardCheck, MapPin, CalendarDays, Megaphone, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
+import { servicesInCategory, categoryAnchor } from "@/lib/serviceCategories";
 
 const iconMap: Record<string, any> = {
   Building2, Users, Briefcase, Landmark, Monitor,
@@ -72,12 +73,12 @@ export default function Services() {
       Icon: iconMap[c.icon_key] || Briefcase,
       description: c.description,
       image_url: c.image_url,
-      services: services.filter((s) => s.category === c.category_key),
+      services: servicesInCategory(services, c.id, true),
     }))
     .filter((g) => g.services.length > 0);
 
   const scrollToCategory = (cat: string) => {
-    const el = document.getElementById(`cat-${cat.replace(/[^a-zA-Z]/g, "")}`);
+    const el = document.getElementById(categoryAnchor(cat));
     if (el) {
       const offset = 140;
       const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
@@ -89,7 +90,6 @@ export default function Services() {
     <>
       <HeroSection
         title="Our Services"
-        subtitle="An integrated portfolio of services across 10 domains to support every dimension of educational excellence"
         minimal
         pageKey="services"
       />
@@ -101,7 +101,7 @@ export default function Services() {
             {grouped.map((g) => {
               const Icon = g.Icon;
               return (
-                <button
+                <Button variant="ghost"
                   key={g.category}
                   onClick={() => scrollToCategory(g.category)}
                   className="group/nav flex items-center gap-1.5 text-[11px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-border hover:border-accent hover:text-accent hover:bg-accent/5 transition-all whitespace-nowrap shrink-0"
@@ -111,7 +111,7 @@ export default function Services() {
                   <span className="max-w-0 overflow-hidden group-hover/nav:max-w-[200px] transition-all duration-300 ease-out">
                     <span className="pl-0.5">{g.displayName}</span>
                   </span>
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -135,7 +135,7 @@ export default function Services() {
               return (
                 <div
                   key={g.category}
-                  id={`cat-${g.category.replace(/[^a-zA-Z]/g, "")}`}
+                  id={categoryAnchor(g.category)}
                   className="py-20"
                 >
                   <div className="container mx-auto px-4 md:px-6 lg:px-8">
