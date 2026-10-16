@@ -39,6 +39,7 @@ import Gallery from "./pages/Gallery";
 import Images from "./pages/admin/Images";
 import GalleryAdmin from "./pages/admin/Gallery";
 import HomeSlides from "./pages/admin/HomeSlides";
+import PageContent from "./pages/admin/PageContent";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +84,7 @@ const App = () => (
               <Route path="images" element={<Images />} />
               <Route path="home-slider" element={<HomeSlides />} />
               <Route path="hero-banners" element={<HeroBanners />} />
+              <Route path="page-content" element={<PageContent />} />
               <Route path="services" element={<ServicesAdmin />} />
               <Route path="service-categories" element={<ServiceCategoriesAdmin />} />
               <Route path="industries" element={<IndustriesAdmin />} />

@@ -30,16 +30,20 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Constants } from "@/integrations/supabase/types";
+import { ListEditor, cleanList, toList } from "@/components/admin/ListEditor";
+import { ImageField } from "@/components/admin/ImageField";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   slug: z.string().min(1, "Slug is required").max(200),
   category: z.string().min(1, "Category is required"),
-  overview: z.string().min(1, "Overview is required"),
+  overview: z.string(),
   image_url: z.string().optional(),
   domestic_expertise: z.string().optional(),
   international_expertise: z.string().optional(),
   icon_key: z.string().optional(),
+  approach: z.array(z.string()).default([]),
+  benefits: z.array(z.string()).default([]),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
 });
@@ -69,6 +73,8 @@ export function ServiceFormDialog({
       domestic_expertise: "",
       international_expertise: "",
       icon_key: "",
+      approach: [],
+      benefits: [],
       published: true,
       order_index: 0,
     },
@@ -85,6 +91,8 @@ export function ServiceFormDialog({
         domestic_expertise: service.domestic_expertise || "",
         international_expertise: service.international_expertise || "",
         icon_key: service.icon_key || "",
+        approach: toList(service.approach),
+        benefits: toList(service.benefits),
         published: service.published ?? true,
         order_index: service.order_index || 0,
       });
@@ -98,6 +106,8 @@ export function ServiceFormDialog({
         domestic_expertise: "",
         international_expertise: "",
         icon_key: "",
+        approach: [],
+        benefits: [],
         published: true,
         order_index: 0,
       });
@@ -115,6 +125,8 @@ export function ServiceFormDialog({
         domestic_expertise: data.domestic_expertise || null,
         international_expertise: data.international_expertise || null,
         icon_key: data.icon_key || null,
+        approach: cleanList(data.approach),
+        benefits: cleanList(data.benefits),
         published: data.published,
         order_index: data.order_index,
       };
@@ -143,10 +155,10 @@ export function ServiceFormDialog({
       }
 
       onClose(true);
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: `Failed to ${service ? "update" : "create"} service`,
+        description: error?.code === "23505" ? "That slug is already used by another service." : `Failed to ${service ? "update" : "create"} service`,
         variant: "destructive",
       });
     }
@@ -170,7 +182,15 @@ export function ServiceFormDialog({
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        if (!service && !form.getFieldState("slug").isDirty) {
+                          form.setValue("slug", e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
+                        }
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -199,7 +219,7 @@ export function ServiceFormDialog({
                   <FormLabel>Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -238,11 +258,33 @@ export function ServiceFormDialog({
               name="image_url"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Image URL (Optional)</FormLabel>
+                  <FormLabel>Image (Optional)</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Paste image URL from Image Library" />
+                    <ImageField value={field.value} onChange={field.onChange} folder="services" />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="approach"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Our Approach points</FormLabel>
+                  <ListEditor value={field.value} onChange={field.onChange} addLabel="Add approach point" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="benefits"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Key Benefits</FormLabel>
+                  <ListEditor value={field.value} onChange={field.onChange} addLabel="Add benefit" />
                 </FormItem>
               )}
             />
@@ -299,7 +341,7 @@ export function ServiceFormDialog({
                     <Input
                       type="number"
                       {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value))}
+                      onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -329,7 +371,7 @@ export function ServiceFormDialog({
               <Button type="button" variant="outline" onClick={() => onClose()}>
                 Cancel
               </Button>
-              <Button type="submit">
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {service ? "Update" : "Create"}
               </Button>
             </div>

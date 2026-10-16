@@ -1,3 +1,6 @@
+import { cleanList, toList } from "@/lib/contentRules";
+import { ContentCTA } from "@/components/sections/ContentCTA";
+import { usePageContent } from "@/lib/pageContent";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,6 +12,7 @@ import { SafeImage } from "@/components/SafeImage";
 
 export default function IndustryDetail() {
   const { slug } = useParams();
+  const content = usePageContent("industry_detail");
   const [industry, setIndustry] = useState<any>(null);
   const [services, setServices] = useState<any[]>([]);
   const [otherIndustries, setOtherIndustries] = useState<any[]>([]);
@@ -23,6 +27,9 @@ export default function IndustryDetail() {
 
   async function loadIndustry() {
     setLoading(true);
+    setIndustry(null);
+    setServices([]);
+    setOtherIndustries([]);
     const { data } = await supabase
       .from("industries")
       .select("*")
@@ -85,9 +92,8 @@ export default function IndustryDetail() {
     );
   }
 
-  const whatsHappening: string[] = Array.isArray(industry.whats_happening)
-    ? industry.whats_happening
-    : [];
+  const whatsHappening = cleanList(toList(industry.whats_happening));
+  industry.focus_areas = cleanList(toList(industry.focus_areas));
 
   return (
     <>
@@ -115,7 +121,7 @@ export default function IndustryDetail() {
           >
             <Link to="/industries">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              All Industries
+              {content.back_text}
             </Link>
           </Button>
 
@@ -126,7 +132,7 @@ export default function IndustryDetail() {
             className="max-w-3xl"
           >
             <div className="inline-block text-xs font-medium tracking-[0.2em] uppercase text-accent mb-5">
-              Industry
+              {content.eyebrow}
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-[1.1] mb-5">
               {industry.title}
@@ -141,7 +147,7 @@ export default function IndustryDetail() {
       </section>
 
       {/* INTRO */}
-      <section className="py-20 bg-background">
+      {(industry.description || industry.content_box) && <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -151,7 +157,7 @@ export default function IndustryDetail() {
             className="max-w-3xl space-y-5"
           >
             <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent">
-              Context
+              {content.context_label}
             </div>
             <p className="text-xl md:text-2xl font-serif leading-relaxed text-foreground">
               {industry.description}
@@ -166,6 +172,7 @@ export default function IndustryDetail() {
       </section>
 
 
+      }
       {/* WHAT'S HAPPENING */}
       {whatsHappening.length > 0 && (
         <section className="py-20 bg-secondary/40 border-y border-border">
@@ -178,9 +185,9 @@ export default function IndustryDetail() {
               className="mb-12 max-w-2xl"
             >
               <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
-                Market Signals
+                {content.happening_label}
               </div>
-              <h2 className="text-3xl md:text-4xl font-serif">What's Happening</h2>
+              <h2 className="text-3xl md:text-4xl font-serif">{content.happening_title}</h2>
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-4">
@@ -219,10 +226,10 @@ export default function IndustryDetail() {
               transition={{ duration: 0.5 }}
             >
               <div className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
-                Our Role
+                {content.support_label}
               </div>
               <h2 className="text-3xl md:text-4xl font-serif mb-8 max-w-3xl">
-                How EduTotal Supports
+                {content.support_title}
               </h2>
               <div className="grid md:grid-cols-12 gap-10 items-start">
                 <div className="md:col-span-1 hidden md:block">
@@ -251,7 +258,7 @@ export default function IndustryDetail() {
       {industry.focus_areas && industry.focus_areas.length > 0 && (
         <section className="py-20 bg-secondary/40">
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-3xl font-serif mb-8">Focus Areas</h2>
+            <h2 className="text-2xl md:text-3xl font-serif mb-8">{content.focus_title}</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {industry.focus_areas.map((area: string, index: number) => (
                 <li key={index} className="flex items-start gap-3">
@@ -268,7 +275,7 @@ export default function IndustryDetail() {
       {services.length > 0 && (
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
-            <h2 className="text-3xl font-serif mb-8">Relevant Services</h2>
+            <h2 className="text-3xl font-serif mb-8">{content.services_title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {services.map((service) => (
                 <Card key={service.id} className="hover:shadow-lg transition-shadow">
@@ -309,7 +316,7 @@ export default function IndustryDetail() {
                     Keep Exploring
                   </div>
                   <h2 className="text-3xl md:text-4xl font-serif">
-                    Other Industries We Serve
+                    {content.others_title}
                   </h2>
                 </div>
                 {next && (
@@ -368,25 +375,7 @@ export default function IndustryDetail() {
       })()}
 
 
-      {/* CTA */}
-      <section className="py-20 bg-foreground text-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-          <h3 className="text-3xl md:text-4xl font-serif mb-5">
-            Work with us in {industry.title.split(/[&,]/)[0].trim()}
-          </h3>
-          <p className="text-background/70 mb-10 text-lg">
-            Let's discuss your specific needs and opportunities.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-background text-background hover:bg-background hover:text-foreground"
-          >
-            <Link to="/contact">Contact Us</Link>
-          </Button>
-        </div>
-      </section>
+      <ContentCTA content={content} title={String(content.cta_title || "").replace("{industry}", industry.title.split(/[&,]/)[0].trim())} />
     </>
   );
 }

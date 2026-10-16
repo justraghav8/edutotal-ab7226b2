@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface HeroSectionProps {
   title: string;
@@ -26,6 +28,8 @@ export function HeroSection({
   const [bgImage, setBgImage] = useState<string | null>(backgroundImage || null);
   const [cmsTitle, setCmsTitle] = useState<string | null>(null);
   const [cmsSubtitle, setCmsSubtitle] = useState<string | null>(null);
+  const [hasBanner, setHasBanner] = useState(false);
+  const [ctas, setCtas] = useState<{ text: string; link: string }[]>([]);
 
   useEffect(() => {
     if (pageKey) {
@@ -36,20 +40,25 @@ export function HeroSection({
   async function loadHeroBanner() {
     const { data } = await supabase
       .from("hero_banners")
-      .select("background_image_url, title, subtitle")
+      .select("background_image_url, title, subtitle, cta_primary_text, cta_primary_link, cta_secondary_text, cta_secondary_link")
       .eq("page_key", pageKey)
       .maybeSingle();
 
-    if (data?.background_image_url) {
-      setBgImage(data.background_image_url);
+    if (data) {
+      setHasBanner(true);
+      setBgImage(data.background_image_url || null);
+      setCmsTitle(data.title);
+      setCmsSubtitle(data.subtitle);
+      setCtas([
+        {text: data.cta_primary_text || "", link: data.cta_primary_link || ""},
+        {text: data.cta_secondary_text || "", link: data.cta_secondary_link || ""},
+      ].filter((c) => c.text && (/^\/(?!\/)/.test(c.link) || /^https?:\/\//i.test(c.link))));
     }
-    if (data?.title) setCmsTitle(data.title);
-    if (data?.subtitle) setCmsSubtitle(data.subtitle);
   }
 
 
   const displayTitle = cmsTitle || title;
-  const displaySubtitle = cmsSubtitle || subtitle;
+  const displaySubtitle = hasBanner ? cmsSubtitle : subtitle;
   const displayBg = bgImage;
 
   if (minimal) {
@@ -95,6 +104,7 @@ export function HeroSection({
                 {displaySubtitle}
               </motion.p>
             )}
+            {ctas.length > 0 && <div className="flex flex-wrap gap-3 mt-8">{ctas.map((cta, index) => <Button key={index} asChild size="lg" variant={index === 0 ? "default" : "outline"}>{/^https?:\/\//i.test(cta.link) ? <a href={cta.link} target="_blank" rel="noopener noreferrer">{cta.text}</a> : <Link to={cta.link}>{cta.text}</Link>}</Button>)}</div>}
           </div>
         </div>
 

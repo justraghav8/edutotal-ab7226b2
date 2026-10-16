@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -22,17 +22,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { ListEditor, cleanList, toList } from "@/components/admin/ListEditor";
+import { ImageField } from "@/components/admin/ImageField";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   slug: z.string().min(1, "Slug is required").max(200),
   tagline: z.string().optional(),
-  description: z.string().min(1, "Description is required"),
+  description: z.string(),
   icon_key: z.string().optional(),
   image_url: z.string().url().optional().or(z.literal("")),
   content_box: z.string().optional(),
-  whats_happening: z.string().optional(),
+  whats_happening: z.array(z.string()).default([]),
+  focus_areas: z.array(z.string()).default([]),
   how_we_support: z.string().optional(),
   published: z.boolean().default(true),
   order_index: z.number().default(0),
@@ -46,30 +50,32 @@ interface IndustryFormDialogProps {
   industry?: any;
 }
 
-function arrayToLines(v: any): string {
-  if (!v) return "";
-  if (Array.isArray(v)) return v.join("\n");
-  try {
-    const parsed = JSON.parse(v);
-    if (Array.isArray(parsed)) return parsed.join("\n");
-  } catch {}
-  return String(v);
-}
-
-function linesToArray(v?: string): string[] {
-  if (!v) return [];
-  return v
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
-}
-
 export function IndustryFormDialog({
   open,
   onClose,
   industry,
 }: IndustryFormDialogProps) {
   const { toast } = useToast();
+  const [services, setServices] = useState<any[]>([]);
+  const [serviceIds, setServiceIds] = useState<string[]>([]);
+  const [relationsLoading, setRelationsLoading] = useState(false);
+  const [savedId, setSavedId] = useState<string | null>(null);
+  useEffect(() => {
+    if (!open) return;
+    let active = true;
+    setSavedId(industry?.id || null);
+    setRelationsLoading(true);
+    Promise.all([
+      supabase.from("services").select("id,title,published").order("order_index"),
+      industry ? supabase.from("industry_services").select("service_id").eq("industry_id", industry.id) : Promise.resolve({data: []}),
+    ]).then(([all, links]) => {
+      if (!active) return;
+      setServices(all.data || []);
+      setServiceIds((links.data || []).map((l) => l.service_id));
+      setRelationsLoading(false);
+    });
+    return () => { active = false; };
+  }, [open, industry]);
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,7 +86,8 @@ export function IndustryFormDialog({
       icon_key: "",
       image_url: "",
       content_box: "",
-      whats_happening: "",
+      whats_happening: [],
+      focus_areas: [],
       how_we_support: "",
       published: true,
       order_index: 0,
@@ -97,7 +104,8 @@ export function IndustryFormDialog({
         icon_key: industry.icon_key || "",
         image_url: industry.image_url || "",
         content_box: industry.content_box || "",
-        whats_happening: arrayToLines(industry.whats_happening),
+        whats_happening: toList(industry.whats_happening),
+        focus_areas: toList(industry.focus_areas),
         how_we_support: industry.how_we_support || "",
         published: industry.published ?? true,
         order_index: industry.order_index || 0,
@@ -111,7 +119,8 @@ export function IndustryFormDialog({
         icon_key: "",
         image_url: "",
         content_box: "",
-        whats_happening: "",
+        whats_happening: [],
+      focus_areas: [],
         how_we_support: "",
         published: true,
         order_index: 0,
@@ -129,34 +138,37 @@ export function IndustryFormDialog({
         icon_key: data.icon_key || null,
         image_url: data.image_url || null,
         content_box: data.content_box || null,
-        whats_happening: linesToArray(data.whats_happening),
+        whats_happening: cleanList(data.whats_happening),
+        focus_areas: cleanList(data.focus_areas),
         how_we_support: data.how_we_support || null,
         published: data.published,
         order_index: data.order_index,
       };
 
-      if (industry) {
-        const { error } = await supabase
-          .from("industries")
-          .update(submitData)
-          .eq("id", industry.id);
-
+      let id = savedId;
+      if (id) {
+        const { error } = await supabase.from("industries").update(submitData).eq("id", id);
         if (error) throw error;
-
-        toast({
-          title: "Success",
-          description: "Industry updated successfully",
-        });
       } else {
-        const { error } = await supabase.from("industries").insert([submitData]);
-
+        const { data: created, error } = await supabase.from("industries").insert(submitData).select("id").single();
         if (error) throw error;
-
-        toast({
-          title: "Success",
-          description: "Industry created successfully",
-        });
+        id = created.id;
+        setSavedId(id);
       }
+      const { data: existing, error: readError } = await supabase.from("industry_services").select("service_id").eq("industry_id", id);
+      if (readError) throw readError;
+      const current = (existing || []).map((r) => r.service_id);
+      const removed = current.filter((x) => !serviceIds.includes(x));
+      const added = serviceIds.filter((x) => !current.includes(x));
+      if (added.length) {
+        const { error } = await supabase.from("industry_services").insert(added.map((service_id) => ({industry_id: id, service_id})));
+        if (error) throw error;
+      }
+      if (removed.length) {
+        const { error } = await supabase.from("industry_services").delete().eq("industry_id", id).in("service_id", removed);
+        if (error) throw error;
+      }
+      toast({title: "Industry saved"});
 
       onClose(true);
     } catch (error) {
@@ -186,7 +198,10 @@ export function IndustryFormDialog({
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} onChange={(e) => {
+                      field.onChange(e);
+                      if (!industry && !form.getFieldState("slug").isDirty) form.setValue("slug", e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
+                    }} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -248,7 +263,7 @@ export function IndustryFormDialog({
                 <FormItem>
                   <FormLabel>Hero Image URL (Optional)</FormLabel>
                   <FormControl>
-                    <Input {...field} type="url" placeholder="https://..." />
+                    <ImageField value={field.value} onChange={field.onChange} folder="industries" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -262,19 +277,22 @@ export function IndustryFormDialog({
                 <FormItem>
                   <FormLabel>What's Happening (Optional)</FormLabel>
                   <FormControl>
-                    <Textarea
-                      {...field}
-                      rows={8}
-                      placeholder="One stat or insight per line"
-                    />
+<ListEditor value={field.value} onChange={field.onChange} addLabel="Add market signal" />
                   </FormControl>
                   <FormDescription>
-                    Add one bullet per line. Each line renders as a separate stat card.
+                    Each item renders as a separate stat card.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <FormField control={form.control} name="focus_areas" render={({ field }) => (
+              <FormItem><FormLabel>Focus Areas</FormLabel><ListEditor value={field.value} onChange={field.onChange} addLabel="Add focus area" /></FormItem>
+            )} />
+            <div className="space-y-3"><h3 className="font-medium">Relevant Services</h3>
+              {relationsLoading ? <p className="text-muted-foreground text-sm">Loading services…</p> : services.length === 0 ? <p className="text-muted-foreground text-sm">No services available. Add a service first.</p> : <div className="max-h-60 overflow-y-auto border rounded-md p-3 space-y-3">{services.map((service) => <label key={service.id} className="flex gap-3 items-center text-sm"><Checkbox checked={serviceIds.includes(service.id)} onCheckedChange={(v) => setServiceIds((ids) => v ? [...ids, service.id] : ids.filter((x) => x !== service.id))} />{service.title}{!service.published && <span className="text-muted-foreground">(Draft)</span>}</label>)}</div>}
+            </div>
 
             <FormField
               control={form.control}
@@ -332,7 +350,7 @@ export function IndustryFormDialog({
                     <Input
                       type="number"
                       {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value))}
+                      onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -362,7 +380,7 @@ export function IndustryFormDialog({
               <Button type="button" variant="outline" onClick={() => onClose()}>
                 Cancel
               </Button>
-              <Button type="submit">
+              <Button type="submit" disabled={form.formState.isSubmitting || relationsLoading}>
                 {industry ? "Update" : "Create"}
               </Button>
             </div>

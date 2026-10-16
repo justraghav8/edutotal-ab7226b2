@@ -1,3 +1,6 @@
+import { cleanList, toList } from "@/lib/contentRules";
+import { ContentCTA } from "@/components/sections/ContentCTA";
+import { usePageContent } from "@/lib/pageContent";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,6 +11,7 @@ import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
+  const content = usePageContent("service_detail");
   const [service, setService] = useState<any>(null);
   const [category, setCategory] = useState<any>(null);
   const [relatedServices, setRelatedServices] = useState<any[]>([]);
@@ -19,6 +23,9 @@ export default function ServiceDetail() {
 
   async function loadService() {
     setLoading(true);
+    setService(null);
+    setCategory(null);
+    setRelatedServices([]);
     const { data } = await supabase
       .from("services")
       .select("*")
@@ -68,6 +75,9 @@ export default function ServiceDetail() {
     );
   }
 
+  service.approach = cleanList(toList(service.approach));
+  service.benefits = cleanList(toList(service.benefits));
+
   return (
     <>
       {/* Hero */}
@@ -93,7 +103,7 @@ export default function ServiceDetail() {
             className="inline-flex items-center text-accent-foreground/70 hover:text-accent-foreground transition-colors mb-8 text-sm"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            All Services
+            {content.back_text}
           </Link>
           <div className="max-w-4xl">
             <motion.span
@@ -126,7 +136,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* Main Content */}
-      <section className="py-20 bg-background">
+      {(service.approach?.length > 0 || service.benefits?.length > 0 || service.domestic_expertise || service.international_expertise) && <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto space-y-16">
             {/* Approach / What We Do */}
@@ -138,7 +148,7 @@ export default function ServiceDetail() {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-2xl md:text-3xl font-serif mb-8">
-                  Our Approach
+                  {content.approach_title}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.approach.map((item: string, index: number) => (
@@ -163,7 +173,7 @@ export default function ServiceDetail() {
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-2xl md:text-3xl font-serif mb-8">
-                  Key Benefits
+                  {content.benefits_title}
                 </h2>
                 <div className="bg-secondary rounded-xl p-8">
                   <ul className="space-y-4">
@@ -193,7 +203,7 @@ export default function ServiceDetail() {
                   <div className="border border-border rounded-xl p-6">
                     <h3 className="text-lg font-serif mb-4 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-accent" />
-                      Domestic Expertise — India
+                      {content.domestic_title}
                     </h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {service.domestic_expertise}
@@ -204,7 +214,7 @@ export default function ServiceDetail() {
                   <div className="border border-border rounded-xl p-6">
                     <h3 className="text-lg font-serif mb-4 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-primary" />
-                      International Expertise
+                      {content.international_title}
                     </h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {service.international_expertise}
@@ -214,39 +224,19 @@ export default function ServiceDetail() {
               </motion.div>
             )}
 
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-primary text-primary-foreground rounded-xl p-10 text-center"
-            >
-              <h3 className="text-2xl font-serif mb-4">
-                Interested in this service?
-              </h3>
-              <p className="mb-6 text-primary-foreground/80">
-                Let's discuss how we can help you achieve your goals
-              </p>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-              >
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-            </motion.div>
           </div>
         </div>
       </section>
+
+      }
+      <ContentCTA content={content} />
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
         <section className="py-20 bg-secondary">
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-serif mb-8">
-              More in {service.category}
+              {String(content.related_title || "").replace("{category}", category?.display_name || service.category)}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {relatedServices.map((related) => (

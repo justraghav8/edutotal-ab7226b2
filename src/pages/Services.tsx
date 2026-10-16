@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { NextPageCTA } from "@/components/sections/NextPageCTA";
+import { ContentCTA } from "@/components/sections/ContentCTA";
+import { usePageContent } from "@/lib/pageContent";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Link, useSearchParams } from "react-router-dom";
@@ -35,6 +36,7 @@ function getFallbackImage(title: string): string {
 }
 
 export default function Services() {
+  const content = usePageContent("services");
   const [services, setServices] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,7 +95,7 @@ export default function Services() {
       />
 
       {/* Category Navigation */}
-      <section className="py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-16 z-30">
+      {grouped.length > 0 && <section className="py-3 border-b border-border bg-background/95 backdrop-blur-sm sticky top-16 z-30">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             {grouped.map((g) => {
@@ -116,12 +118,16 @@ export default function Services() {
         </div>
       </section>
 
+      }
+
       {/* Services by Category */}
       <section className="bg-background">
         {loading ? (
           <div className="flex justify-center items-center py-32">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
+        ) : grouped.length === 0 ? (
+          <p role="status" className="text-center text-muted-foreground py-20 px-6">{content.empty_text}</p>
         ) : (
           <div className="divide-y divide-border">
             {grouped.map((g, groupIdx) => {
@@ -237,33 +243,8 @@ export default function Services() {
         )}
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-foreground text-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">
-            Need a Custom Solution?
-          </h2>
-          <p className="text-lg text-background/80 mb-8 max-w-2xl mx-auto">
-            We understand that every institution has unique needs. Let's discuss
-            how we can create a tailored solution for you.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-background text-background hover:bg-background hover:text-foreground"
-          >
-            <Link to="/contact">Get In Touch</Link>
-          </Button>
-        </div>
-      </section>
-
-      <NextPageCTA
-        headline="See Who We Work With"
-        description="Explore the industries and sectors we serve with specialized expertise."
-        linkText="View Industries"
-        linkHref="/industries"
-      />
+      <ContentCTA content={content} />
+      <ContentCTA content={content} prefix="next" />
     </>
   );
 }

@@ -15,6 +15,13 @@
       "when": 1792147516518,
       "tag": "0001_grant_public_read",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792147823248,
+      "tag": "0002_page_content_and_editing_fields",
+      "breakpoints": true
     }
   ]
 }
