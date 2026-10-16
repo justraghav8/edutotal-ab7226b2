@@ -213,7 +213,7 @@ export function mergeContent(pageKey: string, saved?: Record<string, any> | null
 }
 
 export function usePageContent(pageKey: string) {
-  const [content, setContent] = useState<Record<string, any>>(() => mergeContent(pageKey));
+  const [content, setContent] = useState<Record<string, any>>({});
   useEffect(() => {
     let active = true;
     supabase
@@ -222,7 +222,7 @@ export function usePageContent(pageKey: string) {
       .eq("page_key", pageKey)
       .maybeSingle()
       .then(({ data }) => {
-        if (active && data?.content) setContent(mergeContent(pageKey, data.content as any));
+        if (active && data?.content) setContent(data.content as any);
       });
     return () => {
       active = false;

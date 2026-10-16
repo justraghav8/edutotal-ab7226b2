@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Save } from "lucide-react";
+import { ImageField } from "@/components/admin/ImageField";
 
 interface HeroBanner {
   id: string;
@@ -151,12 +152,12 @@ export default function HeroBanners() {
               </div>
               <div className="md:col-span-2">
                 <Label>Background Image URL</Label>
-                <Input
+                <ImageField
                   value={banner.background_image_url || ""}
-                  onChange={(e) =>
-                    update(banner.page_key, { background_image_url: e.target.value })
+                  onChange={(value) =>
+                    update(banner.page_key, { background_image_url: value })
                   }
-                  placeholder="Paste image URL from Image Library (1920x600 recommended)"
+                  folder="banners"
                 />
                 {banner.background_image_url && (
                   <img
