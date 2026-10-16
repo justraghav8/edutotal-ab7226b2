@@ -8,6 +8,13 @@
       "when": 1792146530263,
       "tag": "0000_create_home_slides",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792147516518,
+      "tag": "0001_grant_public_read",
+      "breakpoints": true
     }
   ]
 }
