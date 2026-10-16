@@ -26,7 +26,7 @@ import { Switch } from "@/components/ui/switch";
 
 const formSchema = z.object({
   job_title: z.string().min(1, "Job title is required").max(200),
-  description: z.string().min(1, "Description is required"),
+  description: z.string(),
   apply_email: z.string().email("Valid email is required"),
   location: z.string().optional(),
   employment_type: z.string().optional(),

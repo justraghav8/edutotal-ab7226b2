@@ -37,7 +37,7 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   slug: z.string().min(1, "Slug is required").max(200),
   category: z.string().min(1, "Category is required"),
-  overview: z.string().min(1, "Overview is required"),
+  overview: z.string(),
   image_url: z.string().optional(),
   domestic_expertise: z.string().optional(),
   international_expertise: z.string().optional(),

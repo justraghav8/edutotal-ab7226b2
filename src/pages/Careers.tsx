@@ -147,10 +147,10 @@ export default function Careers() {
 
                   {selectedJob?.id === job.id && (
                     <CardContent className="space-y-6 pt-6 border-t">
-                      <div>
+                      {job.description && <div>
                         <h4 className="font-semibold text-lg mb-3">Description</h4>
                         <p className="text-muted-foreground whitespace-pre-line">{job.description}</p>
-                      </div>
+                      </div>}
 
                       {job.responsibilities && job.responsibilities.length > 0 && (
                         <div>
