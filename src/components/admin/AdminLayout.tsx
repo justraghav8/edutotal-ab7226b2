@@ -33,6 +33,7 @@ export function AdminLayout() {
     { icon: ImageIcon, label: "Image Library", path: "/admin/images" },
     { icon: GalleryHorizontal, label: "Homepage Slider", path: "/admin/home-slider" },
     { icon: FileText, label: "Hero Banners", path: "/admin/hero-banners" },
+    { icon: FileText, label: "Page Content", path: "/admin/page-content" },
     { icon: Briefcase, label: "Service Categories", path: "/admin/service-categories" },
     { icon: Briefcase, label: "Services", path: "/admin/services" },
     { icon: Building2, label: "Industries", path: "/admin/industries" },
