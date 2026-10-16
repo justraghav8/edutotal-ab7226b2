@@ -4,3 +4,4 @@
 - Repeated text lists use the shared ListEditor and are saved as trimmed JSON arrays; empty arrays hide their public sections.
 - Service-to-industry relationships are managed through the industry editor under server-enforced administrator policies.
 - Services reference CMS categories through category_id, not the deprecated category enum; category deletion uses the administrator-only transactional remove_service_category function to preserve and reassign services safely.
+- Gallery photos require an album_id; Gallery and About share the album gallery, and album deletion uses remove_gallery_album to atomically preserve and move photos before removal.
