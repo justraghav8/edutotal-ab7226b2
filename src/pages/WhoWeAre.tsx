@@ -36,6 +36,14 @@ export default function WhoWeAre() {
     { name: "Advisory Panel", section: "advisory" },
   ];
 
+  const visibleTabs = tabs.filter((tab) =>
+    tab.section === "leadership"
+      ? leadership.length > 0
+      : tab.section === "team"
+        ? team.length > 0
+        : advisory.length > 0
+  );
+
   useEffect(() => {
     loadData();
   }, []);
@@ -108,10 +116,11 @@ export default function WhoWeAre() {
       />
 
       {/* Floating Tab Navigation */}
+      {visibleTabs.length > 0 && (
       <section className="py-6 border-b border-border bg-background sticky top-16 z-30">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex gap-8 overflow-x-auto">
-            {tabs.map((tab, index) => (
+            {visibleTabs.map((tab, index) => (
               <button
                 key={tab.name}
                 onClick={() => scrollToSection(tab.section, index)}
@@ -127,6 +136,7 @@ export default function WhoWeAre() {
           </div>
         </div>
       </section>
+      )}
 
       {loading ? (
         <div className="flex justify-center items-center py-20">
@@ -135,6 +145,7 @@ export default function WhoWeAre() {
       ) : (
         <>
           {/* Leadership Section - Large cards with detailed info */}
+          {leadership.length > 0 && (
           <section id="leadership" className="py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
@@ -237,8 +248,10 @@ export default function WhoWeAre() {
               )}
             </div>
           </section>
+          )}
 
           {/* Team Section - Grid with compact cards */}
+          {team.length > 0 && (
           <section id="team" className="py-20 bg-secondary">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
@@ -326,8 +339,10 @@ export default function WhoWeAre() {
               )}
             </div>
           </section>
+          )}
 
           {/* Advisory Panel Section - Image with extended bio */}
+          {advisory.length > 0 && (
           <section id="advisory" className="py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
@@ -418,6 +433,7 @@ export default function WhoWeAre() {
               )}
             </div>
           </section>
+          )}
 
         </>
       )}
