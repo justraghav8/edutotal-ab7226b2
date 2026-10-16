@@ -145,6 +145,7 @@ export default function WhoWeAre() {
       ) : (
         <>
           {/* Leadership Section - Large cards with detailed info */}
+          {leadership.length > 0 && (
           <section id="leadership" className="py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
@@ -247,8 +248,10 @@ export default function WhoWeAre() {
               )}
             </div>
           </section>
+          )}
 
           {/* Team Section - Grid with compact cards */}
+          {team.length > 0 && (
           <section id="team" className="py-20 bg-secondary">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
@@ -336,8 +339,10 @@ export default function WhoWeAre() {
               )}
             </div>
           </section>
+          )}
 
           {/* Advisory Panel Section - Image with extended bio */}
+          {advisory.length > 0 && (
           <section id="advisory" className="py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6 lg:px-8">
               <motion.div 
@@ -428,6 +433,7 @@ export default function WhoWeAre() {
               )}
             </div>
           </section>
+          )}
 
         </>
       )}
