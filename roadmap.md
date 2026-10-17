@@ -19,5 +19,5 @@
 
 # Mobile page width
 
-- [ ] Contain overflowing decorations and fit mobile text, tabs and buttons.
-- [ ] Verify public pages, detail pages and navigation at phone and desktop widths.
+- [x] Contain overflowing decorations and fit mobile text, tabs and buttons.
+- [x] Verify public pages, detail pages and navigation at phone and desktop widths.
