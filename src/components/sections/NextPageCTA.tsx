@@ -68,7 +68,7 @@ export function NextPageCTA({
               asChild 
               size="lg" 
               variant={isInverted ? "outline" : "default"}
-              className={`group min-w-[200px] relative overflow-hidden ${
+              className={`group w-full min-w-0 max-w-full h-auto min-h-14 whitespace-normal px-6 py-4 sm:w-auto sm:min-w-[200px] sm:px-10 relative overflow-hidden ${
                 isInverted 
                   ? 'border-white/30 text-white hover:bg-white hover:text-black' 
                   : ''

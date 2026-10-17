@@ -147,7 +147,7 @@ export default function Index() {
       {/* BCG-style Tab Navigation */}
       <section className="py-8 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-16 z-30">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex gap-8 overflow-x-auto">
+          <div className="flex min-w-0 max-w-full gap-8 overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
                 key={tab.name}
@@ -155,7 +155,7 @@ export default function Index() {
                   setActiveTab(index);
                   scrollToSection(tab.section);
                 }}
-                className={`text-sm uppercase tracking-wider pb-4 border-b-2 transition-colors whitespace-nowrap ${
+                className={`shrink-0 text-sm uppercase tracking-wider pb-4 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === index 
                     ? "border-foreground text-foreground" 
                     : "border-transparent text-muted-foreground hover:text-foreground"
@@ -178,7 +178,7 @@ export default function Index() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="lg:col-span-6"
+              className="min-w-0 lg:col-span-6"
             >
               <motion.span 
                 initial={{ opacity: 0, y: 10 }}
@@ -203,7 +203,7 @@ export default function Index() {
                 From regulatory compliance to digital transformation, our holistic approach ensures 
                 sustainable growth and lasting impact for educational organizations across India and beyond.
               </p>
-              <Button asChild variant="outline" size="lg" className="group">
+              <Button asChild variant="outline" size="lg" className="group h-auto min-h-14 max-w-full whitespace-normal px-6 py-4 sm:px-10">
                 <Link to="/about">
                   Discover Our Story 
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -217,7 +217,7 @@ export default function Index() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="lg:col-span-6"
+              className="relative min-w-0 lg:col-span-6"
             >
               <div className="grid grid-cols-2 gap-4 md:gap-6">
                 {[
@@ -233,7 +233,7 @@ export default function Index() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                    className="relative bg-card border border-border p-6 md:p-8 rounded-xl group hover:shadow-lg hover:border-accent/30 transition-all duration-300"
+                    className="relative min-w-0 bg-card border border-border p-4 sm:p-6 md:p-8 rounded-xl group hover:shadow-lg hover:border-accent/30 transition-all duration-300"
                   >
                     {/* Icon */}
                     <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg ${stat.color} mb-4`}>
@@ -241,7 +241,7 @@ export default function Index() {
                     </div>
                     
                     {/* Value with animated counter */}
-                    <div className="text-4xl md:text-5xl font-serif text-foreground mb-2">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-serif text-foreground mb-2">
                       <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                     </div>
                     
@@ -445,7 +445,7 @@ export default function Index() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <Button asChild size="lg" className="group bg-white text-[#3f7a36] hover:bg-white/90">
+                <Button asChild size="lg" className="group h-auto min-h-14 max-w-full whitespace-normal px-5 py-4 sm:px-10 bg-accent-foreground text-accent-hover hover:bg-accent-foreground/90">
                   <Link to="/who-we-are">
                     Meet Our Team <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>

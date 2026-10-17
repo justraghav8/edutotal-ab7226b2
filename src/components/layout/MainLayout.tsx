@@ -6,10 +6,10 @@ import { BackToTop } from "../BackToTop";
 
 export function MainLayout() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="site-layout flex min-h-screen w-full min-w-0 max-w-full flex-col overflow-x-clip">
       <ScrollToTop />
       <Header />
-      <main className="flex-1">
+      <main className="w-full min-w-0 max-w-full flex-1">
         <Outlet />
       </main>
       <Footer />
