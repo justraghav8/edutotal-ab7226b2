@@ -27,7 +27,7 @@ function SlideCta({ text, link, newTab, primary }: { text?: string | null; link?
     ? "bg-accent text-accent-foreground hover:bg-accent/90 border-0"
     : "border-white text-white bg-transparent hover:bg-white hover:text-black";
   return (
-    <Button asChild size="lg" variant={primary ? "default" : "outline"} className={cls}>
+    <Button asChild size="lg" variant={primary ? "default" : "outline"} className={`h-auto min-h-14 max-w-full whitespace-normal px-6 py-4 sm:px-10 ${cls}`}>
       {external || newTab ? (
         <a href={link} target={newTab ? "_blank" : undefined} rel={newTab ? "noopener noreferrer" : undefined}>{text}</a>
       ) : (

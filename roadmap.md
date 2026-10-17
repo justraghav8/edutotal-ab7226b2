@@ -16,3 +16,8 @@
 - [x] Preserve existing photos in an album and require album assignment.
 - [x] Add album and photo editing, ordering, visibility and safe deletion controls.
 - [x] Show albums on Gallery and About with photo viewing; test and clean up.
+
+# Mobile page width
+
+- [x] Contain overflowing decorations and fit mobile text, tabs and buttons.
+- [x] Verify public pages, detail pages and navigation at phone and desktop widths.

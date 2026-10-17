@@ -173,6 +173,26 @@
     overflow-x: clip;
     max-width: 100%;
   }
+
+  /* Keep long CMS labels and contact details inside the public layout. */
+  .site-layout {
+    overflow-wrap: anywhere;
+  }
+
+  .site-layout .rich-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .site-layout .rich-content :is(img, video, iframe) {
+    max-width: 100%;
+  }
+
+  .site-layout .rich-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
 }
 
 

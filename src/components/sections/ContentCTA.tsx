@@ -14,7 +14,7 @@ export function ContentCTA({ content, prefix = "cta", title }: { content: Record
     <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl">
       {heading && <h2 className="text-3xl md:text-4xl font-serif mb-4">{heading}</h2>}
       {text && <p className="text-lg mb-8 whitespace-pre-line">{text}</p>}
-      {safeLink && label && <Button asChild size="lg" variant={prefix === "next" ? "default" : "outline"} className={prefix === "next" ? "" : "border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"}>
+      {safeLink && label && <Button asChild size="lg" variant={prefix === "next" ? "default" : "outline"} className={`h-auto min-h-14 max-w-full whitespace-normal px-6 py-4 sm:px-10 ${prefix === "next" ? "" : "border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"}`}>
         {/^https?:/.test(link) ? <a href={link} target="_blank" rel="noopener noreferrer">{label}<ArrowRight className="ml-2 h-4 w-4" /></a> : <Link to={link}>{label}<ArrowRight className="ml-2 h-4 w-4" /></Link>}
       </Button>}
     </div>

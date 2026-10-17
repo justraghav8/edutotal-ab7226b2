@@ -236,12 +236,12 @@ export default function About() {
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-16">
-            <div className="inline-flex border border-border rounded-sm overflow-hidden">
+            <div className="grid w-full min-w-0 grid-cols-3 sm:inline-flex sm:w-auto border border-border rounded-sm overflow-hidden">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`relative px-8 py-4 text-sm uppercase tracking-[0.2em] font-medium transition-all duration-300 ${
+                  className={`relative min-w-0 px-2 sm:px-8 py-4 text-xs sm:text-sm uppercase tracking-wider sm:tracking-[0.2em] font-medium transition-all duration-300 ${
                     activeTab === tab.id
                       ? "bg-foreground text-background"
                       : "bg-background text-muted-foreground hover:text-foreground hover:bg-muted/50"
