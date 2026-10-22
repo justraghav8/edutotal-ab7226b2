@@ -451,6 +451,50 @@ export type Database = {
         }
         Relationships: []
       }
+      job_applications: {
+        Row: {
+          career_id: string | null
+          cover_letter: string | null
+          created_at: string
+          email: string
+          id: string
+          job_title: string
+          name: string
+          phone: string | null
+          resume_url: string | null
+        }
+        Insert: {
+          career_id?: string | null
+          cover_letter?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          job_title: string
+          name: string
+          phone?: string | null
+          resume_url?: string | null
+        }
+        Update: {
+          career_id?: string | null
+          cover_letter?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          job_title?: string
+          name?: string
+          phone?: string | null
+          resume_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applications_career_id_fkey"
+            columns: ["career_id"]
+            isOneToOne: false
+            referencedRelation: "careers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       page_content: {
         Row: {
           content: Json
