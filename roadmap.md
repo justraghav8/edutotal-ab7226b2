@@ -21,3 +21,10 @@
 
 - [x] Contain overflowing decorations and fit mobile text, tabs and buttons.
 - [x] Verify public pages, detail pages and navigation at phone and desktop widths.
+# October requests
+
+- [x] Testimonial arrows on the sides.
+- [x] Careers application form saved to admin (email delivery to contact@edu-total.com waits on email domain setup).
+- [x] About Us page editable in Page Content.
+- [x] Homepage About section editable.
+- [x] Contact map editable / hideable.
