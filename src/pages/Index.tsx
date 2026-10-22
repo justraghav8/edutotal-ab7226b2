@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { motion, useInView, useSpring, useTransform, useScroll } from "framer-motion";
 import { ArrowRight, GraduationCap, Users, Globe, Award } from "lucide-react";
 import { buildSrcSet, optimizedImageUrl } from "@/lib/image";
+import { usePageContent, mergeContent, splitHighlight, isExternal } from "@/lib/pageContent";
+import { iconFor, parseStat } from "@/lib/contentIcons";
 
 // Animated Counter Component
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -169,7 +171,7 @@ export default function Index() {
       </section>
 
       {/* EduTotal Spotlight - Enhanced About Section */}
-      <section id="spotlight" className="py-20 bg-background overflow-hidden">
+      {home.about_show !== false && <section id="spotlight" className="py-20 bg-background overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: About EduTotal */}
@@ -188,31 +190,23 @@ export default function Index() {
                 className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-accent mb-6"
               >
                 <span className="w-8 h-px bg-accent" />
-                About EduTotal
+                {home.about_label}
               </motion.span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6 leading-tight">
-                Transforming Education,{" "}
-                <span className="text-accent">Empowering</span> Institutions
+                {aboutTitle[0]}{aboutTitle[1] && <span className="text-accent">{aboutTitle[1]}</span>}{aboutTitle[2]}
               </h2>
-              <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-                EduTotal is a premier education consulting firm dedicated to helping institutions achieve excellence. 
-                With decades of combined experience, we provide strategic guidance, capacity building, and 
-                transformation services that drive measurable outcomes.
-              </p>
-              <p className="text-muted-foreground mb-8">
-                From regulatory compliance to digital transformation, our holistic approach ensures 
-                sustainable growth and lasting impact for educational organizations across India and beyond.
-              </p>
-              <Button asChild variant="outline" size="lg" className="group h-auto min-h-14 max-w-full whitespace-normal px-6 py-4 sm:px-10">
-                <Link to="/about">
-                  Discover Our Story 
+              {home.about_text && <p className="text-muted-foreground text-lg mb-6 leading-relaxed whitespace-pre-line">{home.about_text}</p>}
+              {home.about_text2 && <p className="text-muted-foreground mb-8 whitespace-pre-line">{home.about_text2}</p>}
+              {home.about_button_text && home.about_button_link && <Button asChild variant="outline" size="lg" className="group h-auto min-h-14 max-w-full whitespace-normal px-6 py-4 sm:px-10">
+                {isExternal(home.about_button_link) ? <a href={home.about_button_link} target="_blank" rel="noopener noreferrer">{home.about_button_text}<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" /></a> : <Link to={home.about_button_link}>
+                  {home.about_button_text}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+                </Link>}
+              </Button>}
             </motion.div>
 
             {/* Right: Achievement Stats with Icons */}
-            <motion.div 
+            {aboutStats.length > 0 && <motion.div 
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -220,12 +214,7 @@ export default function Index() {
               className="relative min-w-0 lg:col-span-6"
             >
               <div className="grid grid-cols-2 gap-4 md:gap-6">
-                {[
-                  { value: 200, suffix: "+", label: "Institutions Served with Partner", icon: GraduationCap, color: "bg-accent/10 text-accent" },
-                  { value: 25, suffix: "+", label: "Years of Excellence", icon: Award, color: "bg-primary/10 text-primary" },
-                  { value: 50, suffix: "+", label: "Expert Consultants & Partners", icon: Users, color: "bg-accent/10 text-accent" },
-                  { value: 15, suffix: "+", label: "Countries Reached", icon: Globe, color: "bg-primary/10 text-primary" },
-                ].map((stat, index) => (
+                {aboutStats.map((stat, index) => (
                   <motion.div
                     key={stat.label}
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -242,7 +231,7 @@ export default function Index() {
                     
                     {/* Value with animated counter */}
                     <div className="text-3xl sm:text-4xl md:text-5xl font-serif text-foreground mb-2">
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                      {stat.value !== null ? <AnimatedCounter value={stat.value} suffix={stat.suffix} /> : stat.suffix}
                     </div>
                     
                     {/* Label */}
@@ -264,10 +253,10 @@ export default function Index() {
               
               {/* Decorative background element */}
               <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-            </motion.div>
+            </motion.div>}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Services - Category Grid */}
       {serviceCategories.length > 0 && <section id="services" className="py-20 bg-background">
