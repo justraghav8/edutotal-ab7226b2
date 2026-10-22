@@ -40,6 +40,7 @@ import Images from "./pages/admin/Images";
 import GalleryAdmin from "./pages/admin/Gallery";
 import HomeSlides from "./pages/admin/HomeSlides";
 import PageContent from "./pages/admin/PageContent";
+import Applications from "./pages/admin/Applications";
 
 const queryClient = new QueryClient();
 
@@ -94,6 +95,7 @@ const App = () => (
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="careers" element={<CareersAdmin />} />
               <Route path="contacts" element={<Contacts />} />
+              <Route path="applications" element={<Applications />} />
               <Route path="gallery" element={<GalleryAdmin />} />
             </Route>
 
