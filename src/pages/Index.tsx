@@ -90,6 +90,11 @@ function ParallaxCTA() {
 
 
 export default function Index() {
+  const home = mergeContent("home", usePageContent("home"));
+  const aboutTitle = splitHighlight(home.about_title, home.about_highlight);
+  const aboutStats = (Array.isArray(home.about_stats) ? home.about_stats : [])
+    .filter((s: any) => s.title?.trim() || s.description?.trim())
+    .map((s: any, i: number) => ({ ...parseStat(s.title), label: s.description, icon: iconFor(s.icon, GraduationCap), color: i % 2 ? "bg-primary/10 text-primary" : "bg-accent/10 text-accent" }));
   const [testimonials, setTestimonials] = useState<any[]>([]);
   const [clients, setClients] = useState<any[]>([]);
   const [insights, setInsights] = useState<any[]>([]);
