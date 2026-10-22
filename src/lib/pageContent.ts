@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export type FieldDef =
-  | { key: string; label: string; type: "text" | "textarea"; help?: string }
-  | { key: string; label: string; type: "cards"; help?: string }
-  | { key: string; label: string; type: "toggle"; help?: string };
+export type FieldDef = {
+  key: string;
+  label: string;
+  type: "text" | "textarea" | "cards" | "toggle" | "image";
+  help?: string;
+  /** cards: hide icon picker when false */
+  icons?: boolean;
+  /** cards: custom labels for title/description */
+  titleLabel?: string;
+  descriptionLabel?: string;
+};
+
+const show = (key: string, label = "Show this section"): FieldDef => ({ key, label, type: "toggle" });
+const t = (key: string, label: string, help?: string): FieldDef => ({ key, label, type: "text", help });
+const ta = (key: string, label: string, help?: string): FieldDef => ({ key, label, type: "textarea", help });
+const img = (key: string, label: string): FieldDef => ({ key, label, type: "image" });
+const LINES = "One item per line";
 
 export interface PageDef {
   key: string;
