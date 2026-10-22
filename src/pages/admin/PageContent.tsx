@@ -10,9 +10,13 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowDown, ArrowUp, Plus, Save, Trash2, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { ImageField } from "@/components/admin/ImageField";
+import { CONTENT_ICONS } from "@/lib/contentIcons";
+
+const VIEW_PATH: Record<string, string> = { home: "/", about: "/about", contact: "/contact", services: "/services", service_detail: "/services", industries: "/industries", industry_detail: "/industries", careers: "/careers" };
 
 export default function PageContent() {
-  const [page, setPage] = useState("services");
+  const [page, setPage] = useState("home");
   const [content, setContent] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -50,7 +54,7 @@ export default function PageContent() {
   return (
     <div className="space-y-6 max-w-4xl">
       <div className="flex flex-wrap justify-between items-center gap-4">
-        <div><h1 className="text-3xl font-bold">Page Content</h1><p className="text-muted-foreground">Services, Industries and Careers section content</p></div>
+        <div><h1 className="text-3xl font-bold">Page Content</h1><p className="text-muted-foreground">Edit text, images and sections on Homepage, About Us, Contact, Services, Industries and Careers</p></div>
         <Button onClick={save} disabled={loading || saving || !dirty}><Save className="h-4 w-4 mr-2" />{saving ? "Saving…" : "Save Changes"}</Button>
       </div>
       <div className="flex flex-wrap gap-4 items-center">
@@ -59,7 +63,7 @@ export default function PageContent() {
           <SelectContent>{PAGE_DEFS.map((p) => <SelectItem value={p.key} key={p.key}>{p.label}</SelectItem>)}</SelectContent>
         </Select>
         <Button variant="outline" asChild><Link to="/admin/hero-banners">Edit Page Banners</Link></Button>
-        <Button variant="ghost" asChild><a target="_blank" rel="noopener noreferrer" href={`/${page.startsWith("service") ? "services" : page.startsWith("industr") ? "industries" : "careers"}`}>View Page</a></Button>
+        <Button variant="ghost" asChild><a target="_blank" rel="noopener noreferrer" href={VIEW_PATH[page] || "/"}>View Page</a></Button>
       </div>
       {loading ? <Loader2 className="animate-spin h-6 w-6" /> : def?.groups.map((group) => (
         <section key={group.title} className="border-t pt-6 space-y-4">
@@ -67,20 +71,21 @@ export default function PageContent() {
           {group.fields.map((field) => {
             const id = `content-${field.key}`;
             if (field.type === "toggle") return <div key={id} className="flex items-center gap-3"><Switch id={id} checked={content[field.key] !== false} onCheckedChange={(v) => set(field.key, v)} /><Label htmlFor={id}>{field.label}</Label></div>;
+            if (field.type === "image") return <div key={id} className="space-y-2"><Label>{field.label}</Label><ImageField value={content[field.key] || ""} onChange={(v) => set(field.key, v)} folder={`pages/${page}`} /></div>;
             if (field.type === "cards") {
               const cards: CardItem[] = Array.isArray(content[field.key]) ? content[field.key] : [];
               return <div key={id} className="space-y-3"><Label>{field.label}</Label>
-                {cards.length === 0 && <p className="text-sm text-muted-foreground">No cards. The section is hidden while empty.</p>}
+                {cards.length === 0 && <p className="text-sm text-muted-foreground">No items. This part is hidden while empty.</p>}
                 {cards.map((card, index) => <div key={index} className="border rounded-md p-4 space-y-3">
                   <div className="flex justify-between items-center"><span className="text-sm text-muted-foreground">Card {index + 1}</span><div className="flex">
                     {[-1, 1].map((d) => <Button key={d} variant="ghost" size="icon" disabled={index + d < 0 || index + d >= cards.length} aria-label={d < 0 ? "Move card up" : "Move card down"} onClick={() => { const next = [...cards]; [next[index], next[index + d]] = [next[index + d], next[index]]; set(field.key, next); }}>{d < 0 ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}</Button>)}
                     <Button variant="ghost" size="icon" aria-label="Delete card" onClick={() => set(field.key, cards.filter((_, i) => i !== index))}><Trash2 className="h-4 w-4" /></Button>
                   </div></div>
-                  <Label htmlFor={`${id}-${index}-title`}>Title</Label><Input id={`${id}-${index}-title`} value={card.title} onChange={(e) => set(field.key, cards.map((c, i) => i === index ? { ...c, title: e.target.value } : c))} />
-                  <Label htmlFor={`${id}-${index}-description`}>Description</Label><Textarea id={`${id}-${index}-description`} value={card.description} onChange={(e) => set(field.key, cards.map((c, i) => i === index ? { ...c, description: e.target.value } : c))} />
-                  <Label>Icon</Label><Select value={card.icon || "TrendingUp"} onValueChange={(v) => set(field.key, cards.map((c, i) => i === index ? { ...c, icon: v } : c))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{["TrendingUp", "Lightbulb", "Globe2", "Users", "Heart", "Award"].map((x) => <SelectItem key={x} value={x}>{x}</SelectItem>)}</SelectContent></Select>
+                  <Label htmlFor={`${id}-${index}-title`}>{field.titleLabel || "Title"}</Label><Input id={`${id}-${index}-title`} value={card.title} onChange={(e) => set(field.key, cards.map((c, i) => i === index ? { ...c, title: e.target.value } : c))} />
+                  <Label htmlFor={`${id}-${index}-description`}>{field.descriptionLabel || "Description"}</Label><Textarea id={`${id}-${index}-description`} value={card.description} onChange={(e) => set(field.key, cards.map((c, i) => i === index ? { ...c, description: e.target.value } : c))} />
+                  {field.icons !== false && <><Label>Icon</Label><Select value={card.icon || "TrendingUp"} onValueChange={(v) => set(field.key, cards.map((c, i) => i === index ? { ...c, icon: v } : c))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{Object.keys(CONTENT_ICONS).map((x) => <SelectItem key={x} value={x}>{x}</SelectItem>)}</SelectContent></Select></>}
                 </div>)}
-                <Button variant="outline" onClick={() => set(field.key, [...cards, { icon: "TrendingUp", title: "", description: "" }])}><Plus className="mr-2 h-4 w-4" />Add Card</Button>
+                <Button variant="outline" onClick={() => set(field.key, [...cards, { icon: "TrendingUp", title: "", description: "" }])}><Plus className="mr-2 h-4 w-4" />Add Item</Button>
               </div>;
             }
             return <div key={id} className="space-y-2"><Label htmlFor={id}>{field.label}</Label>{field.type === "textarea" ? <Textarea id={id} value={content[field.key] ?? ""} onChange={(e) => set(field.key, e.target.value)} /> : <Input id={id} value={content[field.key] ?? ""} onChange={(e) => set(field.key, e.target.value)} />}{field.help && <p className="text-sm text-muted-foreground">{field.help}</p>}</div>;
