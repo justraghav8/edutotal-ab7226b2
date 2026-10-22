@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Mail, MapPin, Navigation, Phone } from "lucide-react";
+import { usePageContent, mergeContent } from "@/lib/pageContent";
 
 interface SiteSettings {
   contact_address: string | null;
@@ -44,8 +45,11 @@ export default function Contact() {
     settings?.business_hours ||
     "Monday - Friday: 9:00 AM - 6:00 PM IST\nSaturday: 10:00 AM - 2:00 PM IST\nSunday: Closed";
   const telHref = `tel:${phone.replace(/[^+\d]/g, "")}`;
-  const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
-  const mapEmbedHref = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+  const map = mergeContent("contact", usePageContent("contact"));
+  const mapAddress = map.map_address?.trim() || address;
+  const safeUrl = (u?: string) => (u && /^https:\/\//i.test(u.trim()) ? u.trim() : "");
+  const directionsHref = safeUrl(map.map_directions_url) || `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(mapAddress)}`;
+  const mapEmbedHref = safeUrl(map.map_embed_url) || `https://www.google.com/maps?q=${encodeURIComponent(mapAddress)}&output=embed`;
 
 
   async function handleSubmit(e: React.FormEvent) {
@@ -222,12 +226,12 @@ export default function Contact() {
             </div>
           </div>
 
-          <section className="max-w-6xl mx-auto mt-12" aria-labelledby="find-us-heading">
+          {map.map_show !== false && <section className="max-w-6xl mx-auto mt-12" aria-labelledby="find-us-heading">
             <Card className="overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)]">
                 <div className="relative min-h-[22rem] bg-muted">
                   <iframe
-                    title={`Map showing EduTotal at ${address}`}
+                    title={`Map showing EduTotal at ${mapAddress}`}
                     src={mapEmbedHref}
                     width="100%"
                     height="100%"
@@ -239,39 +243,39 @@ export default function Contact() {
                 </div>
 
                 <CardContent className="flex flex-col justify-center p-8 md:p-10">
-                  <span className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  {map.map_label && <span className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
                     <MapPin className="h-4 w-4" />
-                    New Delhi Office
-                  </span>
-                  <h2 id="find-us-heading" className="mb-4 text-3xl font-serif text-foreground">
-                    Find Us
-                  </h2>
+                    {map.map_label}
+                  </span>}
+                  {map.map_title && <h2 id="find-us-heading" className="mb-4 text-3xl font-serif text-foreground">
+                    {map.map_title}
+                  </h2>}
                   <p className="mb-8 text-muted-foreground whitespace-pre-line">
-                    {address}
+                    {mapAddress}
                   </p>
-                  <Button asChild variant="accent" size="lg" className="w-full sm:w-fit">
+                  {map.map_button_text && <Button asChild variant="accent" size="lg" className="w-full sm:w-fit">
                     <a
                       href={directionsHref}
                       target="_top"
                       rel="noopener noreferrer"
-                      aria-label={`Get directions to EduTotal at ${address}`}
+                      aria-label={`Get directions to EduTotal at ${mapAddress}`}
                     >
                       <Navigation className="h-4 w-4" />
-                      Click for Directions
+                      {map.map_button_text}
                     </a>
-                  </Button>
-                  <a
+                  </Button>}
+                  {map.map_link_text && <a
                     href={directionsHref}
                     target="_top"
                     rel="noopener noreferrer"
                     className="mt-4 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
                   >
-                    Open location in Google Maps
-                  </a>
+                    {map.map_link_text}
+                  </a>}
                 </CardContent>
               </div>
             </Card>
-          </section>
+          </section>}
         </div>
       </section>
 

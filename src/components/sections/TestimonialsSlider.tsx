@@ -93,7 +93,11 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
         </motion.div>
 
         {/* Slider Content - reviewer-forward editorial block */}
-        <div className="max-w-5xl mx-auto">
+        <div className="relative max-w-5xl mx-auto md:px-16 lg:px-20 md:max-w-none lg:max-w-[72rem]">
+          {items.length > 1 && <>
+            <Button type="button" variant="outline" size="icon" onClick={prev} aria-label="Previous testimonial" className="absolute left-0 top-1/2 -translate-y-1/2 z-20 hidden md:inline-flex w-12 h-12 rounded-full bg-card/90 shadow-lg hover:bg-accent hover:text-accent-foreground hover:border-accent"><ChevronLeft className="w-5 h-5" /></Button>
+            <Button type="button" variant="outline" size="icon" onClick={next} aria-label="Next testimonial" className="absolute right-0 top-1/2 -translate-y-1/2 z-20 hidden md:inline-flex w-12 h-12 rounded-full bg-card/90 shadow-lg hover:bg-accent hover:text-accent-foreground hover:border-accent"><ChevronRight className="w-5 h-5" /></Button>
+          </>}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -167,7 +171,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               variant="outline"
               size="icon"
               onClick={prev}
-              className="w-12 h-12 rounded-full text-muted-foreground hover:text-foreground"
+              className="md:hidden w-12 h-12 rounded-full text-muted-foreground hover:text-foreground"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -194,7 +198,7 @@ export function TestimonialsSlider({ testimonials }: TestimonialsSliderProps) {
               variant="outline"
               size="icon"
               onClick={next}
-              className="w-12 h-12 rounded-full text-muted-foreground hover:text-foreground"
+              className="md:hidden w-12 h-12 rounded-full text-muted-foreground hover:text-foreground"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />

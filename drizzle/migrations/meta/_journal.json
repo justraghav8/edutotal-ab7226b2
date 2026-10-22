@@ -36,6 +36,13 @@
       "when": 1792149186442,
       "tag": "0004_gallery_photo_albums",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792683095547,
+      "tag": "0005_job_applications",
+      "breakpoints": true
     }
   ]
 }

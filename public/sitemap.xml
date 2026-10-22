@@ -226,7 +226,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://home.edu-total.com/insights/future-higher-education-india</loc>
+    <loc>https://home.edu-total.com/insights/india-k12-education-sector-transformation</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -236,12 +236,17 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://home.edu-total.com/insights/india-k12-education-sector-transformation</loc>
+    <loc>https://home.edu-total.com/insights/future-higher-education-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://home.edu-total.com/insights/Indian%20Education%20Market%202025:%20Opportunities,%20Challenges%20&amp;%20The%20Road%20Ahead</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://home.edu-total.com/insights/the_future_of_global_education_is_being_built_in_india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

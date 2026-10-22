@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export type FieldDef =
-  | { key: string; label: string; type: "text" | "textarea"; help?: string }
-  | { key: string; label: string; type: "cards"; help?: string }
-  | { key: string; label: string; type: "toggle"; help?: string };
+export type FieldDef = {
+  key: string;
+  label: string;
+  type: "text" | "textarea" | "cards" | "toggle" | "image";
+  help?: string;
+  /** cards: hide icon picker when false */
+  icons?: boolean;
+  /** cards: custom labels for title/description */
+  titleLabel?: string;
+  descriptionLabel?: string;
+};
+
+const show = (key: string, label = "Show this section"): FieldDef => ({ key, label, type: "toggle" });
+const t = (key: string, label: string, help?: string): FieldDef => ({ key, label, type: "text", help });
+const ta = (key: string, label: string, help?: string): FieldDef => ({ key, label, type: "textarea", help });
+const img = (key: string, label: string): FieldDef => ({ key, label, type: "image" });
+const LINES = "One item per line";
 
 export interface PageDef {
   key: string;
@@ -30,6 +43,96 @@ const cta = (prefix: string, title: string): { title: string; fields: FieldDef[]
 });
 
 export const PAGE_DEFS: PageDef[] = [
+  {
+    key: "home",
+    label: "Homepage – About EduTotal",
+    groups: [
+      { title: "About section", fields: [
+        show("about_show"),
+        t("about_label", "Small label"),
+        t("about_title", "Heading"),
+        t("about_highlight", "Highlighted word(s) in heading", "Shown in green if it appears in the heading"),
+        ta("about_text", "Main paragraph"),
+        ta("about_text2", "Second paragraph"),
+        t("about_button_text", "Button text (leave empty to hide)"),
+        t("about_button_link", "Button link"),
+      ] },
+      { title: "Statistics", fields: [
+        { key: "about_stats", label: "Stat boxes", type: "cards", titleLabel: "Number (e.g. 200+)", descriptionLabel: "Label" },
+      ] },
+    ],
+  },
+  {
+    key: "about",
+    label: "About Us",
+    groups: [
+      { title: "Tabs", fields: [
+        t("mission_tab", "Mission tab label (leave empty to hide tab)"),
+        t("motto_tab", "Motto tab label (leave empty to hide tab)"),
+        t("values_tab", "Core values tab label (leave empty to hide tab)"),
+      ] },
+      { title: "Our Mission", fields: [
+        t("mission_title", "Heading"),
+        t("mission_highlight", "Highlighted word(s)"),
+        ta("mission_text", "Text"),
+        ta("mission_quote", "Quote (leave empty to hide)"),
+      ] },
+      { title: "Our Motto", fields: [
+        t("motto_title", "Heading"),
+        t("motto_highlight", "Highlighted word(s)"),
+        img("motto_image", "Image"),
+        { key: "motto_steps", label: "Motto points", type: "cards", icons: false },
+      ] },
+      { title: "Core Values", fields: [
+        { key: "values", label: "Values", type: "cards" },
+      ] },
+      { title: "Foundation Pillars", fields: [
+        show("pillars_show"),
+        t("pillars_label", "Small label"),
+        t("pillars_title", "Heading"),
+        { key: "pillars", label: "Pillars", type: "cards" },
+        ta("pillars_footer", "Closing line"),
+      ] },
+      { title: "Our Expertise", fields: [
+        show("expertise_show"),
+        t("expertise_label", "Small label"),
+        t("expertise_title", "Heading"),
+        t("domestic_label", "Left panel – small label"),
+        t("domestic_title", "Left panel – heading"),
+        ta("domestic_text", "Left panel – text"),
+        ta("domestic_points", "Left panel – bullet points", LINES),
+        img("domestic_image", "Left panel – image"),
+        t("international_label", "Right panel – small label"),
+        t("international_title", "Right panel – heading"),
+        ta("international_text", "Right panel – text"),
+        ta("international_points", "Right panel – bullet points", LINES),
+        img("international_image", "Right panel – image"),
+      ] },
+      { title: "Photo gallery", fields: [show("gallery_show", "Show photo albums on this page")] },
+      { title: "Our Philosophy", fields: [
+        show("philosophy_show"),
+        t("philosophy_title", "Heading"),
+        ta("philosophy_text", "Text"),
+      ] },
+      cta("next", "Continue exploring section"),
+    ],
+  },
+  {
+    key: "contact",
+    label: "Contact Us – Map",
+    groups: [
+      { title: "Map section", fields: [
+        show("map_show", "Show the map section"),
+        t("map_label", "Small label"),
+        t("map_title", "Heading"),
+        ta("map_address", "Address shown and used for the map", "Leave empty to use the address from Site Settings"),
+        t("map_embed_url", "Custom map embed link (optional)", "Google Maps → Share → Embed a map → copy the src link. Leave empty to place the pin from the address."),
+        t("map_directions_url", "Custom directions link (optional)", "Leave empty to build directions from the address"),
+        t("map_button_text", "Directions button text (leave empty to hide)"),
+        t("map_link_text", "Secondary link text (leave empty to hide)"),
+      ] },
+    ],
+  },
   {
     key: "services",
     label: "Services",
@@ -124,6 +227,91 @@ export const PAGE_DEFS: PageDef[] = [
 ];
 
 export const PAGE_DEFAULTS: Record<string, Record<string, any>> = {
+  home: {
+    about_show: true,
+    about_label: "About EduTotal",
+    about_title: "Transforming Education, Empowering Institutions",
+    about_highlight: "Empowering",
+    about_text: "EduTotal is a premier education consulting firm dedicated to helping institutions achieve excellence. With decades of combined experience, we provide strategic guidance, capacity building, and transformation services that drive measurable outcomes.",
+    about_text2: "From regulatory compliance to digital transformation, our holistic approach ensures sustainable growth and lasting impact for educational organizations across India and beyond.",
+    about_button_text: "Discover Our Story",
+    about_button_link: "/about",
+    about_stats: [
+      { icon: "GraduationCap", title: "200+", description: "Institutions Served with Partner" },
+      { icon: "Award", title: "25+", description: "Years of Excellence" },
+      { icon: "Users", title: "50+", description: "Expert Consultants & Partners" },
+      { icon: "Globe", title: "15+", description: "Countries Reached" },
+    ],
+  },
+  about: {
+    mission_tab: "Our Mission",
+    motto_tab: "Our Motto",
+    values_tab: "Our Core Values",
+    mission_title: "Transforming Education Through Excellence",
+    mission_highlight: "Excellence",
+    mission_text: "EduTotal was created to provide Quality, Innovative and Internationally benchmarked framework for end-to-end solutions in the Indian Education sector. We take pride in adopting projects that bring quality change and revolution in the education environment.",
+    mission_quote: "We are the trustworthy partners to progression for bringing an ethical and sustainable change in the educational environment.",
+    motto_title: "Dream Big, Achieve Bigger",
+    motto_highlight: "Achieve Bigger",
+    motto_image: "",
+    motto_steps: [
+      { title: "You dream, we create", description: "Turning your vision into reality" },
+      { title: "You desire, we build", description: "Constructing the foundations of success" },
+      { title: "Sky is the limit", description: "No dream too big for imagination" },
+    ],
+    values: [
+      { icon: "Target", title: "Knowledge Based Guidance", description: "Expert insights driving informed decision-making" },
+      { icon: "Heart", title: "Honest Assistance", description: "Transparent support and communication" },
+      { icon: "TrendingUp", title: "Prompt Response", description: "Quick and efficient service delivery" },
+      { icon: "Globe", title: "Relevant Information", description: "Accurate, timely, and actionable intelligence" },
+      { icon: "Users", title: "Proactive Approach", description: "Anticipating needs and delivering comprehensive solutions" },
+      { icon: "Award", title: "Excellence", description: "Commitment to the highest standards" },
+    ],
+    pillars_show: true,
+    pillars_label: "What We Stand For",
+    pillars_title: "Foundation Pillars",
+    pillars: [
+      { icon: "Gem", title: "Value", description: "Delivering measurable impact and sustainable worth" },
+      { icon: "Flame", title: "Passion", description: "Unwavering commitment to educational excellence" },
+      { icon: "Shield", title: "Integrity", description: "Ethical practices and transparency in every engagement" },
+      { icon: "Globe2", title: "Global", description: "International standards and worldwide perspective" },
+      { icon: "Handshake", title: "Relationship", description: "Building lasting, meaningful partnerships" },
+      { icon: "Sparkles", title: "Diversity", description: "Embracing varied approaches and inclusive solutions" },
+    ],
+    pillars_footer: "These pillars guide every decision we make and every partnership we build.",
+    expertise_show: true,
+    expertise_label: "What We Do Best",
+    expertise_title: "Our Expertise",
+    domestic_label: "India Focus",
+    domestic_title: "Domestic Services",
+    domestic_text: "For schools, Colleges, Universities that want to explore new geography within the country, we provide in-depth due diligence and realistic risk mapping.",
+    domestic_points: "Multi-disciplinary learning frameworks\nApplied Skill & Vocational training\nSustainable institutional models",
+    domestic_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+    international_label: "Global Reach",
+    international_title: "International Services",
+    international_text: "We partner with finest schools around the world to help them expand in unknown territories with confidence and strategic clarity.",
+    international_points: "Cross-border educational partnerships\nCreative sciences & technical areas\nManagement & leadership development",
+    international_image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80",
+    gallery_show: true,
+    philosophy_show: true,
+    philosophy_title: "Our Philosophy",
+    philosophy_text: "Learning by Doing is vital for student development. We help institutes in building strong relationships with corporates. Corporate culture exposure grooms students for future career challenges and makes them ready for corporate world.",
+    next_show: true,
+    next_title: "Meet the Team Behind EduTotal",
+    next_text: "Get to know the leaders, advisors, and clients who make our vision a reality.",
+    next_button_text: "Who We Are",
+    next_button_link: "/who-we-are",
+  },
+  contact: {
+    map_show: true,
+    map_label: "New Delhi Office",
+    map_title: "Find Us",
+    map_address: "",
+    map_embed_url: "",
+    map_directions_url: "",
+    map_button_text: "Click for Directions",
+    map_link_text: "Open location in Google Maps",
+  },
   services: {
     empty_text: "Our services are being updated. Please check back soon or contact us.",
     cta_show: true,
@@ -229,6 +417,12 @@ export function usePageContent(pageKey: string) {
     };
   }, [pageKey]);
   return content;
+}
+
+/** Render a heading with an optional highlighted phrase. Returns [before, highlight, after]. */
+export function splitHighlight(title = "", highlight = ""): [string, string, string] {
+  const i = highlight ? title.indexOf(highlight) : -1;
+  return i < 0 ? [title, "", ""] : [title.slice(0, i), highlight, title.slice(i + highlight.length)];
 }
 
 export function isExternal(link?: string) {

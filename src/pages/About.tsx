@@ -1,38 +1,24 @@
 import { useState } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { NextPageCTA } from "@/components/sections/NextPageCTA";
 import { ImageGallery } from "@/components/sections/ImageGallery";
-import { Target, Heart, Globe, Users, TrendingUp, Award, Gem, Flame, Shield, Globe2, Handshake, Sparkles, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
+import { usePageContent, mergeContent, splitHighlight } from "@/lib/pageContent";
+import { iconFor, lines } from "@/lib/contentIcons";
+import { ContentCTA } from "@/components/sections/ContentCTA";
 import { motion, AnimatePresence } from "framer-motion";
 import missionImage2 from "@/assets/about-mission-2.jpg";
 
-const values = [
-  { icon: Target, title: "Knowledge Based Guidance", description: "Expert insights driving informed decision-making" },
-  { icon: Heart, title: "Honest Assistance", description: "Transparent support and communication" },
-  { icon: TrendingUp, title: "Prompt Response", description: "Quick and efficient service delivery" },
-  { icon: Globe, title: "Relevant Information", description: "Accurate, timely, and actionable intelligence" },
-  { icon: Users, title: "Proactive Approach", description: "Anticipating needs and delivering comprehensive solutions" },
-  { icon: Award, title: "Excellence", description: "Commitment to the highest standards" },
-];
+type C = Record<string, any>;
+const hasText = (c: any) => c?.title?.trim() || c?.description?.trim();
 
-const pillars = [
-  { title: "Value", description: "Delivering measurable impact and sustainable worth", icon: Gem },
-  { title: "Passion", description: "Unwavering commitment to educational excellence", icon: Flame },
-  { title: "Integrity", description: "Ethical practices and transparency in every engagement", icon: Shield },
-  { title: "Global", description: "International standards and worldwide perspective", icon: Globe2 },
-  { title: "Relationship", description: "Building lasting, meaningful partnerships", icon: Handshake },
-  { title: "Diversity", description: "Embracing varied approaches and inclusive solutions", icon: Sparkles },
-];
+function Heading({ title, highlight }: { title: string; highlight?: string }) {
+  const [a, h, b] = splitHighlight(title, highlight);
+  return <>{a}{h && <span className="text-accent">{h}</span>}{b}</>;
+}
 
-const tabs = [
-  { id: "mission", label: "Our Mission" },
-  { id: "motto", label: "Our Motto" },
-  { id: "values", label: "Our Core Values" },
-] as const;
+type TabId = "mission" | "motto" | "values";
 
-type TabId = (typeof tabs)[number]["id"];
-
-function MissionContent() {
+function MissionContent({ c }: { c: C }) {
   return (
     <motion.div
       key="mission"
@@ -43,26 +29,24 @@ function MissionContent() {
       className="max-w-4xl mx-auto text-center"
     >
       <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
-        Transforming Education Through{" "}
-        <span className="text-accent">Excellence</span>
+        <Heading title={c.mission_title} highlight={c.mission_highlight} />
       </h2>
-      <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
-        EduTotal was created to provide Quality, Innovative and Internationally benchmarked framework 
-        for end-to-end solutions in the Indian Education sector. We take pride in adopting projects that 
-        bring quality change and revolution in the education environment.
-      </p>
-      <div className="relative inline-block text-left pl-6 border-l-4 border-accent max-w-2xl">
+      {c.mission_text && <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto whitespace-pre-line">
+        {c.mission_text}
+      </p>}
+      {c.mission_quote && <div className="relative inline-block text-left pl-6 border-l-4 border-accent max-w-2xl">
         <Quote className="absolute -left-4 -top-2 w-8 h-8 text-accent/20" />
         <p className="text-xl font-serif italic text-foreground/80">
-          "We are the trustworthy partners to progression for bringing an ethical and sustainable 
-          change in the educational environment."
+          "{c.mission_quote}"
         </p>
-      </div>
+      </div>}
     </motion.div>
   );
 }
 
-function MottoContent() {
+function MottoContent({ c }: { c: C }) {
+  const steps = (Array.isArray(c.motto_steps) ? c.motto_steps : []).filter(hasText);
+  const image = c.motto_image || missionImage2;
   return (
     <motion.div
       key="motto"
@@ -74,8 +58,8 @@ function MottoContent() {
     >
       <div className="relative">
         <img 
-          src={missionImage2} 
-          alt="Dreams and aspirations in education" 
+          src={image} 
+          alt={c.motto_title || "Our motto"} 
           className="w-full h-auto rounded-sm shadow-large"
         />
         <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-accent/10 rounded-sm -z-10" />
@@ -84,15 +68,10 @@ function MottoContent() {
 
       <div>
         <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
-          Dream Big,{" "}
-          <span className="text-accent">Achieve Bigger</span>
+          <Heading title={c.motto_title} highlight={c.motto_highlight} />
         </h2>
         <div className="space-y-6">
-          {[
-            { num: "1", title: "You dream, we create", desc: "Turning your vision into reality" },
-            { num: "2", title: "You desire, we build", desc: "Constructing the foundations of success" },
-            { num: "3", title: "Sky is the limit", desc: "No dream too big for imagination" },
-          ].map((item, i) => (
+          {steps.map((item: any, i: number) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: 30 }}
@@ -101,11 +80,11 @@ function MottoContent() {
               className="flex items-start gap-4"
             >
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-1">
-                <span className="text-accent font-serif text-xl">{item.num}</span>
+                <span className="text-accent font-serif text-xl">{i + 1}</span>
               </div>
               <div>
                 <p className="text-xl font-serif text-foreground">{item.title}</p>
-                <p className="text-muted-foreground">{item.desc}</p>
+                <p className="text-muted-foreground">{item.description}</p>
               </div>
             </motion.div>
           ))}
@@ -115,7 +94,7 @@ function MottoContent() {
   );
 }
 
-function CoreValuesContent() {
+function CoreValuesContent({ values }: { values: any[] }) {
   const [activeValue, setActiveValue] = useState(0);
 
   return (
@@ -132,7 +111,7 @@ function CoreValuesContent() {
         {/* Left: Value selector list */}
         <div className="lg:col-span-4 space-y-2">
           {values.map((value, index) => {
-            const Icon = value.icon;
+            const Icon = iconFor(value.icon);
             const isActive = activeValue === index;
             return (
               <motion.button
@@ -169,7 +148,7 @@ function CoreValuesContent() {
           <AnimatePresence mode="wait">
             {values.map((value, index) => {
               if (index !== activeValue) return null;
-              const Icon = value.icon;
+              const Icon = iconFor(value.icon);
               return (
                 <motion.div
                   key={index}
@@ -220,7 +199,20 @@ function CoreValuesContent() {
 }
 
 export default function About() {
-  const [activeTab, setActiveTab] = useState<TabId>("mission");
+  const c = mergeContent("about", usePageContent("about"));
+  const values = (Array.isArray(c.values) ? c.values : []).filter(hasText);
+  const pillars = (Array.isArray(c.pillars) ? c.pillars : []).filter(hasText);
+  const tabs = ([
+    { id: "mission", label: c.mission_tab },
+    { id: "motto", label: c.motto_tab },
+    { id: "values", label: values.length ? c.values_tab : "" },
+  ] as { id: TabId; label: string }[]).filter((t) => t.label?.trim());
+  const [selectedTab, setActiveTab] = useState<TabId>("mission");
+  const activeTab = tabs.some((t) => t.id === selectedTab) ? selectedTab : tabs[0]?.id;
+  const panels = [
+    { key: "domestic", dot: "bg-accent" },
+    { key: "international", dot: "bg-white" },
+  ].filter((p) => c[`${p.key}_title`] || c[`${p.key}_text`]);
 
   return (
     <>
@@ -232,11 +224,11 @@ export default function About() {
       />
 
       {/* Tabbed Section: Mission / Motto / Core Values */}
-      <section className="pt-16 pb-24 lg:pt-20 lg:pb-32 bg-background overflow-hidden">
+      {tabs.length > 0 && <section className="pt-16 pb-24 lg:pt-20 lg:pb-32 bg-background overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-16">
-            <div className="grid w-full min-w-0 grid-cols-3 sm:inline-flex sm:w-auto border border-border rounded-sm overflow-hidden">
+            <div style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }} className="grid w-full min-w-0 sm:inline-flex sm:w-auto border border-border rounded-sm overflow-hidden">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
@@ -255,15 +247,15 @@ export default function About() {
 
           {/* Tab Content */}
           <AnimatePresence mode="wait">
-            {activeTab === "mission" && <MissionContent />}
-            {activeTab === "motto" && <MottoContent />}
-            {activeTab === "values" && <CoreValuesContent />}
+            {activeTab === "mission" && <MissionContent c={c} />}
+            {activeTab === "motto" && <MottoContent c={c} />}
+            {activeTab === "values" && <CoreValuesContent values={values} />}
           </AnimatePresence>
         </div>
-      </section>
+      </section>}
 
       {/* Foundation Pillars - Impressive Design */}
-      <section className="py-32 bg-background overflow-hidden relative">
+      {c.pillars_show !== false && pillars.length > 0 && <section className="py-32 bg-background overflow-hidden relative">
         {/* Background decorative elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-[10%] w-72 h-72 rounded-full bg-accent/10 blur-3xl" />
@@ -279,13 +271,13 @@ export default function About() {
             className="text-center mb-20"
           >
             <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block">
-              What We Stand For
+              {c.pillars_label}
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground">Foundation Pillars</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground">{c.pillars_title}</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 max-w-6xl mx-auto border border-border">
-            {pillars.map((pillar, index) => (
+            {pillars.map((pillar: any, index: number) => { const PillarIcon = iconFor(pillar.icon); return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
@@ -304,7 +296,7 @@ export default function About() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent transition-colors duration-300">
-                    <pillar.icon className="w-7 h-7 text-accent group-hover:text-white transition-colors duration-300" />
+                    <PillarIcon className="w-7 h-7 text-accent group-hover:text-white transition-colors duration-300" />
                   </div>
                 </motion.div>
                 <div className="relative">
@@ -323,126 +315,80 @@ export default function About() {
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 />
               </motion.div>
-            ))}
+            ); })}
           </div>
 
-          <motion.p 
+          {c.pillars_footer && <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.8 }}
             className="text-center text-xl font-serif text-muted-foreground mt-20 max-w-2xl mx-auto"
           >
-            These pillars guide every decision we make and every partnership we build.
-          </motion.p>
+            {c.pillars_footer}
+          </motion.p>}
         </div>
-      </section>
+      </section>}
 
       {/* Expertise Areas - Full Width Image Cards */}
-      <section className="py-0">
-        <motion.div 
+      {c.expertise_show !== false && panels.length > 0 && <section className="py-0">
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center py-20 bg-background"
         >
-          <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block">
-            What We Do Best
-          </span>
-          <h2 className="text-4xl md:text-5xl font-serif text-foreground">Our Expertise</h2>
+          <span className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 block">{c.expertise_label}</span>
+          <h2 className="text-4xl md:text-5xl font-serif text-foreground">{c.expertise_title}</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80" 
-              alt="Domestic educational services" 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="eager"
-              onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80'; }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
-            <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}>
-                <span className="text-sm uppercase tracking-[0.2em] text-accent mb-4 block font-medium">India Focus</span>
-                <h3 className="text-3xl md:text-4xl font-serif mb-6 text-white">Domestic Services</h3>
-                <div className="space-y-4 text-white/85 max-w-lg">
-                  <p className="text-lg leading-relaxed">
-                    For schools, Colleges, Universities that want to explore new geography within the country, 
-                    we provide in-depth due diligence and realistic risk mapping.
-                  </p>
-                  <ul className="space-y-2 text-base">
-                    <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-accent" />Multi-disciplinary learning frameworks</li>
-                    <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-accent" />Applied Skill & Vocational training</li>
-                    <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-accent" />Sustainable institutional models</li>
-                  </ul>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80" 
-              alt="International educational services" 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
-            <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}>
-                <span className="text-sm uppercase tracking-[0.2em] text-accent mb-4 block font-medium">Global Reach</span>
-                <h3 className="text-3xl md:text-4xl font-serif mb-6 text-white">International Services</h3>
-                <div className="space-y-4 text-white/85 max-w-lg">
-                  <p className="text-lg leading-relaxed">
-                    We partner with finest schools around the world to help them expand 
-                    in unknown territories with confidence and strategic clarity.
-                  </p>
-                  <ul className="space-y-2 text-base">
-                    <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-white" />Cross-border educational partnerships</li>
-                    <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-white" />Creative sciences & technical areas</li>
-                    <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-white" />Management & leadership development</li>
-                  </ul>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+        <div className={`grid grid-cols-1 ${panels.length > 1 ? "lg:grid-cols-2" : ""}`}>
+          {panels.map((p, i) => (
+            <motion.div
+              key={p.key}
+              initial={{ opacity: 0, x: i === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative group min-h-[500px] lg:min-h-[600px] overflow-hidden bg-foreground"
+            >
+              {c[`${p.key}_image`] && <img
+                src={c[`${p.key}_image`]}
+                alt={c[`${p.key}_title`] || ""}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
+              <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-16">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}>
+                  {c[`${p.key}_label`] && <span className="text-sm uppercase tracking-[0.2em] text-accent mb-4 block font-medium">{c[`${p.key}_label`]}</span>}
+                  <h3 className="text-3xl md:text-4xl font-serif mb-6 text-white">{c[`${p.key}_title`]}</h3>
+                  <div className="space-y-4 text-white/85 max-w-lg">
+                    {c[`${p.key}_text`] && <p className="text-lg leading-relaxed whitespace-pre-line">{c[`${p.key}_text`]}</p>}
+                    {lines(c[`${p.key}_points`]).length > 0 && <ul className="space-y-2 text-base">
+                      {lines(c[`${p.key}_points`]).map((pt) => <li key={pt} className="flex items-center gap-3"><span className={`w-1.5 h-1.5 rounded-full ${p.dot}`} />{pt}</li>)}
+                    </ul>}
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
+      </section>}
 
-      <ImageGallery />
+      {c.gallery_show !== false && <ImageGallery />}
 
-      <section className="py-20 bg-gradient-accent text-white">
+      {c.philosophy_show !== false && (c.philosophy_title || c.philosophy_text) && <section className="py-20 bg-gradient-accent text-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Philosophy</h2>
-            <p className="text-xl leading-relaxed">
-              Learning by Doing is vital for student development. We help institutes in building strong 
-              relationships with corporates. Corporate culture exposure grooms students for future career 
-              challenges and makes them ready for corporate world.
-            </p>
+            {c.philosophy_title && <h2 className="text-3xl md:text-4xl font-bold mb-6">{c.philosophy_title}</h2>}
+            {c.philosophy_text && <p className="text-xl leading-relaxed whitespace-pre-line">{c.philosophy_text}</p>}
           </div>
         </div>
-      </section>
+      </section>}
 
-      <NextPageCTA
-        headline="Meet the Team Behind EduTotal"
-        description="Get to know the leaders, advisors, and clients who make our vision a reality."
-        linkText="Who We Are"
-        linkHref="/who-we-are"
-      />
+      <ContentCTA content={c} prefix="next" />
     </>
   );
 }

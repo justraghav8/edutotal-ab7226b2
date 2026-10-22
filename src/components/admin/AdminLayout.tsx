@@ -43,6 +43,7 @@ export function AdminLayout() {
     { icon: MessageSquare, label: "Testimonials", path: "/admin/testimonials" },
     { icon: Briefcase, label: "Careers", path: "/admin/careers" },
     { icon: Mail, label: "Contact Forms", path: "/admin/contacts" },
+    { icon: Briefcase, label: "Job Applications", path: "/admin/applications" },
     { icon: Images, label: "Gallery", path: "/admin/gallery" },
   ];
 

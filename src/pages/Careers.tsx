@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { Briefcase, MapPin, Mail, Loader2, TrendingUp, Globe2, Lightbulb, Users, Heart, Award } from "lucide-react";
 import { motion } from "framer-motion";
+import { ApplyDialog } from "@/components/sections/ApplyDialog";
+import { iconFor } from "@/lib/contentIcons";
 
 const cardIcons: Record<string, any> = { TrendingUp, Lightbulb, Globe2, Users, Heart, Award };
 
@@ -18,6 +20,7 @@ export default function Careers() {
   const [careers, setCareers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<any>(null);
+  const [applyJob, setApplyJob] = useState<any>(null);
   const [careersEmail, setCareersEmail] = useState<string>("contact@edu-total.com");
 
   useEffect(() => {
@@ -69,7 +72,7 @@ export default function Careers() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {whyWorkWithUs.map((item: any, index: number) => {
-              const Icon = cardIcons[item.icon] || TrendingUp;
+              const Icon = iconFor(item.icon, TrendingUp);
               return (
               <motion.div
                 key={item.title}
@@ -181,12 +184,11 @@ export default function Careers() {
                       )}
 
                       <div className="pt-4">
-                        <Button asChild size="lg" className="w-full sm:w-auto">
-                          <a href={job.apply_url || `mailto:${job.apply_email || careersEmail}?subject=${encodeURIComponent(`Application for ${job.job_title}`)}`} target={job.apply_url ? "_blank" : undefined} rel={job.apply_url ? "noopener noreferrer" : undefined}>
-                            <Mail className="mr-2 h-4 w-4" />
-                            {content.apply_text}
-                          </a>
-                        </Button>
+                        {job.apply_url ? <Button asChild size="lg" className="w-full sm:w-auto">
+                          <a href={job.apply_url} target="_blank" rel="noopener noreferrer"><Mail className="mr-2 h-4 w-4" />{content.apply_text}</a>
+                        </Button> : <Button size="lg" className="w-full sm:w-auto" onClick={() => setApplyJob(job)}>
+                          <Mail className="mr-2 h-4 w-4" />{content.apply_text}
+                        </Button>}
                       </div>
                     </CardContent>
                   )}
@@ -197,6 +199,7 @@ export default function Careers() {
         </div>
       </section>
 
+      <ApplyDialog job={applyJob} onClose={() => setApplyJob(null)} contactEmail={careersEmail} />
       <ContentCTA content={content} prefix="next" />
     </>
   );
